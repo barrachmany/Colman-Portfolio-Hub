@@ -1,0 +1,65 @@
+.photo-carousel {
+    width: 80%;
+    margin: auto;
+}
+
+.carousel-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-image {
+    width: 100%;
+    height: auto;
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+/* Styling for center photo */
+.centerphoto .carousel-image {
+    transform: scale(1.1);
+    /* Slightly zoom the centered image */
+    filter: none;
+}
+
+/* Styling for side photos */
+.sidephoto .carousel-image {
+    filter: blur(2px);
+    /* Apply blur to side images */
+    opacity: 0.6;
+    /* Dim the side images */
+}
+
+/* Arrows styling */
+.custom-arrow {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.custom-arrow button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.custom-arrow-next {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.custom-arrow-prev {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
