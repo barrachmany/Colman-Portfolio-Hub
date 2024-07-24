@@ -8,5 +8,7 @@ initApp().then((app) => {
     console.log(`Server is running on port: ${process.env.DEV_PORT}`);
   } else {
     console.log('PRODUCTION');
+    http.createServer(app).listen(process.env.PROD_PORT);
+    console.log(`Server is running on port: ${process.env.PROD_PORT}`);
   }
 });

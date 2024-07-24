@@ -2,9 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import env from "dotenv";
-import ChatRoute from "./routes/chatRoutes.js";
-import session from "express-session";
-import { v4 as uuid } from "uuid";
+import cors from "cors";
+import userRoute from "./routes/userRoute.js";
 
 env.config();
 
@@ -21,27 +20,13 @@ const initApp = () => {
             
             app.use(bodyParser.json());
             app.use(bodyParser.urlencoded({ extended: true }));
-            app.use((req, res, next) => {
-                res.header("Access-Control-Allow-Origin", "*");
-                res.header("Access-Control-Allow-Methods", "*");
-                res.header("Access-Control-Allow-Headers", "*");
-                res.header("Access-Control-Allow-Credentials", "true");
-                next();
-            })
+            app.use(cors());
 
             app.get("/", (rec, res) => {
                 res.send("hello word")
             });
 
-            app.use(session({
-                genid: (req) => {
-                    return uuid();
-                },
-                secret: process.env.SESSION_SECRET,
-                resave: true,
-                saveUninitialized: true
-            }));
-            app.use("/api", ChatRoute);
+            app.use("/user", userRoute);
 
             resolve(app);
         });
