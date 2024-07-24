@@ -1,21 +1,10 @@
 import expsess from 'express';
+import projectController from '../controllers/projectController.js';
+import authenticate from '../common/authenticate.js';
+
 
 const router = expsess.Router();
 
-router.post("/create", (req, res) => {
-    res.send("Create");
-});
-
-router.post("/read", (req, res) => {
-    res.send("Read");
-});
-
-router.post("/update", (req, res) => { 
-    res.send("Update");
-});
-
-router.post("/delete", (req, res) => {
-    res.send("Delete");
-});
+router.post("/create", authenticate, projectController.createProject);
 
 export default router;

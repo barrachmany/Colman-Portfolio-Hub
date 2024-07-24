@@ -1,9 +1,13 @@
+// main imports
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import env from "dotenv";
 import cors from "cors";
+
+// routes
 import userRoute from "./routes/userRoute.js";
+import projectRoute from "./routes/projectRoute.js";
 
 env.config();
 
@@ -27,6 +31,7 @@ const initApp = () => {
             });
 
             app.use("/user", userRoute);
+            app.use("/project", projectRoute);
 
             resolve(app);
         });
