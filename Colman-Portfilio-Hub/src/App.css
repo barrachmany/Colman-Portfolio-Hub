@@ -1,0 +1,123 @@
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #dfdfdf;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+    align-items: center;
+}
+
+.login-inner-container {
+    width: 350px;
+    height: 40vh;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: blueviolet;
+    background-color: #efefef;
+    box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.3);
+}
+
+.h1-login {
+    padding-bottom: 30px;
+}
+
+.input-login {
+    width: 170px;
+    height: 35px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 2px solid;
+    text-align: center
+}
+
+.navbar-input,
+.navbar-select {
+    height: 25px;
+    border-radius: 17px;
+    border: 1px solid;
+    text-align: center
+}
+
+.button-login {
+    margin: 15px;
+    border-radius: 10px;
+    border: 1px solid;
+    background-color: #ffffff;
+    transition: background-color 0.3s;
+}
+
+.button-login:hover {
+    background-color: blueviolet;
+    cursor: pointer;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 25px 0px 25px;
+}
+
+.inside-navbar-container {
+    display: flex;
+    width: 30%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Carousel-container {
+    width: 80%;
+    margin: 10rem auto;
+    height: 570px;
+}
+
+.slide img {
+    width: 20rem;
+    margin: 0 auto;
+}
+
+.slide {
+    transform: scale(0.2);
+    transition: transform 300ms;
+    opacity: 0.5;
+}
+
+.activeSlide {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.arrow {
+    background-color: #fff;
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.arrow svg {
+    transition: color 300ms;
+}
+
+.arrow svg:hover {
+    color: aqua;
+}
+
+.next {
+    right: 0%;
+    top: 50%;
+}
+
+.prev {
+    left: 0%;
+    top: 50%;
+}
