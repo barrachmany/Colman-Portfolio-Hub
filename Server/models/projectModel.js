@@ -19,6 +19,9 @@ const projectSchema = mongoose.Schema({
     gitRepo: {
         type: String,
     },
+    image: {
+        type: String,
+    },
 });
 
 export default mongoose.model("Project", projectSchema);
