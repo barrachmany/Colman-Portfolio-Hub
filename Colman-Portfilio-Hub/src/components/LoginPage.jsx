@@ -1,14 +1,40 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LoginPage = () => {
+    const navigate = useNavigate();
+
+    const [user, setUser] = useState({
+        email: "",
+        password: ""
+    });
+
+    const handleChange = (e) => {
+        setUser({ ...user, [e.target.name]: e.target.value });
+    };
+
+    const handleLogin = async () => {
+        axios.post("http://localhost:5000/user/login", user)
+            .then((response) => {
+                console.log(response);
+                localStorage.setItem("accessToken", response.data.accessToken);
+                localStorage.setItem("refreshToken", response.data.refreshToken);
+                navigate("/main");
+            })
+            .catch((error) => {
+                alert("email or password incorrect");
+            });
+
+    }
+
     return (
         <div className="login-container">
             <div className="login-inner-container">
                 <h2 className="h2-login">Login</h2>
-                <input type="text" placeholder="Username" className="login-input" />
-                <input type="password" placeholder="Password" className="login-input" />
-                <Link to="/main"><button className="button-login">Login</button></Link>
+                <input name='email' type="email" placeholder="Email" className="login-input" onChange={handleChange} />
+                <input name='password' type="password" placeholder="Password" className="login-input" onChange={handleChange} />
+                <button className="button-login" onClick={handleLogin} >Login</button>
             </div>
         </div>
     );

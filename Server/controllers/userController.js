@@ -69,11 +69,11 @@ const login = async (req, res) => {
     try {
         const user = await userModel.findOne({ 'email': email });
         if (user == null) {
-            return res.status(401).send("email or password incorrect");
+            return res.status(400).send("email or password incorrect");
         }
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
-            return res.status(401).send("email or password incorrect");
+            return res.status(400).send("email or password incorrect");
         }
 
         const tokens = await generateTokens(user)
