@@ -26,6 +26,9 @@ const RegisterPage = () => {
     }
 
     const handleRegister = async () => {
+        if (!validateInputs()) {
+            return;
+        }
         axios.post("http://localhost:5000/user/register", newUser)
             .then((response) => {
                 console.log(response);
