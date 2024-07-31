@@ -27,6 +27,13 @@ body {
     box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.3);
 }
 
+.login-btns{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    gap: 10px;
+}
+
 .h1-login {
     padding-bottom: 30px;
 }

@@ -5,12 +5,11 @@ const LoginPage = () => {
     return (
         <div className="login-container">
             <div className="login-inner-container">
-                <h2 className="h2-login">Welcome To</h2>
-                <h1 className="h1-login">Colman Portfilio Hub</h1>
-                <input className="input-login" type="text" placeholder="Enter your ID" />
-                <Link to="/main"><button className="button-login">Connect</button></Link>
+                <h2 className="h2-login">Login</h2>
+                <input type="text" placeholder="Username" className="login-input" />
+                <input type="password" placeholder="Password" className="login-input" />
+                <Link to="/main"><button className="button-login">Login</button></Link>
             </div>
-
         </div>
     );
 };
