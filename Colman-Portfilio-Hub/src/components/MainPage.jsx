@@ -1,10 +1,10 @@
-import React from "react";
 import PhotoCarousel from './PhotoCarousel';
+import NavBar from './NavBar';
 
 const MainPage = () => {
     return (
-        <div>
-            <h1>Colman Portfilio Hub</h1>
+        <div className='main-container'>
+            <NavBar />
             <PhotoCarousel />
         </div>
     );
