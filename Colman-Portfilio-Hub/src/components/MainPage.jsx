@@ -1,12 +1,19 @@
 import PhotoCarousel from './PhotoCarousel';
 import NavBar from './NavBar';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
+
+    const navigate = useNavigate();
+
     return (
-        <div className='main-container'>
+        <>
             <NavBar />
-            <PhotoCarousel />
-        </div>
+            <div className='main-container'>
+                <button className='add-project-btn' onClick={()=>{navigate("/createproject")}}>Add Project</button>
+                <PhotoCarousel />
+            </div>
+        </>
     );
 };
 

@@ -8,6 +8,7 @@ const createProject = async (req, res) => {
     const members = req.body.members;
     const creator = req.body.creator;
     const gitRepo = req.body.gitRepo;
+    const image = req.body.image;
 
     if (!name || !creator) {
         return res.status(400).send("missing name or creator");
