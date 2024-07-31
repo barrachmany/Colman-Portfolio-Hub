@@ -6,12 +6,15 @@ import MainPage from './components/MainPage.jsx'
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/main" element={<MainPage />} />
-        </Routes>
-      </BrowserRouter>
+      <div className='app'>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/main" element={<MainPage />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+
     </>
   );
 }
