@@ -76,6 +76,7 @@ body {
 }
 
 .navbar-container {
+  margin-top: 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -156,6 +157,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0;
+  width: 99%;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
 }
 
 .nav-container {
@@ -195,4 +201,8 @@ body {
 
 .nav-links a:hover {
   text-decoration: underline;
+}
+
+.nav.scrolled {
+  transform: translateY(50px);
 }

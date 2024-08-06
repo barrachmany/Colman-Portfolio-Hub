@@ -2,6 +2,13 @@ import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    navigate("/");
+  };
+
   return (
     <nav className="nav">
       <div className="nav-container">
