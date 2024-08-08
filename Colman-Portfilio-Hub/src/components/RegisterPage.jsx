@@ -78,7 +78,7 @@ const RegisterPage = () => {
           className="login-input"
           onChange={handleChange}
         />
-        <button className="button-login" onClick={handleRegister}>
+        <button className="inside-page-login" onClick={handleRegister}>
           Register
         </button>
       </div>
