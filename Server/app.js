@@ -32,6 +32,7 @@ const initApp = () => {
 
             app.use("/user", userRoute);
             app.use("/project", projectRoute);
+            app.use("/api", ChatRoute);
 
             resolve(app);
         });
