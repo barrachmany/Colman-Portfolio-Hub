@@ -3,11 +3,15 @@
 }
 
 body {
+    margin: 0;
+}
+
+.with-main-background {
     background-image: url('./../public/Images/light-background.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    min-height: 100vh;
 }
 
 .login-container {
@@ -113,16 +117,15 @@ body {
 }
 
 .navbar-container {
-    margin-top: 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 25px 0px 25px;
+    padding: 0px 5px 0px 0px;
 }
 
 .inside-navbar-container {
     display: flex;
-    width: 30%;
+    width: 293px;
     justify-content: space-around;
     align-items: center;
 }
@@ -190,7 +193,7 @@ body {
 }
 
 .nav {
-    background-color: #333;
+    background-color: #255366;
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -213,6 +216,7 @@ body {
     color: #fff;
     font-size: 24px;
     font-weight: bold;
+    margin-left: 15px;
 }
 
 .nav-logo a {
@@ -220,11 +224,17 @@ body {
     text-decoration: none;
 }
 
+.nav-links {
+    display: flex;
+}
+
 .nav-links ul {
     display: flex;
     list-style: none;
     padding: 0;
     margin: 0;
+    margin-right: 15px;
+    align-items: center;
 }
 
 .nav-links li {
@@ -235,6 +245,7 @@ body {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
+    display: flex;
 }
 
 .nav-links a:hover {

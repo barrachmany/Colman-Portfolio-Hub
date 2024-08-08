@@ -1,5 +1,3 @@
-import { IoAccessibilityOutline } from "react-icons/io5";
-
 const SearchBar = () => {
   const internships = [
     { value: "All" },
@@ -12,6 +10,7 @@ const SearchBar = () => {
   return (
     <div className="navbar-container">
       <div className="inside-navbar-container">
+        <input type="text" placeholder="Project name" className="navbar-input" />
         <select name="internship" className="navbar-select">
           {internships.map((intern, idx) => (
             <option value={intern.value} key={idx}>
@@ -19,9 +18,7 @@ const SearchBar = () => {
             </option>
           ))}
         </select>
-        <input type="text" placeholder="Project name" className="navbar-input" />
-        <button className="navbar-select">Search</button>
-        <IoAccessibilityOutline />
+
       </div>
     </div>
   );

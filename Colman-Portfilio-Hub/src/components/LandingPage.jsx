@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
     return (
-        <div className="login-container">
+        <div className="login-container with-main-background">
             <div className="login-inner-container">
                 <h1 className="h1-login">Colman Portfilio Hub</h1>
                 <div className="login-btns">
