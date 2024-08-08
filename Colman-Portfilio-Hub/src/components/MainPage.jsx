@@ -9,15 +9,9 @@ const MainPage = () => {
   return (
     <>
       <Nav />
-      <SearchBar />
+      
       <div className="main-container">
-        <button
-          className="add-project-btn"
-          onClick={() => {
-            navigate("/createproject");
-          }}>
-          Add Project
-        </button>
+
         <PhotoCarousel />
       </div>
     </>

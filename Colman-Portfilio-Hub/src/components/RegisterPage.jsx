@@ -47,7 +47,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container with-main-background">
       <div className="login-inner-container">
         <h2 className="h2-login">Register</h2>
         <input
