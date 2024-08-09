@@ -58,9 +58,11 @@ const getProjectsByCategory = async (req, res) => {
   console.log("getting projects by category");
 
   const category = req.params.category;
+  console.log(category);
 
   try {
     const projects = await projectModel.find({ category: category });
+    console.log(projects);
     res.status(200).send(projects);
   } catch (err) {
     return res.status(500).send(err.message);
