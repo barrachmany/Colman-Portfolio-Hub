@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +9,7 @@ import { CgHome } from "react-icons/cg";
 
 const Nav = () => {
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
