@@ -18,6 +18,7 @@ const CreateProjectPage = () => {
 
   const handleChange = (e) => {
     setNewProject({ ...newProject, [e.target.name]: e.target.value });
+    console.log(newProject);
   };
 
   const validateInputs = () => {
@@ -110,15 +111,14 @@ const CreateProjectPage = () => {
 
           <select
             name="category"
-            type="text"
-            placeholder="Category"
             className="login-input"
             onChange={handleChange}
-            value={newProject.category}>
-            <option value="" disabled selected hidden>
+            defaultValue={"Select Category"}
+          >
+            <option value="Select Category" disabled hidden>
               Select Category
             </option>
-            <option value="Fullstack">Fullstack</option>
+            <option value="Full-Stack">Full-Stack</option>
             <option value="Deep Learning">Deep Learning</option>
             <option value="Data Science">Data Science</option>
             <option value="Cyber">Cyber</option>
