@@ -1,15 +1,16 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainPage from './components/MainPage.jsx'
-import LandingPage from './components/LandingPage.jsx';
-import LoginPage from './components/LoginPage.jsx';
-import RegisterPage from './components/RegisterPage.jsx';
-import CreateProjectPage from './components/CreateProjectPage.jsx';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MainPage from "./components/MainPage.jsx";
+import LandingPage from "./components/LandingPage.jsx";
+import LoginPage from "./components/LoginPage.jsx";
+import RegisterPage from "./components/RegisterPage.jsx";
+import CreateProjectPage from "./components/CreateProjectPage.jsx";
+import ProfilePage from "./components/ProfilePage.jsx";
 
 function App() {
   return (
     <>
-      <div className='app'>
+      <div className="app">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
@@ -17,10 +18,10 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/createproject" element={<CreateProjectPage />} />
+            <Route path="/myprofile" element={<ProfilePage />} />
           </Routes>
         </BrowserRouter>
       </div>
-
     </>
   );
 }

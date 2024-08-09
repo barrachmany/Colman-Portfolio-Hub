@@ -159,6 +159,7 @@ body {
   align-items: center;
   position: fixed;
   top: 0;
+  margin-bottom: 20vw;
   width: 99%;
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
@@ -205,4 +206,8 @@ body {
 
 .nav.scrolled {
   transform: translateY(50px);
+}
+
+.profile-container {
+  padding-top: 2%;
 }

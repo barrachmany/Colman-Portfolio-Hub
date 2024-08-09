@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Nav = () => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -29,7 +30,7 @@ const Nav = () => {
             <li></li>
             <a href="/createproject">Add Project</a>
             <li>
-              <button> Logout</button>
+              <button onClick={handleLogout}> Logout</button>
             </li>
           </ul>
         </div>
