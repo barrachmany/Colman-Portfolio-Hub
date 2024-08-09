@@ -255,3 +255,31 @@ body {
 .nav.scrolled {
     transform: translateY(50px);
 }
+
+.caro-project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: #255366;
+    border-radius: 40px;
+    overflow: hidden;
+}
+
+.caro-project__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.caro-project__info {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
