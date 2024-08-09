@@ -1,6 +1,5 @@
 import OpenAI from "openai";
 import env from "dotenv";
-import lyricEngine from "../common/lyricEngine.js";
 
 env.config();
 
