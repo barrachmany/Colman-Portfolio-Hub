@@ -6,6 +6,7 @@ import LoginPage from "./components/LoginPage.jsx";
 import RegisterPage from "./components/RegisterPage.jsx";
 import CreateProjectPage from "./components/CreateProjectPage.jsx";
 import ProfilePage from "./components/ProfilePage.jsx";
+import PhotoCarousel from "./components/PhotoCarousel.jsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/main" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/main" element={<MainPage />} />
             <Route path="/createproject" element={<CreateProjectPage />} />
             <Route path="/myprofile" element={<ProfilePage />} />
           </Routes>

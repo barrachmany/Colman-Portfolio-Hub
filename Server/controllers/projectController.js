@@ -30,4 +30,68 @@ const createProject = async (req, res) => {
   }
 };
 
-export default { createProject };
+const getProjects = async (req, res) => {
+  console.log("getting projects");
+
+  try {
+    const projects = await projectModel.find();
+    res.status(200).send(projects);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+}
+
+const getProjectById = async (req, res) => {
+  console.log("getting project by id");
+
+  const id = req.params.id;
+
+  try {
+    const project = await projectModel.findById(id);
+    res.status(200).send(project);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+}
+
+const getProjectsByCategory = async (req, res) => {
+  console.log("getting projects by category");
+
+  const category = req.params.category;
+
+  try {
+    const projects = await projectModel.find({ category: category });
+    res.status(200).send(projects);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+}
+
+const getProjectsByCreator = async (req, res) => {
+  console.log("getting projects by creator");
+
+  const creator = req.params.creator;
+
+  try {
+    const projects = await projectModel.find({ creator: creator });
+    res.status(200).send(projects);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+}
+
+const searchProjects = async (req, res) => {
+  console.log("searching projects");
+
+  const query = req.query.search;
+
+  try {
+    const projects = await projectModel.find({ name: { $regex: query, $options: "i" } });
+    res.status(200).send(projects);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+}
+
+
+export default { createProject, getProjects, getProjectById, getProjectsByCategory, getProjectsByCreator, searchProjects };

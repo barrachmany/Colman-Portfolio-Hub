@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa"
+import CaroProject from './CaroProject';
 
 const PhotoCarousel = () => {
 
@@ -53,7 +54,7 @@ const PhotoCarousel = () => {
             <Slider {...settings}>
                 {images.map((img, idx) => (
                     <div key={idx} className={idx === imageIndex ? "slide activeSlide" : "slide"}>
-                        <img src={img} alt={`Slide ${idx}`} />
+                        <CaroProject project={{ img: img, title: `Project ${idx + 1}`, description: `This is project ${idx + 1}`, link: 'https://www.google.com' }} />
                     </div>
                 ))}
             </Slider>

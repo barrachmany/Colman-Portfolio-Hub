@@ -47,7 +47,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container with-main-background">
       <div className="login-inner-container">
         <h2 className="h2-login">Register</h2>
         <input
@@ -78,7 +78,7 @@ const RegisterPage = () => {
           className="login-input"
           onChange={handleChange}
         />
-        <button className="button-login" onClick={handleRegister}>
+        <button className="inside-page-login" onClick={handleRegister}>
           Register
         </button>
       </div>

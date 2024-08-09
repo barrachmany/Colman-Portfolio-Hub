@@ -34,12 +34,12 @@ const LoginPage = () => {
     }
 
     return (
-        <div className="login-container">
+        <div className="login-container with-main-background">
             <div className="login-inner-container">
                 <h2 className="h2-login">Login</h2>
                 <input name='email' type="email" placeholder="Email" className="login-input" onChange={handleChange} />
                 <input name='password' type="password" placeholder="Password" className="login-input" onChange={handleChange} />
-                <button className="button-login" onClick={handleLogin} >Login</button>
+                <button className="inside-page-login" onClick={handleLogin} >Login</button>
             </div>
         </div>
     );
