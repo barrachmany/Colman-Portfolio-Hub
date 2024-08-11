@@ -25,7 +25,8 @@ const createChat = async (req, res) => {
             presence_penalty: 0,
         });
 
-        res.json(response.choices[0].message.content);
+        req.response = response.choices[0].message.content;
+        next();
     }
     catch (error) {
         console.log(error);
