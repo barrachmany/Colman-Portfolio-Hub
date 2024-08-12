@@ -14,6 +14,7 @@ const CreateProjectPage = () => {
     gitrepo: "",
     image: "",
     category: "",
+    idMembers: [],
   });
 
   const handleChange = (e) => {
@@ -95,6 +96,13 @@ const CreateProjectPage = () => {
             onChange={handleChange}
           />
           <input
+            name="idMembers"
+            type="text"
+            placeholder="ID-Members"
+            className="login-input"
+            onChange={handleChange}
+          />
+          <input
             name="gitrepo"
             type="text"
             placeholder="Git Repository"
@@ -113,8 +121,7 @@ const CreateProjectPage = () => {
             name="category"
             className="login-input"
             onChange={handleChange}
-            defaultValue={"Select Category"}
-          >
+            defaultValue={"Select Category"}>
             <option value="Select Category" disabled hidden>
               Select Category
             </option>
