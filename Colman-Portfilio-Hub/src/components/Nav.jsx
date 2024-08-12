@@ -28,25 +28,17 @@ const Nav = () => {
           <SearchBar />
           <ul>
             <li>
-              <a href="/main">
-                <CgHome />
-              </a>
+              <a title="home page" href="/main"><CgHome /></a>
             </li>
             <li>
-              <a href="/myProfile">
-                <IoAccessibilityOutline />
-              </a>
+              <a title="profile page" href="/myProfile"><IoAccessibilityOutline /></a>
             </li>
             <li>
-              <a href="/createproject">
-                <IoAdd />
-              </a>
+              <a title="add new project" href="/createproject"><IoAdd /></a>
             </li>
-            <li></li>
-            <a href="/createproject">Add Project</a>
-            <li>
-              <button> Logout</button>
-            </li>
+            <button title="logout" style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+              <FontAwesomeIcon icon={faSignOutAlt} style={{ color: 'white', fontSize: '15px' }} />
+            </button>
           </ul>
         </div>
       </div>

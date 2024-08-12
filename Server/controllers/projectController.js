@@ -64,6 +64,9 @@ const getProjectsByCategory = async (req, res) => {
   console.log("getting projects by category");
 
   const category = req.params.category;
+  if (category === "All") {
+    return getProjects(req, res);
+  }
   console.log(category);
 
   try {
