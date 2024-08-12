@@ -27,7 +27,6 @@ const PhotoCarousel = () => {
         )
     }
 
-
     const images = [
         '/Images/1.jpg',
         '/Images/2.jpg',

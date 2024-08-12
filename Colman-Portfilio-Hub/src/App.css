@@ -262,7 +262,7 @@ body {
     justify-content: center;
     align-items: center;
     margin: 10px;
-    width: 100%;
+    width: 250px;
     height: 100%;
     background-color: #255366;
     border-radius: 40px;
@@ -282,4 +282,8 @@ body {
     gap: 20px;
     justify-content: center;
     align-items: center;
+}
+
+.create-project-container {
+    margin-top: 30px;
 }

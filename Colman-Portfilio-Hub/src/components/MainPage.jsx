@@ -9,9 +9,7 @@ const MainPage = () => {
   return (
     <>
       <Nav />
-      
       <div className="main-container">
-
         <PhotoCarousel />
       </div>
     </>

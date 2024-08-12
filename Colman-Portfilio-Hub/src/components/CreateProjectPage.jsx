@@ -63,7 +63,7 @@ const CreateProjectPage = () => {
   return (
     <>
       <Nav />
-      <div className="login-container">
+      <div className="login-container create-project-container">
         <div className="login-inner-container">
           <h2 className="h2-login">Add Project</h2>
           <input
@@ -115,15 +115,16 @@ const CreateProjectPage = () => {
             onChange={handleChange}
             defaultValue={"Select Category"}
           >
-            <option value="Select Category" disabled hidden>
+            <option value="Select Internship" disabled hidden>
               Select Category
             </option>
             <option value="Full-Stack">Full-Stack</option>
             <option value="Deep Learning">Deep Learning</option>
             <option value="Data Science">Data Science</option>
             <option value="Cyber">Cyber</option>
+            <option value="Fintech">Fintech</option>
           </select>
-          <button className="button-login" onClick={handleCreate}>
+          <button className="inside-page-login" onClick={handleCreate}>
             Create
           </button>
         </div>

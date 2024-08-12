@@ -34,6 +34,7 @@ const SearchBar = () => {
     { value: "Deep Learning" },
     { value: "Data Science" },
     { value: "Cyber" },
+    { value: "Fintech" }
   ];
 
   return (
