@@ -1,39 +1,32 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Nav from "./Nav.jsx";
 import axios from "axios";
+import AppContext from "../AppContext.jsx";
 
 const ProfilePage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [id, setId] = useState("");
+  const { user, setUser, projects, setProjects } = useContext(AppContext);
   const [isEditing, setIsEditing] = useState(false);
-
-  const [projectName, setProjectName] = useState("");
-  const [projectDescription, setProjectDescription] = useState("");
-  const [projectCreator, setProjectCreator] = useState("");
-  const [projectMembers, setProjectMembers] = useState([]);
-  const [projectCategory, setProjectCategory] = useState("");
-  const [projectGitRepo, setProjectGitRepo] = useState("");
-  const [projectImage, setProjectImage] = useState("");
 
   const fetchUserData = async () => {
     try {
       console.log("Fetching user data...");
-
       const response = await axios.get("http://localhost:5000/user/get", {
         headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
-      setName(response.data.name);
-      setEmail(response.data.email);
-      setPassword(response.data.password);
-      setId(response.data.id);
+
+      setUser({
+        name: response.data.name,
+        email: response.data.email,
+        id: response.data.id,
+        password: response.data.password,
+      });
       handleProject(response.data.id);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     fetchUserData();
   }, []);
 
@@ -46,9 +39,9 @@ const ProfilePage = () => {
       const response = await axios.put(
         "http://localhost:5000/user/update",
         {
-          name,
-          email,
-          password,
+          name: user.name,
+          email: user.email,
+          password: user.password,
         },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
@@ -58,7 +51,7 @@ const ProfilePage = () => {
       setIsEditing(false);
       console.log("Profile updated:", response.data);
     } catch (error) {
-      if (error.response.status == 406) {
+      if (error.response.status === 406) {
         alert("Email already exists");
       }
       console.error("Error updating profile:", error);
@@ -72,15 +65,26 @@ const ProfilePage = () => {
         headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
 
-      setProjectName(response.data.name);
-      setProjectDescription(response.data.description);
-      setProjectCreator(response.data.creator);
-      setProjectMembers(response.data.members);
-      setProjectCategory(response.data.category);
-      setProjectGitRepo(response.data.gitRepo);
-      setProjectImage(response.data.image);
+      if (Array.isArray(response.data)) {
+        setProjects(response.data);
+      } else {
+        setProjects([response.data]);
+      }
+      console.log("Projects fetched:", response.data);
     } catch (error) {
       console.error("Error fetching projects:", error);
+    }
+  };
+
+  const handleDeleteProject = async (projectId) => {
+    try {
+      await axios.delete(`http://localhost:5000/project/delete/${projectId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+      });
+      setProjects(projects.filter((project) => project._id !== projectId));
+      console.log("Project deleted");
+    } catch (error) {
+      console.error("Error deleting project:", error);
     }
   };
 
@@ -92,26 +96,37 @@ const ProfilePage = () => {
 
         <div className="profile-info">
           <h2>ID:</h2>
-          <p>{id}</p>
+          <p>{user.id}</p>
           <h2>Username:</h2>
           {isEditing ? (
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            <input
+              type="text"
+              value={user.name}
+              onChange={(e) => setUser({ ...user, name: e.target.value })}
+            />
           ) : (
-            <p>{name}</p>
+            <p>{user.name}</p>
           )}
 
           <h2>Email:</h2>
           {isEditing ? (
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="email"
+              value={user.email}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
+            />
           ) : (
-            <p>{email}</p>
+            <p>{user.email}</p>
           )}
 
           <h2>Password:</h2>
           {isEditing ? (
-            <input type="password" onChange={(e) => setPassword(e.target.value)} />
+            <input
+              type="password"
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
+            />
           ) : (
-            <p>{}</p>
+            <p>{"●●●●●●●●"}</p>
           )}
         </div>
 
@@ -123,18 +138,25 @@ const ProfilePage = () => {
       </div>
 
       <div className="project-container">
-        <div className="project">
-          <h2 value="projectName">Project:</h2>
-          <p value="projectDescription">Description: </p>
-          <p value="projectCreator">Creator:</p>
-          <p value="projectMembers">Members: </p>
-          <p value="projectCategory">Category: </p>
-          <a value="projectGitRepo" href="#">
-            Github Repo
-          </a>
-
-          <button>View Project</button>
-        </div>
+        {projects.length > 0 ? (
+          projects.map((project) => (
+            <div className="project" key={project._id}>
+              <h2>Project Name: {project.name}</h2>
+              <p>Description: {project.description}</p>
+              <p>Creator: {project.creator}</p>
+              <p>Members: {project.members.join(", ")}</p>
+              <p>Category: {project.category}</p>
+              <a href={project.gitRepo} target="_blank" rel="noopener noreferrer">
+                Github Repo
+              </a>
+              {project.image && <img src={project.image} alt="Project" />}
+              <button>View Project</button>
+              <button onClick={() => handleDeleteProject(project._id)}>Delete Project</button>
+            </div>
+          ))
+        ) : (
+          <p>No projects found.</p>
+        )}
       </div>
     </>
   );

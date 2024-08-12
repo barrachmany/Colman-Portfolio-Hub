@@ -86,6 +86,8 @@ const getProjectsByUserID = async (req, res) => {
     console.log(id);
 
     const projects = await projectModel.find({ idMembers: id });
+    console.log(projects);
+
     res.status(200).send(projects);
   } catch (err) {
     return res.status(500).send(err.message);
@@ -105,6 +107,19 @@ const searchProjects = async (req, res) => {
   }
 };
 
+const deleteProject = async (req, res) => {
+  console.log("deleting project");
+
+  const { id } = req.params;
+
+  try {
+    const project = await projectModel.findByIdAndDelete(id);
+    res.status(200).send(project);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+};
+
 export default {
   createProject,
   getProjects,
@@ -112,4 +127,5 @@ export default {
   getProjectsByCategory,
   getProjectsByUserID,
   searchProjects,
+  deleteProject,
 };
