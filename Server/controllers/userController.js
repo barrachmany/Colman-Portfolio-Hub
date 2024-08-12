@@ -49,7 +49,7 @@ const updateUser = async (req, res) => {
       userDB.name = req.body.name;
     }
 
-    if (req.body.password) {
+    if (req.body.password && req.body.password !== userDB.password) {
       const salt = await bcrypt.genSalt(10);
       const encryptedPassword = await bcrypt.hash(req.body.password, salt);
       userDB.password = encryptedPassword;

@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const projectSchema = mongoose.Schema({
+  idMembers: {
+    type: [String],
+    default: [],
+  },
   name: {
     type: String,
     required: true,
