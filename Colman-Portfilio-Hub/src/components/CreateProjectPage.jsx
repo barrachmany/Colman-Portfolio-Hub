@@ -18,10 +18,15 @@ const CreateProjectPage = () => {
   });
 
   const handleChange = (e) => {
-    setNewProject({ ...newProject, [e.target.name]: e.target.value });
-    console.log(newProject);
-  };
+    const { name, value } = e.target;
 
+    if (name === "idMembers") {
+      // Split the input into an array (assuming comma-separated values)
+      setNewProject({ ...newProject, [name]: value.split(",").map((id) => id.trim()) });
+    } else {
+      setNewProject({ ...newProject, [name]: value });
+    }
+  };
   const validateInputs = () => {
     if (
       newProject.name == "" ||

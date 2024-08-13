@@ -83,9 +83,8 @@ const getProjectsByUserID = async (req, res) => {
 
   try {
     const { id } = req.params;
-    console.log(id);
 
-    const projects = await projectModel.find({ idMembers: id });
+    const projects = await projectModel.find({ idMembers: { $in: [id] } });
     console.log(projects);
 
     res.status(200).send(projects);
