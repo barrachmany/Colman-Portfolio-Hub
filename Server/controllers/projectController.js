@@ -46,7 +46,9 @@ const getProjects = async (req, res) => {
 };
 
 const getProjectById = async (req, res) => {
-  console.log("getting project by  project id");
+  console.log("getting project by project id");
+
+  const id = req.params.id;
 
   try {
     const project = await projectModel.findById(id);
