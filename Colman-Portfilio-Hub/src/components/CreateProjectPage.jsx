@@ -26,6 +26,7 @@ const CreateProjectPage = () => {
     gitrepo: "",
     image: "",
     category: "",
+    idMembers: [],
   });
 
   const handleChange = (e) => {

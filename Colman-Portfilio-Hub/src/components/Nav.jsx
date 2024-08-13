@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { IoAdd } from "react-icons/io5";
 import { IoAccessibilityOutline } from "react-icons/io5";
 import { CgHome } from "react-icons/cg";
@@ -12,10 +12,10 @@ const Nav = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -50,7 +50,7 @@ const Nav = () => {
           </ul>
         </div>
       </div>
-    </nav >
+    </nav>
   );
 };
 

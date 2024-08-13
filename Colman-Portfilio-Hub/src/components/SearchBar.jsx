@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import AppContext from "../AppContext";
 import axios from "axios";
 
 
 const SearchBar = () => {
 
+  const { setProjects } = useContext(AppContext);
 
   const handleSearch = (e) => {
 
     axios.get(`http://localhost:5000/project/search?search=${e.target.value}`)
       .then((res) => {
         console.log(res.data);
+        setProjects(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -22,6 +25,7 @@ const SearchBar = () => {
     axios.get(`http://localhost:5000/project/get/category/${e.target.value}`)
       .then((res) => {
         console.log(res.data);
+        setProjects(res.data);
       })
       .catch((err) => {
         console.log(err);

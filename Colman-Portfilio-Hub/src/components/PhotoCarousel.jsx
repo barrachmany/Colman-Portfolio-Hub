@@ -1,13 +1,15 @@
 import './../App.css'
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa"
 import CaroProject from './CaroProject';
+import AppContext from '../AppContext';
 
 const PhotoCarousel = () => {
 
+    const { projects } = useContext(AppContext);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [imageIndex, setImageIndex] = useState(0);
 
@@ -51,9 +53,9 @@ const PhotoCarousel = () => {
     return (
         <div className='Carousel-container'>
             <Slider {...settings}>
-                {images.map((img, idx) => (
+                {projects.map((project, idx) => (
                     <div key={idx} className={idx === imageIndex ? "slide activeSlide" : "slide"}>
-                        <CaroProject project={{ img: img, title: `Project ${idx + 1}`, description: `This is project ${idx + 1}`, link: 'https://www.google.com' }} />
+                        <CaroProject project={project} />
                     </div>
                 ))}
             </Slider>
