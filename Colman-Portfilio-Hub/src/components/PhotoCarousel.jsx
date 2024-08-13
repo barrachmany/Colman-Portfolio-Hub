@@ -54,9 +54,9 @@ const PhotoCarousel = () => {
     return (
         <div className='Carousel-container'>
             <Slider {...settings}>
-                {projects.map((img, idx) => (
+                {projects.map((project, idx) => (
                     <div key={idx} className={idx === imageIndex ? "slide activeSlide" : "slide"}>
-                        <CaroProject project={{ img: img, title: `Project ${idx + 1}`, description: `This is project ${idx + 1}`, link: 'https://www.google.com' }} />
+                        <CaroProject project={project} />
                     </div>
                 ))}
             </Slider>

@@ -16,7 +16,7 @@ const CaroProject = ({ project }) => {
             <div className="caro-project__info">
                 <h3>{project.name}</h3>
                 <p>{project.description}</p>
-                <a href={project.link} target="_blank" rel="noreferrer">View Project</a>
+                <a href={`project/${project._id}`} >View Project</a>
             </div>
         </div>
     );

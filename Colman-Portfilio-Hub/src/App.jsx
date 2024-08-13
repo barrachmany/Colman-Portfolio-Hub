@@ -8,17 +8,20 @@ import CreateProjectPage from './components/CreateProjectPage.jsx';
 import PhotoCarousel from './components/PhotoCarousel.jsx';
 import AppContext from './AppContext.jsx';
 import ProfilePage from './components/ProfilePage.jsx';
+import ProjectPage from './components/ProjectPage.jsx';
+import Nav from './components/Nav.jsx';
 
 function App() {
 
   const [projects, setProjects] = useState([]);
-  const [user, setUser] = useState({});  
+  const [user, setUser] = useState({});
 
   return (
     <>
       <AppContext.Provider value={{ projects, setProjects, user, setUser }}>
         <div className='app'>
           <BrowserRouter>
+            <Nav />
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/main" element={<MainPage />} />
@@ -27,6 +30,7 @@ function App() {
               <Route path="/main" element={<MainPage />} />
               <Route path="/createproject" element={<CreateProjectPage />} />
               <Route path="/myProfile" element={<ProfilePage />} />
+              <Route path="/project/:id" element={<ProjectPage />} />
             </Routes>
           </BrowserRouter>
         </div>
