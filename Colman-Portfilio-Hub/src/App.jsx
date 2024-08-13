@@ -7,6 +7,7 @@ import RegisterPage from './components/RegisterPage.jsx';
 import CreateProjectPage from './components/CreateProjectPage.jsx';
 import PhotoCarousel from './components/PhotoCarousel.jsx';
 import AppContext from './AppContext.jsx';
+import ProfilePage from './components/ProfilePage.jsx';
 
 function App() {
 
@@ -25,10 +26,12 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/main" element={<MainPage />} />
               <Route path="/createproject" element={<CreateProjectPage />} />
+              <Route path="/myProfile" element={<ProfilePage />} />
             </Routes>
           </BrowserRouter>
         </div>
       </AppContext.Provider>
+    </>
   );
 }
 
