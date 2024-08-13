@@ -21,7 +21,6 @@ const CreateProjectPage = () => {
     const { name, value } = e.target;
 
     if (name === "idMembers") {
-      // Split the input into an array (assuming comma-separated values)
       setNewProject({ ...newProject, [name]: value.split(",").map((id) => id.trim()) });
     } else {
       setNewProject({ ...newProject, [name]: value });
