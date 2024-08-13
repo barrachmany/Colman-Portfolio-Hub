@@ -28,8 +28,6 @@ const createProject = async (req, res) => {
       idMembers: idMembers,
     });
 
-    console.log(newProject);
-
     res.status(201).send(newProject);
   } catch (err) {
     return res.status(500).send(err.message);
@@ -52,7 +50,6 @@ const getProjectById = async (req, res) => {
 
   try {
     const project = await projectModel.findById(id);
-    //console.log(project);
 
     res.status(200).send(project);
   } catch (err) {
@@ -71,7 +68,6 @@ const getProjectsByCategory = async (req, res) => {
 
   try {
     const projects = await projectModel.find({ category: category });
-    console.log(projects);
     res.status(200).send(projects);
   } catch (err) {
     return res.status(500).send(err.message);
@@ -83,7 +79,6 @@ const getProjectsByUserID = async (req, res) => {
 
   try {
     const { id } = req.params;
-    console.log(id);
 
     const projects = await projectModel.find({ idMembers: id });
     res.status(200).send(projects);
