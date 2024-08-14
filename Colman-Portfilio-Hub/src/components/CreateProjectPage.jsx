@@ -35,7 +35,6 @@ const CreateProjectPage = () => {
 
   const handleInternshipChange = (event) => {
     setInternship(event.target.value);
-  };
     const { name, value } = e.target;
 
     if (name === "idMembers") {
@@ -95,7 +94,7 @@ const CreateProjectPage = () => {
           <div className="login-inner-container">
             <Paper elevation={3} style={{ width: '110%', height: '75vh' }} className="create-project-paper">
               <div className="paper-inner-container">
-                <h2 className="h2-login" sx={{color:"#255366"}}>Add Project</h2>
+                <h2 className="h2-login" sx={{ color: "#255366" }}>Add Project</h2>
                 <div className="form-names">
                   <TextField
                     label="Owner"
@@ -167,7 +166,6 @@ const CreateProjectPage = () => {
                     }} />
                   </Fab>
                 </div>
-
               </div>
             </Paper>
           </div>
