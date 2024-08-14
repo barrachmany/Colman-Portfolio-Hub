@@ -64,6 +64,9 @@ const ProfilePage = () => {
       const response = await axios.get(`http://localhost:5000/project/get/member/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
+      // const response = await axios.get(`http://localhost:5000/project/get/`, {
+      //   headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+      // });
 
       if (Array.isArray(response.data)) {
         setProjects(response.data);
