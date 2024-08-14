@@ -6,7 +6,7 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { IoAdd } from "react-icons/io5";
 import { IoAccessibilityOutline } from "react-icons/io5";
 import { CgHome } from "react-icons/cg";
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from "@mui/material/Tooltip";
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -29,22 +29,28 @@ const Nav = () => {
           <ul>
             <Tooltip title="Home">
               <li>
-                <a href="/main"><CgHome /></a>
+                <a href="/main">
+                  <CgHome />
+                </a>
               </li>
             </Tooltip>
             <Tooltip title="My profile">
               <li>
-                <a href="/myProfile"><IoAccessibilityOutline /></a>
+                <a href="/myProfile">
+                  <IoAccessibilityOutline />
+                </a>
               </li>
             </Tooltip>
             <Tooltip title="Create project">
               <li>
-                <a href="/createproject"><IoAdd /></a>
+                <a href="/createproject">
+                  <IoAdd />
+                </a>
               </li>
             </Tooltip>
             <Tooltip title="Log out">
-              <button style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-                <FontAwesomeIcon icon={faSignOutAlt} style={{ color: 'white', fontSize: '15px' }} />
+              <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+                <FontAwesomeIcon icon={faSignOutAlt} style={{ color: "white", fontSize: "15px" }} />
               </button>
             </Tooltip>
           </ul>
