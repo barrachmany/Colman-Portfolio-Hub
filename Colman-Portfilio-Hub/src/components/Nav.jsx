@@ -6,7 +6,7 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { IoAdd } from "react-icons/io5";
 import { IoAccessibilityOutline } from "react-icons/io5";
 import { CgHome } from "react-icons/cg";
-import axios from "axios";
+import Tooltip from '@mui/material/Tooltip';
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -27,28 +27,26 @@ const Nav = () => {
         <div className="nav-links">
           <SearchBar />
           <ul>
-            <li>
-              <a title="home page" href="/main">
-                <CgHome />
-              </a>
-            </li>
-            <li>
-              <a title="profile page" href="/myProfile">
-                <IoAccessibilityOutline />
-              </a>
-            </li>
-            <li>
-              <a title="add new project" href="/createproject">
-                <IoAdd />
-              </a>
-            </li>
-            <button
-              onClick={handleLogout}
-              title="logout"
-              style={{ background: "none", border: "none", cursor: "pointer" }}>
-              <FontAwesomeIcon icon={faSignOutAlt} style={{ color: "white", fontSize: "15px" }} />
-            </button>
-          </ul>
+            <Tooltip title="Home">
+              <li>
+                <a href="/main"><CgHome /></a>
+              </li>
+            </Tooltip>
+            <Tooltip title="My profile">
+              <li>
+                <a href="/myProfile"><IoAccessibilityOutline /></a>
+              </li>
+            </Tooltip>
+            <Tooltip title="Create project">
+              <li>
+                <a href="/createproject"><IoAdd /></a>
+              </li>
+            </Tooltip>
+            <Tooltip title="Log out">
+              <button style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                <FontAwesomeIcon icon={faSignOutAlt} style={{ color: 'white', fontSize: '15px' }} />
+              </button>
+            </Tooltip>
         </div>
       </div>
     </nav>

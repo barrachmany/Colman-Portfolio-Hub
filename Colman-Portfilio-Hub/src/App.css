@@ -17,10 +17,11 @@ body {
 }
 
 .login-container {
-  display: flex;
-  justify-content: center;
-  height: 90vh;
-  align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+    align-items: center;
 }
 
 .login-inner-container {
@@ -88,8 +89,9 @@ body {
 }
 
 .h2-login {
-  font-size: 50px;
-  margin-bottom: 30px;
+    font-size: 50px;
+    margin-bottom: 50px;
+    color: #255366;
 }
 
 .login-input {
@@ -262,16 +264,16 @@ body {
 }
 
 .caro-project {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  width: 100%;
-  height: 100%;
-  background-color: #255366;
-  border-radius: 40px;
-  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    width: 250px;
+    height: 100%;
+    background-color: #255366;
+    border-radius: 40px;
+    overflow: hidden;
 }
 
 .caro-project__img {
@@ -281,29 +283,37 @@ body {
 }
 
 .caro-project__info {
-  display: flex;
-  flex-direction: row;
-  color: white;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
-.project-page{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 20px auto;
-  width: 60%;
-  background-color: #255366;
-  border-radius: 40px;
-  overflow: hidden;
+.create-project-container {
+    margin-top: 30px;
 }
 
-.project-page-image-container{
-  width: 100%;
-  height: 50vh;
-  background-color: #61a0bb;
-  border-radius: 40px 40px 0px 0px;
+.create-project-container {
+    display: flex;
+
+}
+
+.paper-inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-names {
+    display: flex;
+}
+
+.choose-create-button {
+    width: 93%;
+    display: flex;
+    flex-direction: column;
+    height: 120px;
 }

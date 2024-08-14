@@ -1,9 +1,21 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Nav from "./Nav";
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 
 const CreateProjectPage = () => {
+  const [Internship, setInternship] = useState('');
+
   const navigate = useNavigate();
 
   const [newProject, setNewProject] = useState({
@@ -18,6 +30,12 @@ const CreateProjectPage = () => {
   });
 
   const handleChange = (e) => {
+    setNewProject({ ...newProject, [e.target.name]: e.target.value });
+  };
+
+  const handleInternshipChange = (event) => {
+    setInternship(event.target.value);
+  };
     const { name, value } = e.target;
 
     if (name === "idMembers") {
@@ -31,13 +49,13 @@ const CreateProjectPage = () => {
   };
   const validateInputs = () => {
     if (
-      newProject.name == "" ||
-      newProject.description == "" ||
-      newProject.creator == "" ||
-      newProject.members == "" ||
-      newProject.gitrepo == "" ||
-      newProject.img == "" ||
-      newProject.category == ""
+      newProject.name === "" ||
+      newProject.description === "" ||
+      newProject.creator === "" ||
+      newProject.members === "" ||
+      newProject.gitrepo === "" ||
+      newProject.image === "" ||
+      newProject.category === ""
     ) {
       alert("Please fill all the fields!!!");
       return false;
@@ -70,75 +88,89 @@ const CreateProjectPage = () => {
 
   return (
     <>
-      <div className="login-container">
-        <div className="login-inner-container">
-          <h2 className="h2-login">Add Project</h2>
-          <input
-            name="name"
-            type="text"
-            placeholder="Name"
-            className="login-input"
-            onChange={handleChange}
-          />
-          <input
-            name="description"
-            type="text"
-            placeholder="Description"
-            className="login-input"
-            onChange={handleChange}
-          />
-          <input
-            name="creator"
-            type="text"
-            placeholder="Creator"
-            className="login-input"
-            onChange={handleChange}
-          />
-          <input
-            name="members"
-            type="text"
-            placeholder="Members"
-            className="login-input"
-            onChange={handleChange}
-          />
-          <input
-            name="idMembers"
-            type="text"
-            placeholder="ID-Members"
-            className="login-input"
-            onChange={handleChange}
-          />
-          <input
-            name="gitrepo"
-            type="text"
-            placeholder="Git Repository"
-            className="login-input"
-            onChange={handleChange}
-          />
-          <input
-            name="image"
-            type="text"
-            placeholder="Image"
-            className="login-input"
-            onChange={handleChange}
-          />
+      <div className="create-project-container">
+        <Nav />
 
-          <select
-            name="category"
-            className="login-input"
-            onChange={handleChange}
-            defaultValue={"Select Category"}>
-            <option value="Select Category" disabled hidden>
-              Select Category
-            </option>
-            <option value="Full-Stack">Full-Stack</option>
-            <option value="Deep Learning">Deep Learning</option>
-            <option value="Data Science">Data Science</option>
-            <option value="Cyber">Cyber</option>
-          </select>
-          <button className="button-login" onClick={handleCreate}>
-            Create
-          </button>
+        <div className="login-container create-project-container">
+          <div className="login-inner-container">
+            <Paper elevation={3} style={{ width: '110%', height: '75vh' }} className="create-project-paper">
+              <div className="paper-inner-container">
+                <h2 className="h2-login" sx={{color:"#255366"}}>Add Project</h2>
+                <div className="form-names">
+                  <TextField
+                    label="Owner"
+                    id="standard-start-adornment"
+                    sx={{ m: 1, width: '28ch' }}
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start"></InputAdornment>,
+                    }}
+                    variant="standard"
+                    onChange={handleChange}
+                  />
+                  <TextField
+                    label="Project Name"
+                    id="standard-start-adornment"
+                    sx={{ m: 1, width: '28ch' }}
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start"></InputAdornment>,
+                    }}
+                    variant="standard"
+                    onChange={handleChange}
+                  />
+                </div>
+                <TextField
+                  label="Members"
+                  id="standard-start-adornment"
+                  sx={{ m: 1, width: '90%' }}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start"></InputAdornment>,
+                  }}
+                  variant="standard"
+                  onChange={handleChange}
+                />
+                <FormControl fullWidth sx={{ m: 1, width: '90%' }} variant="standard">
+                  <InputLabel htmlFor="standard-adornment-amount">Repository Link</InputLabel>
+                  <Input
+                    id="standard-adornment-amount"
+                    startAdornment={<InputAdornment position="start"></InputAdornment>}
+                    onChange={handleChange}
+                  />
+                </FormControl>
+                <div className="choose-create-button">
+                  <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: '28ch' }}>
+                    <InputLabel id="demo-simple-select-standard-label">Internship</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-standard-label"
+                      id="demo-simple-select-standard"
+                      value={Internship}
+                      onChange={handleInternshipChange}
+                      label="Internship"
+                    >
+                      <MenuItem value={'Full-Stack'}>Full-Stack</MenuItem>
+                      <MenuItem value={'Deep Learning'}>Deep Learning</MenuItem>
+                      <MenuItem value={'Data Science'}>Data Science</MenuItem>
+                      <MenuItem value={'Cyber'}>Cyber</MenuItem>
+                      <MenuItem value={'Fintech'}>Fintech</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <Fab aria-label="add" sx={{
+                    backgroundColor: "#255366",
+                    width: "35px",
+                    height: "35px",
+                    margin: "15px",
+                    '&:hover': {
+                      backgroundColor: '#b0d5d6'
+                    }
+                  }} onClick={handleCreate}>
+                    <AddIcon sx={{
+                      color: 'white'
+                    }} />
+                  </Fab>
+                </div>
+
+              </div>
+            </Paper>
+          </div>
         </div>
       </div>
     </>
