@@ -16,4 +16,6 @@ router.get("/get/member/:id", authenticate, projectController.getProjectsByUserI
 
 router.get("/search", projectController.searchProjects);
 
+router.delete("/delete/:id", authenticate, projectController.deleteProject);
+
 export default router;

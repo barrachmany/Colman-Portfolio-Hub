@@ -36,7 +36,17 @@ const CreateProjectPage = () => {
   const handleInternshipChange = (event) => {
     setInternship(event.target.value);
   };
+    const { name, value } = e.target;
 
+    if (name === "idMembers") {
+      setNewProject({
+        ...newProject,
+        [name]: value.split(/[\s,]+/).map((id) => id.trim()),
+      });
+    } else {
+      setNewProject({ ...newProject, [name]: value });
+    }
+  };
   const validateInputs = () => {
     if (
       newProject.name === "" ||

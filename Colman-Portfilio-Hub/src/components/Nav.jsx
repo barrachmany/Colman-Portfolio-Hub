@@ -47,7 +47,6 @@ const Nav = () => {
                 <FontAwesomeIcon icon={faSignOutAlt} style={{ color: 'white', fontSize: '15px' }} />
               </button>
             </Tooltip>
-          </ul>
         </div>
       </div>
     </nav>
