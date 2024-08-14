@@ -70,7 +70,6 @@ const CreateProjectPage = () => {
 
   return (
     <>
-      <Nav />
       <div className="login-container">
         <div className="login-inner-container">
           <h2 className="h2-login">Add Project</h2>

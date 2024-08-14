@@ -93,7 +93,6 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Nav />
       <div className="profile-container">
         <h1>Profile Page</h1>
 

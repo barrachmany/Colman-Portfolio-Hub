@@ -22,8 +22,6 @@ const createDellE = async (req, res) => {
             image_url = response.data[0].url; //need to decide if we want to save the image in memory
         }
 
-        // console.log(response.choices[0].message.content);
-        
     catch (error) {
         console.log(error);
     }
