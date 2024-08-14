@@ -50,7 +50,11 @@ const Nav = () => {
             </Tooltip>
             <Tooltip title="Log out">
               <button style={{ background: "none", border: "none", cursor: "pointer" }}>
-                <FontAwesomeIcon icon={faSignOutAlt} style={{ color: "white", fontSize: "15px" }} />
+                <FontAwesomeIcon
+                  onClick={handleLogout}
+                  icon={faSignOutAlt}
+                  style={{ color: "white", fontSize: "15px" }}
+                />
               </button>
             </Tooltip>
           </ul>
