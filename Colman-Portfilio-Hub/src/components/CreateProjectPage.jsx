@@ -30,12 +30,6 @@ const CreateProjectPage = () => {
   });
 
   const handleChange = (e) => {
-    setNewProject({ ...newProject, [e.target.name]: e.target.value });
-  };
-
-  const handleInternshipChange = (event) => {
-    setInternship(event.target.value);
-  };
     const { name, value } = e.target;
 
     if (name === "idMembers") {
@@ -47,6 +41,11 @@ const CreateProjectPage = () => {
       setNewProject({ ...newProject, [name]: value });
     }
   };
+
+  const handleInternshipChange = (event) => {
+    setInternship(event.target.value);
+  };
+
   const validateInputs = () => {
     if (
       newProject.name === "" ||
@@ -105,6 +104,7 @@ const CreateProjectPage = () => {
                       startAdornment: <InputAdornment position="start"></InputAdornment>,
                     }}
                     variant="standard"
+                    name="creator"
                     onChange={handleChange}
                   />
                   <TextField
@@ -115,6 +115,7 @@ const CreateProjectPage = () => {
                       startAdornment: <InputAdornment position="start"></InputAdornment>,
                     }}
                     variant="standard"
+                    name="name"
                     onChange={handleChange}
                   />
                 </div>
@@ -126,6 +127,7 @@ const CreateProjectPage = () => {
                     startAdornment: <InputAdornment position="start"></InputAdornment>,
                   }}
                   variant="standard"
+                  name="members"
                   onChange={handleChange}
                 />
                 <FormControl fullWidth sx={{ m: 1, width: '90%' }} variant="standard">
@@ -133,6 +135,7 @@ const CreateProjectPage = () => {
                   <Input
                     id="standard-adornment-amount"
                     startAdornment={<InputAdornment position="start"></InputAdornment>}
+                    name="gitrepo"
                     onChange={handleChange}
                   />
                 </FormControl>
