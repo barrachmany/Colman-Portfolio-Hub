@@ -1,0 +1,33 @@
+.caro-project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    width: 270px;
+    height: 350px;
+    background-color: #255366;
+    border-radius: 40px;
+    overflow: hidden;
+}
+
+.caro-project__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 40px;
+}
+
+.caro-project__info {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px;
+}
+
+.tool-icon{
+    size: 35px;
+}

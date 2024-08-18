@@ -5,7 +5,6 @@ import LandingPage from './scenes/landing-page/LandingPage.jsx';
 import LoginPage from './scenes/login-page/LoginPage.jsx';
 import RegisterPage from './scenes/register-page/RegisterPage.jsx';
 import CreateProjectPage from './scenes/create-project-page/CreateProjectPage.jsx';
-import PhotoCarousel from './components/PhotoCarousel.jsx';
 import AppContext from './AppContext.jsx';
 import ProfilePage from './scenes/profile-page/ProfilePage.jsx';
 import ProjectPage from './scenes/project-page/ProjectPage.jsx';

@@ -1,0 +1,50 @@
+.project-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 26%;
+    transform: translateY(161%);
+    color: #255366;
+    border: none;
+    cursor: pointer;
+    background-color: unset;
+}
+
+.carousel-slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    margin-top: 5%;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-slide {
+    display: flex;
+    min-width: 28.333%;
+    box-sizing: border-box;
+    margin: 10px;
+    justify-content: center;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+}
+
+.carousel-button:hover{
+    cursor: pointer;
+}
+
+.prev{
+    padding-left: 10px;
+    left: 0%;
+}
+
+.next {
+    padding-right: 10px;
+    right: 0%;
+}
