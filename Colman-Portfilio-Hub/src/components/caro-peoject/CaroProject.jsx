@@ -12,6 +12,8 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Avatar from '@mui/material/Avatar';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -40,7 +42,7 @@ export default function CaroProject({ project }) {
           </Avatar>
         }
         title={project.name}
-        subheader={project.date} // Optional: You can add date or other fields if needed
+        subheader={project.date}
       />
       <CardMedia
         component="img"
@@ -48,14 +50,12 @@ export default function CaroProject({ project }) {
         image={project.img}
         alt={project.name}
       />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {project.description}
-        </Typography>
-      </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="view project" href={project.link} target="_blank">
-          View
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+        <IconButton aria-label="share">
+          <ShareIcon />
         </IconButton>
         <ExpandMore
           expand={expanded}
@@ -69,7 +69,7 @@ export default function CaroProject({ project }) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>
-            Additional details can be added here.
+           {project.description}
           </Typography>
         </CardContent>
       </Collapse>

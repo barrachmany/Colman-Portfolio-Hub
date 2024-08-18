@@ -44,7 +44,7 @@ const SearchBar = () => {
   return (
     <div className="navbar-container">
       <div className="inside-navbar-container">
-        <input type="text" placeholder="Project name" className="navbar-input" onChange={handleSearch} />
+        <input type="text" placeholder="Search" className="navbar-input" onChange={handleSearch} />
         <select name="internship" className="navbar-select" onChange={handleCategory}>
           {internships.map((intern, idx) => (
             <option value={intern.value} key={idx}>
