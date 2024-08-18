@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import Nav from "./Nav.jsx";
+import Nav from "../../components/Nav.jsx";
 import axios from "axios";
-import AppContext from "../AppContext.jsx";
+import AppContext from "../../AppContext.jsx";
 
 const ProfilePage = () => {
   const { user, setUser, projects, setProjects } = useContext(AppContext);

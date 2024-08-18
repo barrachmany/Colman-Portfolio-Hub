@@ -1,0 +1,48 @@
+.create-project-container {
+    margin-top: 30px;
+    display: flex;
+}
+
+.login-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+    align-items: center;
+}
+
+.login-inner-container {
+    height: 90vh;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #255366;
+}
+
+.paper-inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.h2-login {
+    font-size: 50px;
+    margin-bottom: 50px;
+    color: #255366;
+}
+
+.form-names {
+    display: flex;
+}
+
+.choose-create-button {
+    width: 93%;
+    display: flex;
+    flex-direction: column;
+    height: 120px;
+}
+

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Nav from "./Nav";
+import Nav from "../../components/Nav";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Input from "@mui/material/Input";
@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
+import './CreateProject.css';
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
@@ -45,6 +46,10 @@ const CreateProjectPage = () => {
       setNewProject({ ...newProject, [name]: value });
       console.log(newProject);
     }
+  };
+
+  const handleInternshipChange = (event) => {
+    setInternship(event.target.value);
   };
 
   const validateInputs = () => {
@@ -107,35 +112,35 @@ const CreateProjectPage = () => {
                   <TextField
                     label="Owner"
                     id="standard-start-adornment"
-                    name="creator"
                     sx={{ m: 1, width: "28ch" }}
                     InputProps={{
                       startAdornment: <InputAdornment position="start"></InputAdornment>,
                     }}
                     variant="standard"
+                    name="creator"
                     onChange={handleChange}
                   />
                   <TextField
                     label="Project Name"
                     id="standard-start-adornment"
-                    name="name"
                     sx={{ m: 1, width: "28ch" }}
                     InputProps={{
                       startAdornment: <InputAdornment position="start"></InputAdornment>,
                     }}
                     variant="standard"
+                    name="name"
                     onChange={handleChange}
                   />
                 </div>
                 <TextField
                   label="Members"
                   id="standard-start-adornment"
-                  name="members"
                   sx={{ m: 1, width: "90%" }}
                   InputProps={{
                     startAdornment: <InputAdornment position="start"></InputAdornment>,
                   }}
                   variant="standard"
+                  name="members"
                   onChange={handleChange}
                 />
                 <TextField
@@ -164,8 +169,8 @@ const CreateProjectPage = () => {
                   <InputLabel htmlFor="standard-adornment-amount">Repository Link</InputLabel>
                   <Input
                     id="standard-adornment-amount"
-                    name="gitrepo"
                     startAdornment={<InputAdornment position="start"></InputAdornment>}
+                    name="gitrepo"
                     onChange={handleChange}
                   />
                 </FormControl>
