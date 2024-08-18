@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Nav from "./Nav";
+import Nav from "../../components/Nav";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Input from "@mui/material/Input";
@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
+import './CreateProject.css';
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");

@@ -1,0 +1,66 @@
+.with-main-background {
+    background-image: url("./../public/Images/light-background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+  }
+
+.login-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 90vh;
+  align-items: center;
+}
+
+.login-inner-container {
+  height: 90vh;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #255366;
+}
+
+.login-btns {
+  display: flex;
+  width: 450px;
+  align-items: center;
+}
+
+.button-login {
+  height: 120px;
+  width: 120px;
+  margin: 15px;
+  font-size: 20px;
+  border-radius: 50%;
+  border: 1px solid;
+  background-color: #ffffff;
+  transition: background-color 0.3s;
+  padding: 0 15px 0 15px;
+  color: #797979;
+}
+
+.h1-login {
+  width: 370px;
+  font-size: 58px;
+}
+
+.button-login-1:hover {
+  background-color: #b0d5d6;
+  cursor: pointer;
+}
+
+.button-login-2:hover {
+  background-color: #255366;
+  color: #d5d5d5;
+  cursor: pointer;
+}
+
+.button-login-3:hover {
+  background-color: #bccccd;
+  cursor: pointer;
+}

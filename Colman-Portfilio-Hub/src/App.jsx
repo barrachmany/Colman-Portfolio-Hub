@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainPage from './components/MainPage.jsx'
-import LandingPage from './components/LandingPage.jsx';
-import LoginPage from './components/LoginPage.jsx';
-import RegisterPage from './components/RegisterPage.jsx';
-import CreateProjectPage from './components/CreateProjectPage.jsx';
+import MainPage from './scenes/main-page/MainPage.jsx'
+import LandingPage from './scenes/landing-page/LandingPage.jsx';
+import LoginPage from './scenes/login-page/LoginPage.jsx';
+import RegisterPage from './scenes/register-page/RegisterPage.jsx';
+import CreateProjectPage from './scenes/create-project-page/CreateProjectPage.jsx';
 import PhotoCarousel from './components/PhotoCarousel.jsx';
 import AppContext from './AppContext.jsx';
-import ProfilePage from './components/ProfilePage.jsx';
-import ProjectPage from './components/ProjectPage.jsx';
+import ProfilePage from './scenes/profile-page/ProfilePage.jsx';
+import ProjectPage from './scenes/project-page/ProjectPage.jsx';
 import Nav from './components/Nav.jsx';
 
 
