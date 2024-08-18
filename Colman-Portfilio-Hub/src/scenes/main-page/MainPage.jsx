@@ -1,18 +1,26 @@
 import { useContext, useEffect } from "react";
-import PhotoCarousel from "../../components/PhotoCarousel";
 import { useNavigate } from "react-router-dom";
 import Nav from "../../components/Nav";
 import AppContext from "../../AppContext";
 import axios from "axios";
 import './MainPage.css';
+import './../../App.css';
+import ProjectCarousel from "../../components/carousel/ProjectCarousel";
 
 const MainPage = () => {
+   const images = [
+    '/Images/1.jpg',
+    '/Images/2.jpg',
+    '/Images/3.jpg',
+    '/Images/4.jpg',
+    '/Images/5.jpg',
+  ];
+
   const navigate = useNavigate();
 
   const { user, setUser, projects, setProjects } = useContext(AppContext);
 
   useEffect(() => {
-    // fetch projects from the server
     axios
       .get("http://localhost:5000/project/get")
       .then((response) => {
@@ -23,11 +31,13 @@ const MainPage = () => {
         console.log(error);
       });
   }, []);
+
   return (
     <>
       <Nav />
       <div className="main-container">
-        <PhotoCarousel />
+        <h1 className="h1-main-projects">Projects</h1>
+        <ProjectCarousel images={images}/>
       </div>
     </>
   );
