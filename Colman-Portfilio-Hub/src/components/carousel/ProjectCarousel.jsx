@@ -36,7 +36,8 @@ const ProjectCarousel = ({ images }) => {
           <div className="carousel-slide" key={index}>
             <CaroProject 
             project={{ 
-              img: img, 
+              img: img,
+              name: `Project ${index + 1}`,
               title: `Project ${index + 1}`, 
               description: `This is project ${index + 1}`, 
               link: 'https://www.google.com' }}
