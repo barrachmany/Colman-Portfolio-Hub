@@ -1,0 +1,8 @@
+.video-container {
+    display: flex;
+    justify-content: center;
+}
+
+.video-inner-container {
+    width: 50%;
+}
