@@ -22,11 +22,11 @@ const MainPage = () => {
   ];
 
   const videos = [
-    { url: './../../../public/Videos/2012.mp4', name: '2012' },
-    { url: './../../../public/Videos/2013.mp4', name: '2013' },
-    { url: './../../../public/Videos/2014.mp4', name: '2014' },
-    { url: './../../../public/Videos/2016.mp4', name: '2016' },
-    { url: './../../../public/Videos/2017.mp4', name: '2017' },
+    { url: '/Videos/2012.mp4', name: '2012' },
+    { url: '/Videos/2013.mp4', name: '2013' },
+    { url: '/Videos/2014.mp4', name: '2014' },
+    { url: '/Videos/2016.mp4', name: '2016' },
+    { url: '/Videos/2017.mp4', name: '2017' },
   ];
 
   const navigate = useNavigate();
