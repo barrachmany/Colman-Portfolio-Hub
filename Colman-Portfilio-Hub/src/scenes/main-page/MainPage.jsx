@@ -22,11 +22,11 @@ const MainPage = () => {
   ];
 
   const videos = [
-    { url: './../../../public/Videos/2012.mp4', name: '2012' },
-    { url: './../../../public/Videos/2013.mp4', name: '2013' },
-    { url: './../../../public/Videos/2014.mp4', name: '2014' },
-    { url: './../../../public/Videos/2016.mp4', name: '2016' },
-    { url: './../../../public/Videos/2017.mp4', name: '2017' },
+    { url: '/Videos/2012.mp4', name: '2012' },
+    { url: '/Videos/2013.mp4', name: '2013' },
+    { url: '/Videos/2014.mp4', name: '2014' },
+    { url: '/Videos/2016.mp4', name: '2016' },
+    { url: '/Videos/2017.mp4', name: '2017' },
   ];
 
   const navigate = useNavigate();
@@ -49,8 +49,10 @@ const MainPage = () => {
     <>
       <Nav />
       <div className="main-container">
-        <h1 className="h1-main-projects">Projects</h1>
+        <h1 className="h1-main-cph">Colman Portfilio Hub</h1>
+        <h4 className="h4-main">Past Years Conferences</h4>
         <Carousel videos={videos} />
+        <h4 className="h4-main project-h4">Projects</h4>
         <ProjectsList images={images} />
       </div>
     </>

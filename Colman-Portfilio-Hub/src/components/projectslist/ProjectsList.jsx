@@ -3,10 +3,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
 import CaroProject from './../caro-peoject/CaroProject';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Paper from '@mui/material/Paper';
 
 const ProjectsList = ({ images }) => {
@@ -15,19 +12,21 @@ const ProjectsList = ({ images }) => {
             elevation={3}
             sx={{
                 bgcolor: '#b0d5d68c',
-                width: '800px',
+                width: '95%',
                 display: 'flex',
                 justifyContent: 'center',
-                marginTop: '50px'
+                marginTop: '50px',
+                marginBottom: '40px',
             }}>
             <ImageList
                 sx={{
                     marginTop: '30px',
-                    width: 750,
+                    marginBottom: '20px',
+                    width: '93%',
                     height: '100%',
                     transform: 'translateZ(0)',
                 }}
-                cols={3}
+                cols={4}
                 gap={1}
             >
                 {images.map((img, index) => (
@@ -40,7 +39,7 @@ const ProjectsList = ({ images }) => {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            margin: '10px',
+                            margin: '15px',
 
                         }}
                     >

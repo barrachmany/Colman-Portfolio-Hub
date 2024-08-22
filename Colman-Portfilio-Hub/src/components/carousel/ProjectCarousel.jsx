@@ -28,29 +28,30 @@ const ProjectCarousel = ({ images }) => {
     <div className="project-carousel">
       <div className="carousel-button prev" onClick={goToPrevious}>
         <IconButton size="large">
-          <GoChevronLeft fontSize="25px" color='#255366'/>
+          <GoChevronLeft fontSize="25px" color='#255366' />
         </IconButton>
       </div>
       <div className="carousel-slides">
         {getCurrentImages().map((img, index) => (
           <div className="carousel-slide" key={index}>
-            <CaroProject 
-            project={{ 
-              img: img,
-              name: `Project ${index + 1}`,
-              title: `Project ${index + 1}`, 
-              description: `This is project ${index + 1}`, 
-              link: 'https://www.google.com' }}
-              />
+            <CaroProject
+              project={{
+                img: img,
+                name: `Project ${index + 1}`,
+                title: `Project ${index + 1}`,
+                description: `This is project ${index + 1}`,
+                link: 'https://www.google.com'
+              }}
+            />
             {/*<img className='each-project-slide' src={img} alt={`slide ${index}`} /> */}
           </div>
         ))}
       </div>
-      
+
       <div className="carousel-button next" onClick={goToNext}>
         <IconButton size="large">
-          <GoChevronRight fontSize="25px" color='#255366'/>  
-        </IconButton>  
+          <GoChevronRight fontSize="25px" color='#255366' />
+        </IconButton>
       </div>
     </div>
   );
