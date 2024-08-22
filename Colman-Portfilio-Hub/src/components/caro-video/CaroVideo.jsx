@@ -20,12 +20,13 @@ const CaroVideo = ({ video }) => {
                     muted
                     controls
                     loop
-                    style={{ width: '390px', height: 'auto' }}></video>
+                    style={{ width: '100%', height: 'auto', borderRadius: '4px', }}></video>
                 <ImageListItemBar
                     sx={{
                         background:
                             'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
                             'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                        borderRadius: '4px'
                     }}
                     title={video.title}
                     position="top"

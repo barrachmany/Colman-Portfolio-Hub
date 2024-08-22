@@ -15,8 +15,6 @@ import Divider from '@mui/material/Divider';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;

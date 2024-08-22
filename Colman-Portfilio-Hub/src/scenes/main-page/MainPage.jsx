@@ -49,8 +49,10 @@ const MainPage = () => {
     <>
       <Nav />
       <div className="main-container">
-        <h1 className="h1-main-projects">Projects</h1>
+        <h1 className="h1-main-cph">Colman Portfilio Hub</h1>
+        <h4 className="h4-main">Past Years Conferences</h4>
         <Carousel videos={videos} />
+        <h4 className="h4-main project-h4">Projects</h4>
         <ProjectsList images={images} />
       </div>
     </>
