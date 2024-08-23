@@ -2,7 +2,7 @@ import * as React from 'react';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import SchoolIcon from '@mui/icons-material/School';
 import './CaroVideo.css';
 
 const CaroVideo = ({ video }) => {
@@ -35,7 +35,7 @@ const CaroVideo = ({ video }) => {
                             sx={{ color: 'white' }}
                             aria-label={`star ${video.title}`}
                         >
-                            <StarBorderIcon />
+                            <SchoolIcon />
                         </IconButton>
                     }
                     actionPosition="left"

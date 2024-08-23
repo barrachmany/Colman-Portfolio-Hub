@@ -6,7 +6,7 @@
 
 .carousel-button {
     position: absolute;
-    top: 12%;
+    top: 22%;
     transform: translateY(161%);
     color: #255366;
     border: none;
@@ -27,7 +27,7 @@
     min-width: 40%;
     max-width: 40%;
     box-sizing: border-box;
-    margin: 10px;
+    margin: 30px;
     justify-content: center;
 }
 
