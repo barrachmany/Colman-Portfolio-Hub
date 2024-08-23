@@ -11,68 +11,68 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 
 const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
 })(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+    }),
 }));
 
 export default function CaroProject({ project }) {
-  const [expanded, setExpanded] = React.useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+    const [expanded, setExpanded] = React.useState(false);
 
-  return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
-      avatar={
-          <Avatar sx={{ bgcolor:'#255366' }} aria-label="recipe">
-            R
-          </Avatar>
-        }
-        title={project.name}
-        subheader={project.date}
-      />
-      <CardMedia
-        component="img"
-        height="194"
-        image={project.img}
-        alt={project.name}
-      />
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>
-           {project.description}
-          </Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
-  );
+    const handleIconClick = () => {
+        setIsFavorite(!isFavorite);
+    };
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
+    return (
+        <Card sx={{ width: 300, borderRadius: '4px' }}>
+            <CardMedia
+                component="img"
+                height="194"
+                image={project.img}
+                alt={project.name}
+            />
+
+            <CardActions disableSpacing>
+                <IconButton onClick={handleIconClick}>
+                    {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                </IconButton>
+                <Divider orientation="vertical" variant="middle" flexItem />
+                <IconButton>
+                    <FullscreenIcon />
+                </IconButton>
+                <ExpandMore
+                    expand={expanded}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                >
+                    <ExpandMoreIcon />
+                </ExpandMore>
+            </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <CardContent>
+                    <Typography paragraph>
+                        {project.description}
+                    </Typography>
+                </CardContent>
+            </Collapse>
+        </Card>
+    );
 }

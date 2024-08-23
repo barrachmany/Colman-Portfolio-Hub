@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 .main-container {
     display: flex;
     flex-direction: column;
@@ -5,8 +7,16 @@
     justify-content: center;
 }
 
-.h1-main-projects {
+.h1-main-cph {
     margin-top: 100px;
     font-size: 58px;
     color: #255366;
+}
+
+.h4-main {
+    font-size: 25px;
+    margin-top: 50px;
+    width: 80%;
+    font-family: "Lobster", sans-serif;
+    font-weight: 100;
 }

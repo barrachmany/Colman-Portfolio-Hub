@@ -53,11 +53,11 @@ const Nav = () => {
                 <FontAwesomeIcon
                   onClick={handleLogout}
                   icon={faSignOutAlt}
-                  style={{ color: "white", fontSize: "15px" }}
+                  style={{ color: "white", fontSize: "15px", margin: '0 7px 0 7px' }}
                 />
               </button>
             </Tooltip>
-            </ul>
+          </ul>
         </div>
       </div>
     </nav>
