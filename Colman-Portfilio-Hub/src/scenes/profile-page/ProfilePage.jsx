@@ -3,6 +3,7 @@ import Nav from "../../components/Nav.jsx";
 import axios from "axios";
 import AppContext from "../../AppContext.jsx";
 
+//comment test to marge the branch
 const ProfilePage = () => {
   const { user, setUser, projects, setProjects } = useContext(AppContext);
   const [isEditing, setIsEditing] = useState(false);

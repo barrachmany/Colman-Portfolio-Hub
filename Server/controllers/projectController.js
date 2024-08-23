@@ -10,7 +10,6 @@ const createProject = async (req, res) => {
   const creator = req.body.creator;
   const gitRepo = req.body.gitRepo;
   const category = req.body.category;
-  const image = req.body.image;
   const idMembers = req.body.idMembers;
 
   if (!name || !creator) {

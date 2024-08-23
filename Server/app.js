@@ -9,6 +9,7 @@ import cors from "cors";
 import userRoute from "./routes/userRoute.js";
 import projectRoute from "./routes/projectRoute.js";
 import chatRoute from "./routes/chatRoutes.js";
+import delleRoute from "./routes/delleRoute.js";
 
 env.config();
 
@@ -34,6 +35,7 @@ const initApp = () => {
             app.use("/user", userRoute);
             app.use("/project", projectRoute);
             app.use("/api", chatRoute);
+            app.use("/api", delleRoute);
 
             resolve(app);
         });
