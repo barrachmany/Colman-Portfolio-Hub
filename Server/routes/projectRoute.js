@@ -18,4 +18,6 @@ router.get("/search", projectController.searchProjects);
 
 router.delete("/delete/:id", authenticate, projectController.deleteProject);
 
+router.post("/like/:_id", authenticate, projectController.likeProject);
+
 export default router;

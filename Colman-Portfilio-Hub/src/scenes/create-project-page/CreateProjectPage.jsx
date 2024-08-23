@@ -12,7 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import './CreateProject.css';
+import "./CreateProject.css";
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
@@ -27,6 +27,7 @@ const CreateProjectPage = () => {
     image: "",
     category: "",
     idMembers: [],
+    likes: 0,
   });
 
   const handleChange = (e) => {
