@@ -1,5 +1,6 @@
 import expsess from "express";
 import projectController from "../controllers/projectController.js";
+import chatController from "../controllers/chatController.js";
 import authenticate from "../common/authenticate.js";
 
 const router = expsess.Router();
@@ -17,5 +18,7 @@ router.get("/get/member/:id", authenticate, projectController.getProjectsByUserI
 router.get("/search", projectController.searchProjects);
 
 router.delete("/delete/:id", authenticate, projectController.deleteProject);
+
+router.get("/findbestfit", projectController.findBestFit, chatController.createChat);
 
 export default router;
