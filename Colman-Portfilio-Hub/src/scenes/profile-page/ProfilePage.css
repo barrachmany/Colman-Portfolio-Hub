@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 .profile-container {
   max-width: 800px;
   margin: 100px auto;
@@ -13,18 +15,50 @@
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 20px;
+  font-family: "Lobster", sans-serif;
+  color: #255366;
+}
+
+.h1-info {
+  display: flex;
+  margin: 20px;
+  font-weight: 100;
+  border-bottom: 2px solid #6498ae69;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+
+.user-name {
+  font-size: 70px;
 }
 
 .profile-info h2 {
-  font-size: 1.2rem;
   color: #666;
   margin-bottom: 5px;
 }
 
+.user-inner-information {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.user-inner-info {
+  font-size: 35px;
+}
+
+.two-parts-info-user {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: center;
+}
+
 .profile-info p {
-  font-size: 1rem;
   color: #333;
-  margin-bottom: 15px;
+  font-size: 15px;
+  margin: 20px;
+  margin-bottom: 45px;
 }
 
 .profile-info input {
@@ -35,6 +69,12 @@
   border: 1px solid #ccc;
   font-size: 1rem;
   box-sizing: border-box;
+}
+
+.info-user-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button {
