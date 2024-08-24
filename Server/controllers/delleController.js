@@ -55,4 +55,5 @@ const createDellE = async (req, res) => {
     res.status(200).send(image.data[0].url);
 }
 
+
 export default { createDellE };
