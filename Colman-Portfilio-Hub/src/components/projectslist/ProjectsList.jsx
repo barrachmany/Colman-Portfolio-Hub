@@ -7,6 +7,7 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
 import CaroProject from './../caro-peoject/CaroProject';
 import Paper from '@mui/material/Paper';
+import SearchBar from "./../../components/SearchBar.jsx";
 
 const ProjectsList = ({ images }) => {
     const theme = useTheme();
@@ -35,12 +36,15 @@ const ProjectsList = ({ images }) => {
             elevation={3}
             sx={{
                 bgcolor: '#b0d5d68c',
-                width: '95%',
+                width: '90%',
                 display: 'flex',
                 justifyContent: 'center',
                 marginTop: '50px',
                 marginBottom: '40px',
+                flexDirection: 'column',
+                alignItems: 'center'
             }}>
+            <SearchBar />
             <ImageList
                 sx={{
                     marginTop: '30px',
