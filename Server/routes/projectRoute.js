@@ -19,8 +19,7 @@ router.get("/search", projectController.searchProjects);
 
 router.delete("/delete/:id", authenticate, projectController.deleteProject);
 
-
-router.post("/like/:_id", authenticate, projectController.likeProject);
+router.post("/like/:projectId", projectController.likeProject);
 
 router.get("/findbestfit", projectController.findBestFit, chatController.createChat);
 
