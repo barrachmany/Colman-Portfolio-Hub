@@ -1,59 +1,59 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
 .create-project-container {
-    display: flex;
-    height: 1000px;
-    padding: 20px;
-    border-radius: 15px;
+  display: flex;
+  height: 1000px;
+  padding: 20px;
+  border-radius: 15px;
 }
 
 .login-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    height: 90vh;
-    align-items: center;
-    border-radius: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 900px;
+  align-items: center;
+  border-radius: 15px;
 }
 
 .login-inner-container {
-    height: 90vh;
-    padding: 20px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #255366;
+  height: 900px;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #255366;
 }
 
 .paper-inner-container {
-    border-radius: 15px;
-    padding-top: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 800px;
-    height: 70vh;
+  border-radius: 15px;
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 800px;
+  height: 900px;
 }
 
 .h2-login {
-    font-size: 50px;
-    margin-bottom: 50px;
-    color: #255366;
-    font-family: "Lobster", sans-serif;
+  font-size: 50px;
+  margin-bottom: 50px;
+  color: #255366;
+  font-family: "Lobster", sans-serif;
 }
 
 .form-names {
-    display: flex;
-    width: 92%;
-    justify-content: space-between;
-    margin-bottom: 40px;
+  display: flex;
+  width: 92%;
+  justify-content: space-between;
+  margin-bottom: 40px;
 }
 
 .choose-create-button {
-    width: 93%;
-    display: flex;
-    flex-direction: column;
-    height: 120px;
+  width: 93%;
+  display: flex;
+  flex-direction: column;
+  height: 120px;
 }
