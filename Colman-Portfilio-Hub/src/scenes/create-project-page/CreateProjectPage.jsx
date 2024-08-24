@@ -27,6 +27,7 @@ const CreateProjectPage = () => {
     image: "",
     category: "",
     idMembers: [],
+    likes: 0,
   });
 
   const handleChange = (e) => {

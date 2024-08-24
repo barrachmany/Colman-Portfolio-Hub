@@ -10,6 +10,7 @@ const createProject = async (req, res) => {
   const gitRepo = req.body.gitRepo;
   const category = req.body.category;
   const idMembers = req.body.idMembers;
+  const likes = req.body.likes;
 
   if (!name || !creator) {
     return res.status(400).send("missing name or creator");
@@ -117,6 +118,28 @@ const deleteProject = async (req, res) => {
   }
 };
 
+
+const likeProject = async (req, res) => {
+  console.log("Liking project");
+
+  const { id } = req.params;
+  console.log("This is the ID: ", id);
+
+  try {
+    const project = await projectModel.findById(_id);
+    if (!project) {
+      return res.status(404).send("Project not found");
+    }
+
+    project.likes += 1;
+    await project.save();
+    res.status(200).send(project);
+  } catch (err) {
+    console.error("Error liking project:", err.message);
+    res.status(500).send(err.message);
+  }
+};
+
 const findBestFit = async (req, res, next) => {
   let query = "web development";
 
@@ -147,5 +170,9 @@ export default {
   getProjectsByUserID,
   searchProjects,
   deleteProject,
+
+  likeProject,
+
   findBestFit,
+
 };

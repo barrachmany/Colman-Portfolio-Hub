@@ -1,4 +1,10 @@
+
 import React from "react";
+
+import { useState, useContext } from "react";
+import "./CaroProject.css";
+import * as React from "react";
+
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -8,10 +14,16 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import Divider from "@mui/material/Divider";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
+
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import AppContext from "../../AppContext";
+import axios from "axios";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -65,6 +77,7 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
       <Collapse in={isExpanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>{project.description}</Typography>
+
         </CardContent>
       </Collapse>
     </Card>

@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect, useContext } from "react";
+import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ImageList from "@mui/material/ImageList";
@@ -63,6 +65,7 @@ const ProjectsList = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
+
   return (
     <Paper
       elevation={3}
@@ -87,7 +90,9 @@ const ProjectsList = () => {
         }}
         cols={cols}
         gap={1}>
+
         {projects.map((project, index) => (
+
           <ImageListItem
             key={index}
             cols={1}
@@ -101,9 +106,11 @@ const ProjectsList = () => {
               width: 300,
             }}>
             <CaroProject
+
               project={project}
               isExpanded={expandedIndex === index}
               onExpandClick={() => handleExpandClick(index)}
+
               sx={{
                 height: "100%",
                 borderRadius: "4px",
@@ -117,10 +124,12 @@ const ProjectsList = () => {
                 borderRadius: "4px",
               }}
               title={project.name}
+
               position="top"
               actionIcon={
                 <IconButton
                   sx={{ color: "black", borderRadius: "4px" }}
+
                   aria-label={`star ${project.name}`}></IconButton>
               }
               actionPosition="left"
