@@ -28,6 +28,7 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function CaroProject({ project, isExpanded, onExpandClick }) {
+
   const [isFavorite, setIsFavorite] = useState(false);
   const [likesCount, setLikesCount] = useState(project.likes);
   const { user, setUser } = useContext(AppContext);
@@ -48,6 +49,10 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
       console.error("Error fetching user data:", error);
     }
   };
+
+  const [isFavorite, setIsFavorite] = React.useState(false);
+  const imgPath = project.image ? project.image : "./public/images/1.jpg";
+
 
   useEffect(() => {
     fetchUserData();
