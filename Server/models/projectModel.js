@@ -29,6 +29,10 @@ const projectSchema = mongoose.Schema({
   image: {
     type: String,
   },
+  likes: {
+    type: Number,
+    default: 0,
+  },
 });
 
 // sassasa
