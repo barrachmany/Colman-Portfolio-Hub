@@ -2,3 +2,14 @@
     height: 100%;
     padding: 5px;
 }
+
+.navbar-container {
+    padding: 0px 5px 0px 0px;
+    margin-top: 21px;
+    margin-right: 53px;
+
+}
+
+.navbar-select {
+    cursor: pointer;
+}

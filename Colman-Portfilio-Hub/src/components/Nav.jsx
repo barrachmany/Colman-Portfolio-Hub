@@ -25,7 +25,7 @@ const Nav = () => {
           <a href="/main">Colman Portfolio Hub</a>
         </div>
         <div className="nav-links">
-          <SearchBar />
+
           <ul>
             <Tooltip title="Home">
               <li>
