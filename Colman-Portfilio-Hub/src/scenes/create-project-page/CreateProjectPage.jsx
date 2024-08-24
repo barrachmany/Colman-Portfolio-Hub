@@ -12,7 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import './CreateProject.css';
+import "./CreateProject.css";
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
@@ -74,24 +74,20 @@ const CreateProjectPage = () => {
       console.log("invalid inputs");
       return;
     }
-
-    axios.post("http://localhost:5000/api/delle", newProject).then((response) => {
-      console.log(response);
-
-      axios.post("http://localhost:5000/project/create", newProject, {
+    axios
+      .post("http://localhost:5000/project/create", newProject, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-        .then((response) => {
-          console.log(response);
-          navigate("/main");
-        })
-        .catch((error) => {
-          console.log(error);
-          alert(error.response.statusText);
-        });
-    });
+      .then((response) => {
+        console.log(response);
+        navigate("/main");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error.response.statusText);
+      });
   };
 
   return (
@@ -102,23 +98,23 @@ const CreateProjectPage = () => {
           <div className="login-inner-container">
             <Paper
               elevation={3}
-              style={{ width: "800px", height: "70vh", borderRadius: '15px' }}
+              style={{ width: "800px", height: "850px", borderRadius: "15px", marginTop: "100px" }}
               className="create-project-paper">
               <div className="paper-inner-container">
-                <h2 className="h2-login" sx={{ color: "#255366", fontSize: '6rem' }}>
+                <h2 className="h2-login" sx={{ color: "#255366", fontSize: "6rem" }}>
                   Add Project
                 </h2>
                 <div className="form-names">
                   <TextField
                     label="Owner"
                     id="standard-start-adornment"
-                    sx={{ m: 1, width: "30ch", fontSize: '1.5rem' }}
+                    sx={{ m: 1, width: "30ch", fontSize: "1.5rem" }}
                     InputProps={{
                       startAdornment: <InputAdornment position="start"></InputAdornment>,
-                      sx: { fontSize: '1.5rem' } // Increase input text size
+                      sx: { fontSize: "1.5rem" }, // Increase input text size
                     }}
                     InputLabelProps={{
-                      sx: { fontSize: '2rem' } // Increase label text size
+                      sx: { fontSize: "2rem" }, // Increase label text size
                     }}
                     variant="standard"
                     name="creator"
@@ -127,13 +123,13 @@ const CreateProjectPage = () => {
                   <TextField
                     label="Project Name"
                     id="standard-start-adornment"
-                    sx={{ m: 1, width: "40ch", fontSize: '1.5rem' }}
+                    sx={{ m: 1, width: "40ch", fontSize: "1.5rem" }}
                     InputProps={{
                       startAdornment: <InputAdornment position="start"></InputAdornment>,
-                      sx: { fontSize: '1.5rem' }
+                      sx: { fontSize: "1.5rem" },
                     }}
                     InputLabelProps={{
-                      sx: { fontSize: '2rem' }
+                      sx: { fontSize: "2rem" },
                     }}
                     variant="standard"
                     name="name"
@@ -143,13 +139,13 @@ const CreateProjectPage = () => {
                 <TextField
                   label="Members"
                   id="standard-start-adornment"
-                  sx={{ m: 1, width: "90%", fontSize: '1.5rem', marginBottom: '40px' }}
+                  sx={{ m: 1, width: "90%", fontSize: "1.5rem", marginBottom: "40px" }}
                   InputProps={{
                     startAdornment: <InputAdornment position="start"></InputAdornment>,
-                    sx: { fontSize: '1.5rem' }
+                    sx: { fontSize: "1.5rem" },
                   }}
                   InputLabelProps={{
-                    sx: { fontSize: '2rem' }
+                    sx: { fontSize: "2rem" },
                   }}
                   variant="standard"
                   name="members"
@@ -159,13 +155,13 @@ const CreateProjectPage = () => {
                   label="ID-Members"
                   id="standard-start-adornment"
                   name="idMembers"
-                  sx={{ m: 1, width: "90%", fontSize: '1.5rem', marginBottom: '40px' }}
+                  sx={{ m: 1, width: "90%", fontSize: "1.5rem", marginBottom: "40px" }}
                   InputProps={{
                     startAdornment: <InputAdornment position="start"></InputAdornment>,
-                    sx: { fontSize: '1.5rem' }
+                    sx: { fontSize: "1.5rem" },
                   }}
                   InputLabelProps={{
-                    sx: { fontSize: '2rem' }
+                    sx: { fontSize: "2rem" },
                   }}
                   variant="standard"
                   onChange={handleChange}
@@ -174,30 +170,45 @@ const CreateProjectPage = () => {
                   label="Description"
                   id="standard-start-adornment"
                   name="description"
-                  sx={{ m: 1, width: "90%", fontSize: '1.5rem', marginBottom: '40px' }}
+                  sx={{ m: 1, width: "90%", fontSize: "1.5rem", marginBottom: "40px" }}
                   InputProps={{
                     startAdornment: <InputAdornment position="start"></InputAdornment>,
-                    sx: { fontSize: '1.5rem' }
+                    sx: { fontSize: "1.5rem" },
                   }}
                   InputLabelProps={{
-                    sx: { fontSize: '2rem' }
+                    sx: { fontSize: "2rem" },
                   }}
                   variant="standard"
                   onChange={handleChange}
                 />
-                <FormControl fullWidth sx={{ m: 1, width: "90%", fontSize: '1.5rem', marginBottom: '40px' }} variant="standard">
-                  <InputLabel htmlFor="standard-adornment-amount" sx={{ fontSize: '2rem' }}>Repository Link</InputLabel>
+                <FormControl
+                  fullWidth
+                  sx={{ m: 1, width: "90%", fontSize: "1.5rem", marginBottom: "40px" }}
+                  variant="standard">
+                  <InputLabel htmlFor="standard-adornment-amount" sx={{ fontSize: "2rem" }}>
+                    Repository Link
+                  </InputLabel>
                   <Input
                     id="standard-adornment-amount"
                     startAdornment={<InputAdornment position="start"></InputAdornment>}
-                    sx={{ fontSize: '1.5rem' }}
+                    sx={{ fontSize: "1.5rem" }}
                     name="gitrepo"
                     onChange={handleChange}
                   />
                 </FormControl>
                 <div className="choose-create-button">
-                  <FormControl variant="standard" sx={{ m: 1, minWidth: 120, width: "28ch", fontSize: '1.5rem', marginBottom: '40px' }}>
-                    <InputLabel id="demo-simple-select-standard-label" sx={{ fontSize: '1.5rem' }}>Internship</InputLabel>
+                  <FormControl
+                    variant="standard"
+                    sx={{
+                      m: 1,
+                      minWidth: 120,
+                      width: "28ch",
+                      fontSize: "1.5rem",
+                      marginBottom: "40px",
+                    }}>
+                    <InputLabel id="demo-simple-select-standard-label" sx={{ fontSize: "1.5rem" }}>
+                      Internship
+                    </InputLabel>
                     <Select
                       labelId="demo-simple-select-standard-label"
                       id="demo-simple-select-standard"
@@ -205,13 +216,22 @@ const CreateProjectPage = () => {
                       value={Internship}
                       onChange={handleChange}
                       label="Internship"
-                      sx={{ fontSize: '1.5rem' }}
-                    >
-                      <MenuItem value={"Full-Stack"} sx={{ fontSize: '1.5rem' }}>Full-Stack</MenuItem>
-                      <MenuItem value={"Deep Learning"} sx={{ fontSize: '1.5rem' }}>Deep Learning</MenuItem>
-                      <MenuItem value={"Data Science"} sx={{ fontSize: '1.5rem' }}>Data Science</MenuItem>
-                      <MenuItem value={"Cyber"} sx={{ fontSize: '1.5rem' }}>Cyber</MenuItem>
-                      <MenuItem value={"Fintech"} sx={{ fontSize: '1.5rem' }}>Fintech</MenuItem>
+                      sx={{ fontSize: "1.5rem" }}>
+                      <MenuItem value={"Full-Stack"} sx={{ fontSize: "1.5rem" }}>
+                        Full-Stack
+                      </MenuItem>
+                      <MenuItem value={"Deep Learning"} sx={{ fontSize: "1.5rem" }}>
+                        Deep Learning
+                      </MenuItem>
+                      <MenuItem value={"Data Science"} sx={{ fontSize: "1.5rem" }}>
+                        Data Science
+                      </MenuItem>
+                      <MenuItem value={"Cyber"} sx={{ fontSize: "1.5rem" }}>
+                        Cyber
+                      </MenuItem>
+                      <MenuItem value={"Fintech"} sx={{ fontSize: "1.5rem" }}>
+                        Fintech
+                      </MenuItem>
                     </Select>
                   </FormControl>
                   <Fab
