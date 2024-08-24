@@ -118,6 +118,7 @@ const deleteProject = async (req, res) => {
   }
 };
 
+
 const likeProject = async (req, res) => {
   console.log("Liking project");
 
@@ -139,6 +140,28 @@ const likeProject = async (req, res) => {
   }
 };
 
+const findBestFit = async (req, res, next) => {
+  let query = "web development";
+
+  // Extract all projects descriptions
+  const projects = await projectModel.find({}, { description: 1, name: 1 }).exec();
+  console.log(projects);
+
+  // Construct the prompt for GPT
+  const descriptionsText = projects.map((project, index) => `${index + 1}. ${project.name}: ${project.description}`).join("\n");
+
+  const prompt = `
+       Here are some project descriptions:
+       ${descriptionsText}
+
+       Based on the following query: "${query}", please rank the projects from most to least relevant.
+       Provide the project number and a brief explanation of why it is relevant.
+   `;
+
+  req.prompt = prompt;
+  next();
+}
+
 export default {
   createProject,
   getProjects,
@@ -147,5 +170,9 @@ export default {
   getProjectsByUserID,
   searchProjects,
   deleteProject,
+
   likeProject,
+
+  findBestFit,
+
 };

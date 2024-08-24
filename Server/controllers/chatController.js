@@ -9,14 +9,16 @@ const createChat = async (req, res) => {
         apiKey: process.env.OPENAI_API_KEY,
     });
 
-    const message = req.body.message;
+    const prompt = req.prompt;
+
+    console.log(prompt);
 
     try {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
-                { role: 'system', content: `You are a dell e prompt writer, i will give you a project summary and you will return the perfect image creation prompt` },
-                { role: 'user', content: message },
+                { role: 'system', content: `you are a smart engine to search best fitting projects to user query` },
+                { role: 'user', content: prompt },
             ],
             temperature: 1,
             max_tokens: 256,
@@ -26,7 +28,7 @@ const createChat = async (req, res) => {
         });
 
         req.response = response.choices[0].message.content;
-        next();
+        res.status(200).send(req.response);
     }
     catch (error) {
         console.log(error);
