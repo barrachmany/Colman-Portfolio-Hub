@@ -68,6 +68,9 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
       </CardActions>
       <Collapse in={isExpanded} timeout="auto" unmountOnExit>
         <CardContent>
+          <Typography variant="h6" component="div" sx={{ textDecoration: "underline" }}>
+            Description:
+          </Typography>
           <Typography paragraph>{project.description}</Typography>
         </CardContent>
       </Collapse>
