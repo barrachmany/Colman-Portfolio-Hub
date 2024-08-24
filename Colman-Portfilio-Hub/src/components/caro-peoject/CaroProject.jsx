@@ -28,7 +28,6 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function CaroProject({ project, isExpanded, onExpandClick }) {
-
   const [isFavorite, setIsFavorite] = useState(false);
   const [likesCount, setLikesCount] = useState(project.likes);
   const { user, setUser } = useContext(AppContext);
@@ -50,27 +49,20 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
     }
   };
 
-  const [isFavorite, setIsFavorite] = React.useState(false);
-  const imgPath = project.image ? project.image : "./public/images/1.jpg";
-
-
   useEffect(() => {
     fetchUserData();
 
     if (project.idLikes.includes(user.id)) {
       setIsFavorite(true);
     }
-  }, [project.idLikes, user._id]);
+  }, [project.idLikes, user.id]);
 
   const handleLikeClick = async () => {
     try {
       const response = await axios.post(`http://localhost:5000/project/like/${project._id}`, {
         userId: user.id,
       });
-
-      // Toggle isFavorite based on response
       setIsFavorite(!isFavorite);
-      // Update likes count
       setLikesCount(response.data.likes);
     } catch (error) {
       console.error("Error liking the project:", error);
