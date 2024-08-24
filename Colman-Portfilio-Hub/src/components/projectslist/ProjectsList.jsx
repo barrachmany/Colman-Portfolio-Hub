@@ -1,3 +1,5 @@
+
+import React, { useState, useEffect, useContext } from "react";
 import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -8,10 +10,18 @@ import IconButton from "@mui/material/IconButton";
 import CaroProject from "./../caro-peoject/CaroProject";
 import Paper from "@mui/material/Paper";
 import SearchBar from "./../../components/SearchBar.jsx";
+import axios from "axios";
+import AppContext from "../../AppContext.jsx";
 
-const ProjectsList = ({ images }) => {
+const ProjectsList = () => {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [expandedIndex, setExpandedIndex] = useState(null); // Manage which card is expanded
+
+  const { accessToken } = useContext(AppContext);
+
   const theme = useTheme();
-
   const isXl = useMediaQuery("(min-width:1941px)");
   const isLg = useMediaQuery("(min-width:1551px) and (max-width:1940px)");
   const isMd = useMediaQuery("(min-width:1161px) and (max-width:1550px)");
@@ -30,6 +40,31 @@ const ProjectsList = ({ images }) => {
   } else if (isXs) {
     cols = 1;
   }
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/project/get", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((response) => {
+        setProjects(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
+  }, [accessToken]);
+
+  const handleExpandClick = (index) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
 
   return (
     <Paper
@@ -55,7 +90,9 @@ const ProjectsList = ({ images }) => {
         }}
         cols={cols}
         gap={1}>
-        {images.map((img, index) => (
+
+        {projects.map((project, index) => (
+
           <ImageListItem
             key={index}
             cols={1}
@@ -69,13 +106,11 @@ const ProjectsList = ({ images }) => {
               width: 300,
             }}>
             <CaroProject
-              project={{
-                img: img,
-                name: `Project ${index + 1}`,
-                title: `Project ${index + 1}`,
-                description: `This is project ${index + 1}`,
-                link: "https://www.google.com",
-              }}
+
+              project={project}
+              isExpanded={expandedIndex === index}
+              onExpandClick={() => handleExpandClick(index)}
+
               sx={{
                 height: "100%",
                 borderRadius: "4px",
@@ -88,12 +123,14 @@ const ProjectsList = ({ images }) => {
                   "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
                 borderRadius: "4px",
               }}
-              title={`Project ${index + 1}`}
+              title={project.name}
+
               position="top"
               actionIcon={
                 <IconButton
                   sx={{ color: "black", borderRadius: "4px" }}
-                  aria-label={`star Project ${index + 1}`}></IconButton>
+
+                  aria-label={`star ${project.name}`}></IconButton>
               }
               actionPosition="left"
             />

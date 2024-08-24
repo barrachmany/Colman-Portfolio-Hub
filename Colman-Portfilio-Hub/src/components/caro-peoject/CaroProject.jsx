@@ -1,6 +1,10 @@
+
+import React from "react";
+
 import { useState, useContext } from "react";
 import "./CaroProject.css";
 import * as React from "react";
+
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -10,6 +14,12 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
+import Divider from "@mui/material/Divider";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
+
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AppContext from "../../AppContext";
@@ -26,84 +36,48 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function CaroProject({ project }) {
-  const { projects, setProjects } = useContext(AppContext);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+export default function CaroProject({ project, isExpanded, onExpandClick }) {
+  const [isFavorite, setIsFavorite] = React.useState(false);
+  const imgPath = "./public/images/1.jpg";
 
-  // Handle Like button click
-  const handleLikeClick = async (projectId) => {
+  const handleIconClick = () => {
     setIsFavorite(!isFavorite);
-    console.log("Project liked:", projectId);
-
-    // Update likes on the server
-    try {
-      const response = await axios.post(
-        `http://localhost:5000/project/like/${projectId}`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-        }
-      );
-      console.log("Project liked:", response.data);
-
-      setProjects(
-        projects.map((p) => {
-          if (p._id === projectId) {
-            return { ...p, likes: p.likes + 1 };
-          }
-          return p;
-        })
-      );
-    } catch (error) {
-      console.error("Error liking project:", error);
-    }
-  };
-
-  // Handle Expand button click
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
   };
 
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: "4px" }}>
-      <CardMedia component="img" height="194" image={project.img} alt={project.name} />
-
-      <CardActions disableSpacing sx={{ alignItems: "center", justifyContent: "space-between" }}>
-        <Typography variant="body2" color="text.primary" sx={{ marginLeft: 1 }}>
+    <Card sx={{ width: 300, borderRadius: "4px" }}>
+      <CardMedia component="img" height="194" image={imgPath} alt={project.name} />
+      <CardContent>
+        <Typography variant="h6" component="div">
           {project.name}
         </Typography>
-        <div>
-          <IconButton onClick={() => handleLikeClick(project._id)}>
-            {isFavorite ? <FavoriteIcon sx={{ color: "red" }} /> : <FavoriteBorderIcon />}
-          </IconButton>
-
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more">
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </div>
+        <Typography variant="body2" color="text.secondary">
+          Members: {project.members.join(", ")}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Category: {project.category}
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton onClick={handleIconClick}>
+          {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        </IconButton>
+        <Divider orientation="vertical" variant="middle" flexItem />
+        <IconButton>
+          <FullscreenIcon />
+        </IconButton>
+        <ExpandMore
+          expand={isExpanded}
+          onClick={onExpandClick}
+          aria-expanded={isExpanded}
+          aria-label="show more">
+          <ExpandMoreIcon />
+        </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={isExpanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {project.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {project.description}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Category: {project.category}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Created by: {project.creator}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Members: {project.members.join(", ")}
-          </Typography>
+          <Typography paragraph>{project.description}</Typography>
+
         </CardContent>
       </Collapse>
     </Card>
