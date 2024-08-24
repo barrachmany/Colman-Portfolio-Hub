@@ -30,7 +30,7 @@ const ExpandMore = styled((props) => {
 
 export default function CaroProject({ project, isExpanded, onExpandClick }) {
   const [isFavorite, setIsFavorite] = React.useState(false);
-  const imgPath = "./public/images/1.jpg";
+  const imgPath = project.image ? project.image : "./public/images/1.jpg";
 
   const handleIconClick = () => {
     setIsFavorite(!isFavorite);
