@@ -60,10 +60,21 @@ export default function CaroProject({ project }) {
     }
   };
 
+<<<<<<< HEAD
   // Handle Expand button click
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+=======
+    return (
+        <Card sx={{ width: 300, borderRadius: '4px' }}>
+            <CardMedia
+                component="img"
+                height="194"
+                image={project.img}
+                alt={project.name}
+            />
+>>>>>>> origin/main
 
   return (
     <Card sx={{ maxWidth: 345, borderRadius: "4px" }}>

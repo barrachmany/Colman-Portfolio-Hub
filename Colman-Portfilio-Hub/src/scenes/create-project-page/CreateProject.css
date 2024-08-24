@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 .create-project-container {
-    margin-top: 30px;
     display: flex;
+    height: 1000px;
+    padding: 20px;
+    border-radius: 15px;
 }
 
 .login-container {
@@ -9,12 +13,13 @@
     justify-content: center;
     height: 90vh;
     align-items: center;
+    border-radius: 15px;
 }
 
 .login-inner-container {
     height: 90vh;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 20px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,20 +28,27 @@
 }
 
 .paper-inner-container {
+    border-radius: 15px;
+    padding-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    width: 800px;
+    height: 70vh;
 }
 
 .h2-login {
     font-size: 50px;
     margin-bottom: 50px;
     color: #255366;
+    font-family: "Lobster", sans-serif;
 }
 
 .form-names {
     display: flex;
+    width: 92%;
+    justify-content: space-between;
+    margin-bottom: 40px;
 }
 
 .choose-create-button {
@@ -45,4 +57,3 @@
     flex-direction: column;
     height: 120px;
 }
-

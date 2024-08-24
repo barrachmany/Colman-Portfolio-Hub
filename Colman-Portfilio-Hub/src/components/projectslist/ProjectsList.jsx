@@ -1,63 +1,63 @@
-import React, { useState, useEffect, useContext } from "react";
+import * as React from "react";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import InfoIcon from "@mui/icons-material/Info";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Collapse from "@mui/material/Collapse";
 import CaroProject from "./../caro-peoject/CaroProject";
 import Paper from "@mui/material/Paper";
-import AppContext from "../../AppContext";
-import axios from "axios";
+import SearchBar from "./../../components/SearchBar.jsx";
 
-const ProjectsList = () => {
-  const { projects, setProjects } = useContext(AppContext);
-  const [expanded, setExpanded] = useState({}); // Track which project is expanded
-  const [likes, setLikes] = useState({}); // Track likes for each project
+const ProjectsList = ({ images }) => {
+  const theme = useTheme();
 
-  const defaultImage = "/Images/1.jpg";
+  const isXl = useMediaQuery("(min-width:1941px)");
+  const isLg = useMediaQuery("(min-width:1551px) and (max-width:1940px)");
+  const isMd = useMediaQuery("(min-width:1161px) and (max-width:1550px)");
+  const isSm = useMediaQuery("(min-width:770px) and (max-width:1160px)");
+  const isXs = useMediaQuery("(max-width:769px)");
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/projects", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-        });
-        setProjects(response.data);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-      }
-    };
-
-    fetchProjects();
-  }, [setProjects]);
+  let cols = 1;
+  if (isXl) {
+    cols = 5;
+  } else if (isLg) {
+    cols = 4;
+  } else if (isMd) {
+    cols = 3;
+  } else if (isSm) {
+    cols = 2;
+  } else if (isXs) {
+    cols = 1;
+  }
 
   return (
     <Paper
       elevation={3}
       sx={{
         bgcolor: "#b0d5d68c",
-        width: "95%",
+        width: "90%",
         display: "flex",
         justifyContent: "center",
         marginTop: "50px",
         marginBottom: "40px",
+        flexDirection: "column",
+        alignItems: "center",
       }}>
+      <SearchBar />
       <ImageList
         sx={{
           marginTop: "30px",
           marginBottom: "20px",
-          width: "93%",
+          width: "90%",
           height: "100%",
           transform: "translateZ(0)",
         }}
-        cols={4}
+        cols={cols}
         gap={1}>
-        {projects.map((project) => (
+        {images.map((img, index) => (
           <ImageListItem
-            key={project._id}
+            key={index}
             cols={1}
             rows={1}
             sx={{
@@ -66,23 +66,36 @@ const ProjectsList = () => {
               alignItems: "center",
               justifyContent: "center",
               margin: "15px",
-              position: "relative",
+              width: 300,
             }}>
             <CaroProject
               project={{
-                img: project.image || defaultImage, // Use default image if no project image
-                name: project.name,
-                title: project.title,
-                description: project.description,
-                link: project.gitRepo,
-                creator: project.creator,
-                category: project.category,
-                members: project.members,
+                img: img,
+                name: `Project ${index + 1}`,
+                title: `Project ${index + 1}`,
+                description: `This is project ${index + 1}`,
+                link: "https://www.google.com",
               }}
               sx={{
                 height: "100%",
                 borderRadius: "4px",
               }}
+            />
+            <ImageListItemBar
+              sx={{
+                background:
+                  "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
+                  "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
+                borderRadius: "4px",
+              }}
+              title={`Project ${index + 1}`}
+              position="top"
+              actionIcon={
+                <IconButton
+                  sx={{ color: "black", borderRadius: "4px" }}
+                  aria-label={`star Project ${index + 1}`}></IconButton>
+              }
+              actionPosition="left"
             />
           </ImageListItem>
         ))}

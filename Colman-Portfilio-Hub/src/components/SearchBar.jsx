@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import AppContext from "../AppContext";
 import axios from "axios";
+import './projectslist/ProjectsList.css';
 
 
 const SearchBar = () => {
@@ -42,7 +43,12 @@ const SearchBar = () => {
   ];
 
   return (
-    <div className="navbar-container">
+    <div className="navbar-container"
+      style={{
+        display: 'flex',
+        width: '100%',
+        justifyContent: 'flex-end'
+      }}>
       <div className="inside-navbar-container">
         <input type="text" placeholder="Search" className="navbar-input" onChange={handleSearch} />
         <select name="internship" className="navbar-select" onChange={handleCategory}>

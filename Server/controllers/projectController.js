@@ -1,5 +1,4 @@
 import projectModel from "../models/projectModel.js";
-import userModel from "../models/userModel.js";
 
 const createProject = async (req, res) => {
   console.log("creating project");
@@ -21,8 +20,8 @@ const createProject = async (req, res) => {
     const newProject = await projectModel.create({
       name: name,
       description: description,
-      creator: creator,
       members: members,
+      creator: creator,
       gitRepo: gitRepo,
       category: category,
       idMembers: idMembers,
