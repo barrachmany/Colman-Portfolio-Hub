@@ -15,7 +15,7 @@ const ProjectsList = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [expandedIndex, setExpandedIndex] = useState(null); // Manage which card is expanded
+  const [expandedIndex, setExpandedIndex] = useState(null);
 
   const { accessToken } = useContext(AppContext);
 
