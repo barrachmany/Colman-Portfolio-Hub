@@ -41,7 +41,7 @@ export default function CaroProject({ project }) {
     };
 
     return (
-        <Card sx={{ maxWidth: 345, borderRadius: '4px' }}>
+        <Card sx={{ width: 300, borderRadius: '4px' }}>
             <CardMedia
                 component="img"
                 height="194"

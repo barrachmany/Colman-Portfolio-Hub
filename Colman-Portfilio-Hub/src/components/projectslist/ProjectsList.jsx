@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -7,6 +9,27 @@ import CaroProject from './../caro-peoject/CaroProject';
 import Paper from '@mui/material/Paper';
 
 const ProjectsList = ({ images }) => {
+    const theme = useTheme();
+
+    const isXl = useMediaQuery('(min-width:1941px)');
+    const isLg = useMediaQuery('(min-width:1551px) and (max-width:1940px)');
+    const isMd = useMediaQuery('(min-width:1161px) and (max-width:1550px)');
+    const isSm = useMediaQuery('(min-width:770px) and (max-width:1160px)');
+    const isXs = useMediaQuery('(max-width:769px)');
+
+    let cols = 1;
+    if (isXl) {
+        cols = 5;
+    } else if (isLg) {
+        cols = 4;
+    } else if (isMd) {
+        cols = 3;
+    } else if (isSm) {
+        cols = 2;
+    } else if (isXs) {
+        cols = 1;
+    }
+
     return (
         <Paper
             elevation={3}
@@ -22,11 +45,11 @@ const ProjectsList = ({ images }) => {
                 sx={{
                     marginTop: '30px',
                     marginBottom: '20px',
-                    width: '93%',
+                    width: '90%',
                     height: '100%',
                     transform: 'translateZ(0)',
                 }}
-                cols={4}
+                cols={cols}
                 gap={1}
             >
                 {images.map((img, index) => (
@@ -40,7 +63,7 @@ const ProjectsList = ({ images }) => {
                             alignItems: 'center',
                             justifyContent: 'center',
                             margin: '15px',
-
+                            width: 300,
                         }}
                     >
                         <CaroProject

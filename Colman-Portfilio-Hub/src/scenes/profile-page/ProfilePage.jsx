@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
-import Nav from "../../components/Nav.jsx";
 import axios from "axios";
 import AppContext from "../../AppContext.jsx";
+import ReactCardFlip from "react-card-flip";
+import "./ProfilePage.css";
+import EditIcon from '@mui/icons-material/Edit';
+import CheckIcon from '@mui/icons-material/Check';
 
-//comment test to marge the branch
 const ProfilePage = () => {
   const { user, setUser, projects, setProjects } = useContext(AppContext);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingField, setIsEditingField] = useState({ name: false, email: false, password: false });
+  const [isFlipped, setIsFlipped] = useState({});
 
   const fetchUserData = async () => {
     try {
-      console.log("Fetching user data...");
       const response = await axios.get("http://localhost:5000/user/get", {
         headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
@@ -31,11 +33,7 @@ const ProfilePage = () => {
     fetchUserData();
   }, []);
 
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
-
-  const handleSave = async () => {
+  const handleSave = async (field) => {
     try {
       const response = await axios.put(
         "http://localhost:5000/user/update",
@@ -49,8 +47,7 @@ const ProfilePage = () => {
         }
       );
       localStorage.setItem("accessToken", response.data.accessToken);
-      setIsEditing(false);
-      console.log("Profile updated:", response.data);
+      setIsEditingField((prevState) => ({ ...prevState, [field]: false }));
     } catch (error) {
       if (error.response.status === 406) {
         alert("Email already exists");
@@ -61,20 +58,15 @@ const ProfilePage = () => {
 
   const handleProject = async (id) => {
     try {
-      console.log("Fetching project data...");
       const response = await axios.get(`http://localhost:5000/project/get/member/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
-      // const response = await axios.get(`http://localhost:5000/project/get/`, {
-      //   headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-      // });
 
       if (Array.isArray(response.data)) {
         setProjects(response.data);
       } else {
         setProjects([response.data]);
       }
-      console.log("Projects fetched:", response.data);
     } catch (error) {
       console.error("Error fetching projects:", error);
     }
@@ -86,76 +78,141 @@ const ProfilePage = () => {
         headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
       setProjects(projects.filter((project) => project._id !== projectId));
-      console.log("Project deleted");
     } catch (error) {
       console.error("Error deleting project:", error);
     }
   };
 
+  const handleFlip = (projectId) => {
+    setIsFlipped((prevState) => ({
+      ...prevState,
+      [projectId]: !prevState[projectId],
+    }));
+  };
+
   return (
     <>
       <div className="profile-container">
-        <h1>Profile Page</h1>
-
+        <h1>Profile</h1>
         <div className="profile-info">
-          <h2>ID:</h2>
-          <p>{user.id}</p>
-          <h2>Username:</h2>
-          {isEditing ? (
-            <input
-              type="text"
-              value={user.name}
-              onChange={(e) => setUser({ ...user, name: e.target.value })}
-            />
-          ) : (
-            <p>{user.name}</p>
-          )}
+          <h2 className="user-name">Bar Rachmany</h2>
+          <h1 className="h1-info">Information</h1>
+          <div className="user-inner-information">
+            <div className="two-parts-info-user">
+              <h2 className="user-inner-info">ID</h2>
+              <p>{user.id} 211521166</p>
+              <div>
+                <h2 className="user-inner-info">Username</h2>
+                {isEditingField.name ? (
+                  <>
+                    <input
+                      type="text"
+                      value={user.name}
+                      onChange={(e) => setUser({ ...user, name: e.target.value })}
+                    />
+                    <CheckIcon sx={{ marginTop: '28px', cursor: 'pointer' }} onClick={() => handleSave("name")} />
+                  </>
+                ) : (
+                  <>
+                    <div className="info-user-edit">
+                      <p>{user.name} barrachmany</p>
+                      <EditIcon
+                        sx={{
+                          marginBottom: '28px',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => setIsEditingField({ ...isEditingField, name: true })} />
+                    </div>
 
-          <h2>Email:</h2>
-          {isEditing ? (
-            <input
-              type="email"
-              value={user.email}
-              onChange={(e) => setUser({ ...user, email: e.target.value })}
-            />
-          ) : (
-            <p>{user.email}</p>
-          )}
+                  </>
+                )}
+              </div>
 
-          <h2>Password:</h2>
-          {isEditing ? (
-            <input
-              type="password"
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
-            />
-          ) : (
-            <p>{"●●●●●●●●"}</p>
-          )}
+            </div>
+
+            <div className="two-parts-info-user">
+              <div>
+                <h2 className="user-inner-info">Email</h2>
+                {isEditingField.email ? (
+                  <>
+                    <input
+                      type="email"
+                      value={user.email}
+                      onChange={(e) => setUser({ ...user, email: e.target.value })}
+                    />
+                    <CheckIcon sx={{ marginTop: '28px', cursor: 'pointer' }} onClick={() => handleSave("email")} />
+                  </>
+                ) : (
+                  <>
+                    <div className="info-user-edit">
+                      <p>{user.email} rachmanybar@gmail.com</p>
+                      <EditIcon
+                        sx={{
+                          marginBottom: '28px',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => setIsEditingField({ ...isEditingField, email: true })} />
+                    </div>
+
+                  </>
+                )}
+              </div>
+              <div>
+                <h2 className="user-inner-info">Password</h2>
+                {isEditingField.password ? (
+                  <>
+                    <input
+                      type="password"
+                      onChange={(e) => setUser({ ...user, password: e.target.value })}
+                    />
+                    <CheckIcon sx={{ marginTop: '28px', cursor: 'pointer' }} onClick={() => handleSave("password")} />
+                  </>
+                ) : (
+                  <>
+                    <div className="info-user-edit">
+                      <p>{"●●●●●●●●"}</p>
+                      <EditIcon
+                        sx={{
+                          marginBottom: '28px',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => setIsEditingField({ ...isEditingField, password: true })} />
+                    </div>
+
+                  </>
+                )}
+
+              </div>
+
+            </div>
+          </div>
+          <h1 className="h1-info">Projects</h1>
         </div>
-
-        {isEditing ? (
-          <button onClick={handleSave}>Save</button>
-        ) : (
-          <button onClick={handleEdit}>Edit Profile</button>
-        )}
       </div>
-
       <div className="project-container">
         {projects.length > 0 ? (
           projects.map((project) => (
-            <div className="project" key={project._id}>
-              <h2>Project Name: {project.name}</h2>
-              <p>Description: {project.description}</p>
-              <p>Creator: {project.creator}</p>
-              <p>Members: {project.members.join(", ")}</p>
-              <p>Category: {project.category}</p>
-              <a href={project.gitRepo} target="_blank" rel="noopener noreferrer">
-                Github Repo
-              </a>
-              {project.image && <img src={project.image} alt="Project" />}
-              <button>View Project</button>
-              <button onClick={() => handleDeleteProject(project._id)}>Delete Project</button>
-            </div>
+            <ReactCardFlip
+              key={project._id}
+              isFlipped={isFlipped[project._id]}
+              flipDirection="horizontal"
+              containerStyle={{ width: "100%", height: "300px", position: "relative" }}>
+              <div className="card" onClick={() => handleFlip(project._id)}>
+                <h2>Project Name: {project.name}</h2>
+                <p>Members: {project.members.join(", ")}</p>
+              </div>
+
+              <div className="card card-back" onClick={() => handleFlip(project._id)}>
+                <h2>Description: {project.description}</h2>
+                <p>Creator: {project.creator}</p>
+                <p>Category: {project.category}</p>
+                <a href={project.gitRepo} target="_blank" rel="noopener noreferrer">
+                  Github Repo
+                </a>
+                {project.image && <img src={project.image} alt="Project" />}
+                <button onClick={() => handleDeleteProject(project._id)}>Delete Project</button>
+              </div>
+            </ReactCardFlip>
           ))
         ) : (
           <p>No projects found.</p>
