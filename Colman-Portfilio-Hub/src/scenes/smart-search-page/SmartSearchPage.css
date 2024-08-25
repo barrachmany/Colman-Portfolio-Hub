@@ -1,0 +1,27 @@
+.smart-search-page {
+    margin-top: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 80vh;
+    gap: 20px;
+}
+
+input {
+    width: 50%;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+button {
+    width: 50%;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    background-color: #95d3ff;
+    cursor: pointer;
+}
