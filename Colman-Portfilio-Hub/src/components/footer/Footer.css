@@ -1,0 +1,22 @@
+.footer {
+    display: flex;
+    align-items: flex-end;
+    top: 0;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    height: 100%;
+}
+
+.footer-container {
+    background-color: #255366;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+}
+
+.links-footer {
+    color: white;
+}
