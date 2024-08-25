@@ -25,7 +25,7 @@ const createProject = async (req, res) => {
       gitRepo: gitRepo,
       category: category,
       idMembers: idMembers,
-      image: `http://localhost:5000/images/${name}.jpg`,
+      image: `http://localhost:5000/${name}.jpg`,
     });
 
     res.status(201).send(newProject);

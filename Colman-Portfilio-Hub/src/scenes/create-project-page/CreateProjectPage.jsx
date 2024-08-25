@@ -75,20 +75,25 @@ const CreateProjectPage = () => {
       console.log("invalid inputs");
       return;
     }
-    axios
-      .post("http://localhost:5000/project/create", newProject, {
+    axios.post("http://localhost:5000/api/delle", newProject).then((response) => {
+      console.log(response);
+      axios.post("http://localhost:5000/project/create", newProject, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      .then((response) => {
-        console.log(response);
-        navigate("/main");
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(error.response.statusText);
-      });
+        .then((response) => {
+          console.log(response);
+          navigate("/main");
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(error.response.statusText);
+        });
+    }).catch((error) => {
+      console.log(error);
+      alert(error.response.statusText);
+    });
   };
 
   return (
