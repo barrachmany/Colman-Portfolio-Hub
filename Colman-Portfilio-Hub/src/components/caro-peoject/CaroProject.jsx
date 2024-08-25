@@ -32,6 +32,8 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [likesCount, setLikesCount] = useState(project.likes);
   const { user, setUser } = useContext(AppContext);
+  const projectIamge = project.image ? project.image : "./public/images/1.jpg"; 
+
 
   console.log("Project prop:", project);
 
@@ -78,7 +80,7 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
 
   return (
     <Card sx={{ width: 300, borderRadius: "4px" }}>
-      <CardMedia component="img" height="194" image={`./public/images/1.jpg`} alt={project.name} />
+      <CardMedia component="img" height="194" image={projectIamge} alt={project.name} />
       <CardContent>
         <Typography variant="h6" component="div">
           {project.name}
