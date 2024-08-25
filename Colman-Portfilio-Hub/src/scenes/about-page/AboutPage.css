@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+.about-paper {
+    margin-top: 90px;
+    width: 55%;
+    height: auto;
+    font-size: 15px;
+    padding: 20px;
+}
+
+.about-container {
+    display: flex;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+.h1-about {
+    font-family: "Lobster", sans-serif;
+    font-size: 38px;
+    color: #255366;
+}
+
+.p-about {
+    margin-top: 15px;
+    text-align: center;
+    padding: 15px;
+    line-height: 1.8;
+}
