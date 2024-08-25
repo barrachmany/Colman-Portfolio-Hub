@@ -1,5 +1,4 @@
 import projectModel from "../models/projectModel.js";
-import userModel from "../models/userModel.js";
 
 const createProject = async (req, res) => {
   console.log("creating project");
@@ -11,6 +10,8 @@ const createProject = async (req, res) => {
   const gitRepo = req.body.gitRepo;
   const category = req.body.category;
   const idMembers = req.body.idMembers;
+  const likes = req.body.likes;
+  const idLikes = req.body.idLikes;
 
   if (!name || !creator) {
     return res.status(400).send("missing name or creator");
@@ -20,11 +21,12 @@ const createProject = async (req, res) => {
     const newProject = await projectModel.create({
       name: name,
       description: description,
-      creator: creator,
       members: members,
+      creator: creator,
       gitRepo: gitRepo,
       category: category,
       idMembers: idMembers,
+      image: `http://localhost:5000/images/${name}.jpg`,
     });
 
     res.status(201).send(newProject);
@@ -117,6 +119,58 @@ const deleteProject = async (req, res) => {
   }
 };
 
+const likeProject = async (req, res) => {
+  const { projectId } = req.params;
+  const { userId } = req.body;
+  console.log("This is the project ID: ", projectId);
+  console.log("This is the user ID: ", userId);
+
+  try {
+    let project = await projectModel.findById(projectId);
+
+    const userHasLiked = project.idLikes.includes(userId);
+
+    if (userHasLiked) {
+      project.idLikes = project.idLikes.filter((id) => id !== userId);
+    } else {
+      project.idLikes.push(userId);
+    }
+
+    project.likes = project.idLikes.length;
+
+    await project.save();
+
+    res.json({ likes: project.likes, isLiked: !userHasLiked });
+  } catch (error) {
+    console.error("Error toggling like:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+const findBestFit = async (req, res, next) => {
+  let query = "web development";
+
+  // Extract all projects descriptions
+  const projects = await projectModel.find({}, { description: 1, name: 1 }).exec();
+  console.log(projects);
+
+  // Construct the prompt for GPT
+  const descriptionsText = projects
+    .map((project, index) => `${index + 1}. ${project.name}: ${project.description}`)
+    .join("\n");
+
+  const prompt = `
+       Here are some project descriptions:
+       ${descriptionsText}
+
+       Based on the following query: "${query}", please rank the projects from most to least relevant.
+       Provide the project number and a brief explanation of why it is relevant.
+   `;
+
+  req.prompt = prompt;
+  next();
+};
+
 export default {
   createProject,
   getProjects,
@@ -125,4 +179,6 @@ export default {
   getProjectsByUserID,
   searchProjects,
   deleteProject,
+  likeProject,
+  findBestFit,
 };

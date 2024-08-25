@@ -30,7 +30,7 @@ const createDellE = async (req, res) => {
 
     const projectDescription = req.body.description;
     const projectName = req.body.name;
-    const filePath = path.resolve(process.cwd(), 'generated_image.png');
+    const filePath = path.resolve(process.cwd(), `./public/images/${projectName}.jpg`);
     console.log(filePath);
 
     const openai = new OpenAI({
@@ -54,5 +54,6 @@ const createDellE = async (req, res) => {
 
     res.status(200).send(image.data[0].url);
 }
+
 
 export default { createDellE };
