@@ -15,6 +15,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import AppContext from "../../AppContext";
+import Tooltip from '@mui/material/Tooltip';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,6 +32,8 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [likesCount, setLikesCount] = useState(project.likes);
   const { user, setUser } = useContext(AppContext);
+
+  console.log("Project prop:", project);
 
   const fetchUserData = async () => {
     try {
@@ -69,6 +72,10 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
     }
   };
 
+  const handleFullscreenClick = () => {
+    window.open(project.gitRepo, "_blank");
+  };
+
   return (
     <Card sx={{ width: 300, borderRadius: "4px" }}>
       <CardMedia component="img" height="194" image={`./public/images/1.jpg`} alt={project.name} />
@@ -87,20 +94,28 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton onClick={handleLikeClick}>
-          {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-        </IconButton>
+        <Tooltip title="Like">
+          <IconButton onClick={handleLikeClick}>
+            {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          </IconButton>
+        </Tooltip>
+
         <Divider orientation="vertical" variant="middle" flexItem />
-        <IconButton>
-          <FullscreenIcon />
-        </IconButton>
+        <Tooltip title="Project Page">
+          <IconButton onClick={handleFullscreenClick}>
+            <FullscreenIcon />
+          </IconButton>
+        </Tooltip>
         <ExpandMore
           expand={isExpanded}
           onClick={onExpandClick}
           aria-expanded={isExpanded}
           aria-label="show more">
-          <ExpandMoreIcon />
+          <Tooltip title="Description">
+            <ExpandMoreIcon />
+          </Tooltip>
         </ExpandMore>
+
       </CardActions>
       <Collapse in={isExpanded} timeout="auto" unmountOnExit>
         <CardContent>

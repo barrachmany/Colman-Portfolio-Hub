@@ -7,6 +7,7 @@ import "./MainPage.css";
 import "./../../App.css";
 import Carousel from "../../components/carousel/Carousel";
 import ProjectsList from "../../components/projectslist/ProjectsList";
+import Footer from "../../components/footer/Footer";
 
 const MainPage = () => {
   const images = [
@@ -27,6 +28,7 @@ const MainPage = () => {
     { url: "/Videos/2014.mp4", name: "2014" },
     { url: "/Videos/2016.mp4", name: "2016" },
     { url: "/Videos/2017.mp4", name: "2017" },
+    { url: "/Videos/2018.mp4", name: "2018" }
   ];
 
   const navigate = useNavigate();
