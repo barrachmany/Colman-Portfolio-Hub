@@ -75,20 +75,25 @@ const CreateProjectPage = () => {
       console.log("invalid inputs");
       return;
     }
-    axios
-      .post("http://localhost:5000/project/create", newProject, {
+    axios.post("http://localhost:5000/api/delle", newProject).then((response) => {
+      console.log(response);
+      axios.post("http://localhost:5000/project/create", newProject, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      .then((response) => {
-        console.log(response);
-        navigate("/main");
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(error.response.statusText);
-      });
+        .then((response) => {
+          console.log(response);
+          navigate("/main");
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(error.response.statusText);
+        });
+    }).catch((error) => {
+      console.log(error);
+      alert(error.response.statusText);
+    });
   };
 
   return (
@@ -99,7 +104,7 @@ const CreateProjectPage = () => {
           <div className="login-inner-container">
             <Paper
               elevation={3}
-              style={{ width: "800px", height: "850px", borderRadius: "15px", marginTop: "100px" }}
+              style={{ width: "800px", height: "850px", borderRadius: '15px', marginTop: '100px' }}
               className="create-project-paper">
               <div className="paper-inner-container">
                 <h2 className="h2-login" sx={{ color: "#255366", fontSize: "6rem" }}>

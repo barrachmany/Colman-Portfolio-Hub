@@ -12,12 +12,11 @@ import axios from "axios";
 import AppContext from "../../AppContext.jsx";
 
 const ProjectsList = () => {
-  const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedIndex, setExpandedIndex] = useState(null);
 
-  const { accessToken } = useContext(AppContext);
+  const { accessToken, projects, setProjects } = useContext(AppContext);
 
   const theme = useTheme();
   const isXl = useMediaQuery("(min-width:1941px)");
@@ -40,20 +39,16 @@ const ProjectsList = () => {
   }
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/project/get", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((response) => {
-        setProjects(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
+    axios.get("http://localhost:5000/project/get", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    }).then((res) => {
+      setProjects(res.data);
+      setLoading(false);
+    }).catch((err) => {
+      setError(err);
+      setLoading(false);
+    });
+
   }, [accessToken]);
 
   const handleExpandClick = (index) => {

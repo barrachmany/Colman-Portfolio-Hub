@@ -15,6 +15,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import AppContext from "../../AppContext";
+import Tooltip from "@mui/material/Tooltip";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,7 +32,9 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [likesCount, setLikesCount] = useState(project.likes);
   const { user, setUser } = useContext(AppContext);
-  const imgPath = "./public/images/1.jpg";
+  const projectIamge = project.image ? project.image : "./public/images/1.jpg";
+
+  console.log("Project prop:", project);
 
   const fetchUserData = async () => {
     try {
@@ -61,26 +64,27 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
     } else {
       setIsFavorite(false);
     }
-  }, [user, project.idLikes]);
+  }, [project.idLikes, user.id]);
 
   const handleLikeClick = async () => {
     try {
       const response = await axios.post(`http://localhost:5000/project/like/${project._id}`, {
         userId: user.id,
       });
-
-      // Toggle isFavorite based on response
       setIsFavorite(!isFavorite);
-      // Update likes count
       setLikesCount(response.data.likes);
     } catch (error) {
       console.error("Error liking the project:", error);
     }
   };
 
+  const handleFullscreenClick = () => {
+    window.open(project.gitRepo, "_blank");
+  };
+
   return (
     <Card sx={{ width: 300, borderRadius: "4px" }}>
-      <CardMedia component="img" height="194" image={imgPath} alt={project.name} />
+      <CardMedia component="img" height="194" image={projectIamge} alt={project.name} />
       <CardContent>
         <Typography variant="h6" component="div">
           {project.name}
@@ -96,19 +100,26 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton onClick={handleLikeClick}>
-          {isFavorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
-        </IconButton>
+        <Tooltip title="Like">
+          <IconButton onClick={handleLikeClick}>
+            {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          </IconButton>
+        </Tooltip>
+
         <Divider orientation="vertical" variant="middle" flexItem />
-        <IconButton>
-          <FullscreenIcon />
-        </IconButton>
+        <Tooltip title="Project Page">
+          <IconButton onClick={handleFullscreenClick}>
+            <FullscreenIcon />
+          </IconButton>
+        </Tooltip>
         <ExpandMore
           expand={isExpanded}
           onClick={onExpandClick}
           aria-expanded={isExpanded}
           aria-label="show more">
-          <ExpandMoreIcon />
+          <Tooltip title="Description">
+            <ExpandMoreIcon />
+          </Tooltip>
         </ExpandMore>
       </CardActions>
       <Collapse in={isExpanded} timeout="auto" unmountOnExit>

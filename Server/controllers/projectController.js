@@ -26,7 +26,7 @@ const createProject = async (req, res) => {
       gitRepo: gitRepo,
       category: category,
       idMembers: idMembers,
-      image: `http://localhost:5000/images/${name}.jpg`,
+      image: `http://localhost:5000/${name}.jpg`,
     });
 
     res.status(201).send(newProject);
@@ -148,7 +148,7 @@ const likeProject = async (req, res) => {
 };
 
 const findBestFit = async (req, res, next) => {
-  let query = "web development";
+  let query = req.query.search;
 
   // Extract all projects descriptions
   const projects = await projectModel.find({}, { description: 1, name: 1 }).exec();
@@ -165,6 +165,8 @@ const findBestFit = async (req, res, next) => {
 
        Based on the following query: "${query}", please rank the projects from most to least relevant.
        Provide the project number and a brief explanation of why it is relevant.
+
+       give me the results as json ! with the name, description, and relevance of each project, like so:
    `;
 
   req.prompt = prompt;
