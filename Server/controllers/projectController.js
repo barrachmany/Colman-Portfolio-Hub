@@ -11,6 +11,7 @@ const createProject = async (req, res) => {
   const category = req.body.category;
   const idMembers = req.body.idMembers;
   const likes = req.body.likes;
+  const idLikes = req.body.idLikes;
 
   if (!name || !creator) {
     return res.status(400).send("missing name or creator");
@@ -118,25 +119,31 @@ const deleteProject = async (req, res) => {
   }
 };
 
-
 const likeProject = async (req, res) => {
-  console.log("Liking project");
-
-  const { id } = req.params;
-  console.log("This is the ID: ", id);
+  const { projectId } = req.params;
+  const { userId } = req.body;
+  console.log("This is the project ID: ", projectId);
+  console.log("This is the user ID: ", userId);
 
   try {
-    const project = await projectModel.findById(_id);
-    if (!project) {
-      return res.status(404).send("Project not found");
+    let project = await projectModel.findById(projectId);
+
+    const userHasLiked = project.idLikes.includes(userId);
+
+    if (userHasLiked) {
+      project.idLikes = project.idLikes.filter((id) => id !== userId);
+    } else {
+      project.idLikes.push(userId);
     }
 
-    project.likes += 1;
+    project.likes = project.idLikes.length;
+
     await project.save();
-    res.status(200).send(project);
-  } catch (err) {
-    console.error("Error liking project:", err.message);
-    res.status(500).send(err.message);
+
+    res.json({ likes: project.likes, isLiked: !userHasLiked });
+  } catch (error) {
+    console.error("Error toggling like:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -148,7 +155,9 @@ const findBestFit = async (req, res, next) => {
   console.log(projects);
 
   // Construct the prompt for GPT
-  const descriptionsText = projects.map((project, index) => `${index + 1}. ${project.name}: ${project.description}`).join("\n");
+  const descriptionsText = projects
+    .map((project, index) => `${index + 1}. ${project.name}: ${project.description}`)
+    .join("\n");
 
   const prompt = `
        Here are some project descriptions:
@@ -160,7 +169,7 @@ const findBestFit = async (req, res, next) => {
 
   req.prompt = prompt;
   next();
-}
+};
 
 export default {
   createProject,
@@ -170,9 +179,6 @@ export default {
   getProjectsByUserID,
   searchProjects,
   deleteProject,
-
   likeProject,
-
   findBestFit,
-
 };

@@ -95,14 +95,14 @@ const ProfilePage = () => {
       <div className="profile-container">
         <h1>Profile</h1>
         <div className="profile-info">
-          <h2 className="user-name">Bar Rachmany</h2>
+          <h2 className="user-name">{user.name}</h2>
           <h1 className="h1-info">Information</h1>
           <div className="user-inner-information">
             <div className="two-parts-info-user">
               <h2 className="user-inner-info">ID</h2>
-              <p>{user.id} 211521166</p>
+              <p>{user.id}</p>
               <div>
-                <h2 className="user-inner-info">Username</h2>
+                <h2 className="user-inner-info">Name</h2>
                 {isEditingField.name ? (
                   <>
                     <input
@@ -115,7 +115,7 @@ const ProfilePage = () => {
                 ) : (
                   <>
                     <div className="info-user-edit">
-                      <p>{user.name} barrachmany</p>
+                      <p>{user.name}</p>
                       <EditIcon
                         sx={{
                           marginBottom: '28px',
@@ -145,7 +145,7 @@ const ProfilePage = () => {
                 ) : (
                   <>
                     <div className="info-user-edit">
-                      <p>{user.email} rachmanybar@gmail.com</p>
+                      <p>{user.email}</p>
                       <EditIcon
                         sx={{
                           marginBottom: '28px',
