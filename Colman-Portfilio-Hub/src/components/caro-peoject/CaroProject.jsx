@@ -28,10 +28,10 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function CaroProject({ project, isExpanded, onExpandClick }) {
-
   const [isFavorite, setIsFavorite] = useState(false);
   const [likesCount, setLikesCount] = useState(project.likes);
   const { user, setUser } = useContext(AppContext);
+  const imgPath = "./public/images/1.jpg";
 
   const fetchUserData = async () => {
     try {
@@ -50,17 +50,18 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
     }
   };
 
-  const [isFavorite, setIsFavorite] = React.useState(false);
-  const imgPath = project.image ? project.image : "./public/images/1.jpg";
-
-
   useEffect(() => {
     fetchUserData();
+  }, []);
 
-    if (project.idLikes.includes(user.id)) {
+  useEffect(() => {
+    // Check if the current user has liked the project whenever user or project changes
+    if (user && project.idLikes.includes(user.id)) {
       setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
     }
-  }, [project.idLikes, user._id]);
+  }, [user, project.idLikes]);
 
   const handleLikeClick = async () => {
     try {
@@ -79,7 +80,7 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
 
   return (
     <Card sx={{ width: 300, borderRadius: "4px" }}>
-      <CardMedia component="img" height="194" image={`./public/images/1.jpg`} alt={project.name} />
+      <CardMedia component="img" height="194" image={imgPath} alt={project.name} />
       <CardContent>
         <Typography variant="h6" component="div">
           {project.name}
@@ -96,7 +97,7 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton onClick={handleLikeClick}>
-          {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          {isFavorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
         </IconButton>
         <Divider orientation="vertical" variant="middle" flexItem />
         <IconButton>
