@@ -6,7 +6,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 80vh;
+    height: 60vh;
     gap: 20px;
 }
 
@@ -32,8 +32,12 @@ button {
     border-radius: 10px;
     border: 1px solid #ccc;
     padding: 5px;
-    background-color: #95d3ff;
+    background-color: #255366;
     cursor: pointer;
+}
+
+button:hover{
+    background-color: #b0d5d6;
 }
 
 .result {
