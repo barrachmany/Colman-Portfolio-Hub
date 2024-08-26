@@ -24,10 +24,11 @@ input {
     border-radius: 10px;
     border: 1px solid #ccc;
     padding: 5px;
+    text-align: center;
 }
 
 button {
-    width: 50%;
+    width: 13%;
     height: 30px;
     border-radius: 10px;
     border: 1px solid #ccc;
@@ -38,6 +39,7 @@ button {
 
 button:hover{
     background-color: #b0d5d6;
+    color: #434343;
 }
 
 .result {
