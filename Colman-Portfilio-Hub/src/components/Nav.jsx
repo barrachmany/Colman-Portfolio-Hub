@@ -27,19 +27,19 @@ const Nav = () => {
         </div>
         <div className="nav-links">
           <ul>
+            <Tooltip title="Home">
+              <li>
+                <a href="/main">
+                  <CgHome />
+                </a>
+              </li>
+            </Tooltip>
             <Tooltip title="AI Search">
               <li>
                 <a href="smartsearch">
                   <div className="nav-search">
                     <TroubleshootIcon fontSize="large" color="white" />
                   </div>
-                </a>
-              </li>
-            </Tooltip>
-            <Tooltip title="Home">
-              <li>
-                <a href="/main">
-                  <CgHome />
                 </a>
               </li>
             </Tooltip>

@@ -9,6 +9,7 @@ import AppContext from './AppContext.jsx';
 import ProfilePage from './scenes/profile-page/ProfilePage.jsx';
 import ProjectPage from './scenes/project-page/ProjectPage.jsx';
 import Nav from './components/Nav.jsx';
+import AboutPage from './scenes/about-page/AboutPage.jsx';
 import SmartSearchPage from './scenes/smart-search-page/SmartSearchPage.jsx';
 
 
@@ -31,6 +32,7 @@ function App() {
               <Route path="/createproject" element={<CreateProjectPage />} />
               <Route path="/myProfile" element={<ProfilePage />} />
               <Route path="/project/:id" element={<ProjectPage />} />
+              <Route path="/about" element={<AboutPage />} />
               <Route path="/smartsearch" element={<SmartSearchPage />} />
             </Routes>
           </BrowserRouter>
