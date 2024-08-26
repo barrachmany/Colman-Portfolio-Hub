@@ -30,7 +30,7 @@ const SmartSearchPage = () => {
 
     return (
         <div className="smart-search-page">
-            <h1>Smart AI Search</h1>
+            <h1 className="ai-search-h1">Smart AI Search</h1>
             <input type="text" onChange={handleChange} placeholder='Example: " i want to search a project that about cyber serurity " ' />
             <button onClick={handleSearch} >Search</button>
             {results && results.map((result) => {

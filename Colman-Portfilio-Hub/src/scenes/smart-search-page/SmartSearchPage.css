@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 .smart-search-page {
     margin-top: 10vh;
     display: flex;
@@ -6,6 +8,14 @@
     flex-direction: column;
     height: 80vh;
     gap: 20px;
+}
+
+.ai-search-h1{
+    font-size: 35px;
+    margin-top: 50px;
+    font-family: "Lobster", sans-serif;
+    font-weight: 100;
+    color: #255366;
 }
 
 input {
