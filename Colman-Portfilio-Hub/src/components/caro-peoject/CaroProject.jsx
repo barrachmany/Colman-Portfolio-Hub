@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CaroProject.css";
 import { styled } from "@mui/material/styles";
@@ -31,6 +32,9 @@ const ExpandMore = styled((props) => {
 export default function CaroProject({ project, isExpanded, onExpandClick }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [likesCount, setLikesCount] = useState(project.likes);
+
+  const navigate = useNavigate();
+
   const { user, setUser } = useContext(AppContext);
   const projectIamge = project.image ? project.image : "./public/images/1.jpg";
 
@@ -79,7 +83,7 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
   };
 
   const handleFullscreenClick = () => {
-    window.open(project.gitRepo, "_blank");
+    navigate(`/project/${project._id}`);
   };
 
   return (
