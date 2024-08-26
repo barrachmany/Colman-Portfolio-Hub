@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CaroProject.css";
 import { styled } from "@mui/material/styles";
@@ -15,7 +16,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import AppContext from "../../AppContext";
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from "@mui/material/Tooltip";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,9 +32,11 @@ const ExpandMore = styled((props) => {
 export default function CaroProject({ project, isExpanded, onExpandClick }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [likesCount, setLikesCount] = useState(project.likes);
-  const { user, setUser } = useContext(AppContext);
-  const projectIamge = project.image ? project.image : "./public/images/1.jpg"; 
 
+  const navigate = useNavigate();
+
+  const { user, setUser } = useContext(AppContext);
+  const projectIamge = project.image ? project.image : "./public/images/1.jpg";
 
   console.log("Project prop:", project);
 
@@ -56,9 +59,14 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
 
   useEffect(() => {
     fetchUserData();
+  }, []);
 
-    if (project.idLikes.includes(user.id)) {
+  useEffect(() => {
+    // Check if the current user has liked the project whenever user or project changes
+    if (user && project.idLikes.includes(user.id)) {
       setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
     }
   }, [project.idLikes, user.id]);
 
@@ -75,7 +83,7 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
   };
 
   const handleFullscreenClick = () => {
-    window.open(project.gitRepo, "_blank");
+    navigate(`/project/${project._id}`);
   };
 
   return (
@@ -117,7 +125,6 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
             <ExpandMoreIcon />
           </Tooltip>
         </ExpandMore>
-
       </CardActions>
       <Collapse in={isExpanded} timeout="auto" unmountOnExit>
         <CardContent>
