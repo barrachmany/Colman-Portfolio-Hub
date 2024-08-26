@@ -50,7 +50,7 @@ const Nav = () => {
                 </a>
               </li>
             </Tooltip>
-            <Tooltip title="Create project">
+            <Tooltip title="Add project">
               <li>
                 <a href="/createproject">
                   <IoAdd />
