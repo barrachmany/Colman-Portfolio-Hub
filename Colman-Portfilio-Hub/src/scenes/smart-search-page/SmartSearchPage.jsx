@@ -12,6 +12,7 @@ const SmartSearchPage = () => {
     const handleSearch = () => {
         axios.get(`http://localhost:5000/project/findbestfit?search=${search}`)
             .then((res) => {
+                console.log(res.data);
                 console.log(res.data.results);
                 setResults(res.data.results);
             })
@@ -38,6 +39,7 @@ const SmartSearchPage = () => {
                         <h1>{result.name}</h1>
                         <p>{result.relevance}</p>
                         <p>{result.description}</p>
+                        <a href={`/project/${result.id}`}>View Project</a>
                     </div>
                 );
             })}

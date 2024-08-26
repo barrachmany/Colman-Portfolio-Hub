@@ -25,3 +25,12 @@ button {
     background-color: #95d3ff;
     cursor: pointer;
 }
+
+.result {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+}
