@@ -13,6 +13,7 @@ import Select from "@mui/material/Select";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import "./CreateProject.css";
+import Tooltip from "@mui/material/Tooltip";
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
@@ -240,6 +241,8 @@ const CreateProjectPage = () => {
                       </MenuItem>
                     </Select>
                   </FormControl>
+                  <Tooltip title='Add'>
+
                   <Fab
                     aria-label="add"
                     sx={{
@@ -258,6 +261,7 @@ const CreateProjectPage = () => {
                       }}
                     />
                   </Fab>
+                  </Tooltip>
                 </div>
               </div>
             </Paper>
