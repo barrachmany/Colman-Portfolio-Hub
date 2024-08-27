@@ -57,6 +57,7 @@ const MainPage = () => {
         <h4 className="h4-main project-h4">Projects</h4>
         <ProjectsList images={images} />
       </div>
+      <Footer />
     </>
   );
 };
