@@ -76,7 +76,7 @@ const ProjectsList = () => {
         sx={{
           marginTop: "30px",
           marginBottom: "20px",
-          width: "90%",
+          width: "93%",
           height: "100%",
           transform: "translateZ(0)",
         }}

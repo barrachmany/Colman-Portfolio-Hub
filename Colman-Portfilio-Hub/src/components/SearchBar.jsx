@@ -50,7 +50,7 @@ const SearchBar = () => {
         justifyContent: 'flex-end'
       }}>
       <div className="inside-navbar-container">
-        <input type="text" placeholder="Search" className="navbar-input" onChange={handleSearch} />
+        <input type="text" placeholder="Search" className="navbar-input" onChange={handleSearch} style={{ padding: '0' }} />
         <select name="internship" className="navbar-select" onChange={handleCategory}>
           {internships.map((intern, idx) => (
             <option value={intern.value} key={idx}>
