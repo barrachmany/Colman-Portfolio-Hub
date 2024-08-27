@@ -6,12 +6,21 @@
 
 .carousel-button {
     position: absolute;
-    top: 22%;
-    transform: translateY(161%);
+    top: 50%;
+    transform: translateY(-50%);
     color: #255366;
     border: none;
     cursor: pointer;
     background-color: unset;
+    z-index: 1;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: -10px;
 }
 
 .carousel-slides {
@@ -34,20 +43,6 @@
 .carousel-slide img {
     width: 100%;
     height: auto;
-}
-
-.carousel-button:hover {
-    cursor: pointer;
-}
-
-.prev {
-    padding-left: 10px;
-    left: 0%;
-}
-
-.next {
-    padding-right: 10px;
-    right: 0%;
 }
 
 .carousel-dots {
