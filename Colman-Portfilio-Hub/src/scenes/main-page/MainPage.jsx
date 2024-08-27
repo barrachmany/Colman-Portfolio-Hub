@@ -56,6 +56,7 @@ const MainPage = () => {
         <Carousel videos={videos} />
         <h4 className="h4-main project-h4">Projects</h4>
         <ProjectsList images={images} />
+        <Footer/>
       </div>
       <Footer />
     </>

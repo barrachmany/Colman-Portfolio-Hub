@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +7,7 @@ import { IoAdd } from "react-icons/io5";
 import { IoAccessibilityOutline } from "react-icons/io5";
 import { CgHome } from "react-icons/cg";
 import Tooltip from "@mui/material/Tooltip";
+import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -25,12 +26,20 @@ const Nav = () => {
           <a href="/main">Colman Portfolio Hub</a>
         </div>
         <div className="nav-links">
-
           <ul>
             <Tooltip title="Home">
               <li>
                 <a href="/main">
                   <CgHome />
+                </a>
+              </li>
+            </Tooltip>
+            <Tooltip title="AI Search">
+              <li>
+                <a href="smartsearch">
+                  <div className="nav-search">
+                    <TroubleshootIcon fontSize="large" color="white" />
+                  </div>
                 </a>
               </li>
             </Tooltip>
@@ -41,7 +50,7 @@ const Nav = () => {
                 </a>
               </li>
             </Tooltip>
-            <Tooltip title="Create project">
+            <Tooltip title="Add project">
               <li>
                 <a href="/createproject">
                   <IoAdd />

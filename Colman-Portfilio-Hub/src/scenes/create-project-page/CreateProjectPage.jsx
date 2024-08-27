@@ -13,6 +13,7 @@ import Select from "@mui/material/Select";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import "./CreateProject.css";
+import Tooltip from "@mui/material/Tooltip";
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
@@ -75,20 +76,25 @@ const CreateProjectPage = () => {
       console.log("invalid inputs");
       return;
     }
-    axios
-      .post("http://localhost:5000/project/create", newProject, {
+    axios.post("http://localhost:5000/api/delle", newProject).then((response) => {
+      console.log(response);
+      axios.post("http://localhost:5000/project/create", newProject, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       })
-      .then((response) => {
-        console.log(response);
-        navigate("/main");
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(error.response.statusText);
-      });
+        .then((response) => {
+          console.log(response);
+          navigate("/main");
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(error.response.statusText);
+        });
+    }).catch((error) => {
+      console.log(error);
+      alert(error.response.statusText);
+    });
   };
 
   return (
@@ -235,6 +241,8 @@ const CreateProjectPage = () => {
                       </MenuItem>
                     </Select>
                   </FormControl>
+                  <Tooltip title='Add'>
+
                   <Fab
                     aria-label="add"
                     sx={{
@@ -253,6 +261,7 @@ const CreateProjectPage = () => {
                       }}
                     />
                   </Fab>
+                  </Tooltip>
                 </div>
               </div>
             </Paper>

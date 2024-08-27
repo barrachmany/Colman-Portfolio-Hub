@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import "./ProjectPage.css";
 import axios from "axios";
 
 const ProjectPage = () => {
@@ -20,9 +21,9 @@ const ProjectPage = () => {
     }, [id]);
 
     return (
-        <div className="project-page">
+        <div className="project-page" >
             <div className="project-page-image-container">
-                <img src={project.image} alt="project" />
+                <img className="project-page-image" src={project.image} alt="project" />
             </div>
             <div className="project-details">
                 <h1>{project.name}</h1>

@@ -26,7 +26,7 @@ const createProject = async (req, res) => {
       gitRepo: gitRepo,
       category: category,
       idMembers: idMembers,
-      image: `http://localhost:5000/images/${name}.jpg`,
+      image: `http://localhost:5000/${name}.jpg`,
     });
 
     res.status(201).send(newProject);
@@ -148,15 +148,15 @@ const likeProject = async (req, res) => {
 };
 
 const findBestFit = async (req, res, next) => {
-  let query = "web development";
+  let query = req.query.search;
 
   // Extract all projects descriptions
-  const projects = await projectModel.find({}, { description: 1, name: 1 }).exec();
+  const projects = await projectModel.find({}, { _id: 1, description: 1, name: 1 }).exec();
   console.log(projects);
 
   // Construct the prompt for GPT
   const descriptionsText = projects
-    .map((project, index) => `${index + 1}. ${project.name}: ${project.description}`)
+    .map((project, index) => `${project._id}. ${project.name}: ${project.description}`)
     .join("\n");
 
   const prompt = `
@@ -165,6 +165,16 @@ const findBestFit = async (req, res, next) => {
 
        Based on the following query: "${query}", please rank the projects from most to least relevant.
        Provide the project number and a brief explanation of why it is relevant.
+
+       give me the results in the following format:
+        {
+          "results": [
+            {"id":"project id", "name": "project name", "relevance": "This project is relevant because...", "description": "This project is about..." },
+            {"id":"project id", "name": "project name", "relevance": "This project is relevant because...", "description": "This project is about..." },
+            ...
+          ]
+        }
+
    `;
 
   req.prompt = prompt;
