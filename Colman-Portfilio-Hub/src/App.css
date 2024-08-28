@@ -24,6 +24,7 @@ body {
   border-radius: 17px;
   border: 1px solid;
   text-align: center;
+  width: 125px;
 }
 
 .nav {
@@ -39,7 +40,7 @@ body {
 
 .inside-navbar-container {
   display: flex;
-  width: 293px;
+  width: 400px;
   justify-content: space-around;
   align-items: center;
 }
