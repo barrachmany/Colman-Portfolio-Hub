@@ -1,25 +1,28 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AppContext from "../../AppContext.jsx";
-import ReactCardFlip from "react-card-flip";
 import "./ProfilePage.css";
-import EditIcon from "@mui/icons-material/Edit";
-import CheckIcon from "@mui/icons-material/Check";
-import Nav from "../../components/Nav.jsx";
+import CaroProject from "./../../components/caro-peoject/CaroProject.jsx";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import EditIcon from '@mui/icons-material/Edit';
+import CheckIcon from '@mui/icons-material/Check';
 
 const ProfilePage = () => {
+  const [expandedIndex, setExpandedIndex] = useState(null);
   const { user, setUser, projects, setProjects } = useContext(AppContext);
   const [isEditingField, setIsEditingField] = useState({
     name: false,
     email: false,
     password: false,
   });
-  const [isFlipped, setIsFlipped] = useState({});
 
   const fetchUserData = async () => {
     try {
       const response = await axios.get("http://localhost:5000/user/get", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
       });
 
       setUser({
@@ -48,7 +51,9 @@ const ProfilePage = () => {
           password: user.password,
         },
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         }
       );
       localStorage.setItem("accessToken", response.data.accessToken);
@@ -63,9 +68,14 @@ const ProfilePage = () => {
 
   const handleProject = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/project/get/member/${id}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-      });
+      const response = await axios.get(
+        `http://localhost:5000/project/get/member/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
 
       if (Array.isArray(response.data)) {
         setProjects(response.data);
@@ -76,28 +86,12 @@ const ProfilePage = () => {
       console.error("Error fetching projects:", error);
     }
   };
-
-  const handleDeleteProject = async (projectId) => {
-    try {
-      await axios.delete(`http://localhost:5000/project/delete/${projectId}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
-      });
-      setProjects(projects.filter((project) => project._id !== projectId));
-    } catch (error) {
-      console.error("Error deleting project:", error);
-    }
-  };
-
-  const handleFlip = (projectId) => {
-    setIsFlipped((prevState) => ({
-      ...prevState,
-      [projectId]: !prevState[projectId],
-    }));
+  const handleExpandClick = (index) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
   };
 
   return (
     <>
-      <Nav />
       <div className="profile-container">
         <h1>Profile</h1>
         <div className="profile-info">
@@ -114,7 +108,9 @@ const ProfilePage = () => {
                     <input
                       type="text"
                       value={user.name}
-                      onChange={(e) => setUser({ ...user, name: e.target.value })}
+                      onChange={(e) =>
+                        setUser({ ...user, name: e.target.value })
+                      }
                     />
                     <CheckIcon
                       sx={{ marginTop: "28px", cursor: "pointer" }}
@@ -130,7 +126,9 @@ const ProfilePage = () => {
                           marginBottom: "28px",
                           cursor: "pointer",
                         }}
-                        onClick={() => setIsEditingField({ ...isEditingField, name: true })}
+                        onClick={() =>
+                          setIsEditingField({ ...isEditingField, name: true })
+                        }
                       />
                     </div>
                   </>
@@ -146,7 +144,9 @@ const ProfilePage = () => {
                     <input
                       type="email"
                       value={user.email}
-                      onChange={(e) => setUser({ ...user, email: e.target.value })}
+                      onChange={(e) =>
+                        setUser({ ...user, email: e.target.value })
+                      }
                     />
                     <CheckIcon
                       sx={{ marginTop: "28px", cursor: "pointer" }}
@@ -162,7 +162,9 @@ const ProfilePage = () => {
                           marginBottom: "28px",
                           cursor: "pointer",
                         }}
-                        onClick={() => setIsEditingField({ ...isEditingField, email: true })}
+                        onClick={() =>
+                          setIsEditingField({ ...isEditingField, email: true })
+                        }
                       />
                     </div>
                   </>
@@ -174,7 +176,9 @@ const ProfilePage = () => {
                   <>
                     <input
                       type="password"
-                      onChange={(e) => setUser({ ...user, password: e.target.value })}
+                      onChange={(e) =>
+                        setUser({ ...user, password: e.target.value })
+                      }
                     />
                     <CheckIcon
                       sx={{ marginTop: "28px", cursor: "pointer" }}
@@ -190,7 +194,12 @@ const ProfilePage = () => {
                           marginBottom: "28px",
                           cursor: "pointer",
                         }}
-                        onClick={() => setIsEditingField({ ...isEditingField, password: true })}
+                        onClick={() =>
+                          setIsEditingField({
+                            ...isEditingField,
+                            password: true,
+                          })
+                        }
                       />
                     </div>
                   </>
@@ -200,35 +209,43 @@ const ProfilePage = () => {
           </div>
           <h1 className="h1-info">Projects</h1>
         </div>
-      </div>
-      <div className="project-container">
-        {projects.length > 0 ? (
-          projects.map((project) => (
-            <ReactCardFlip
-              key={project._id}
-              isFlipped={isFlipped[project._id]}
-              flipDirection="horizontal"
-              containerStyle={{ width: "100%", height: "300px", position: "relative" }}>
-              <div className="card" onClick={() => handleFlip(project._id)}>
-                <h2>Project Name: {project.name}</h2>
-                <p>Members: {project.members.join(", ")}</p>
-              </div>
 
-              <div className="card card-back" onClick={() => handleFlip(project._id)}>
-                <h2>Description: {project.description}</h2>
-                <p>Creator: {project.creator}</p>
-                <p>Category: {project.category}</p>
-                <a href={project.gitRepo} target="_blank" rel="noopener noreferrer">
-                  Github Repo
-                </a>
-                {project.image && <img src={project.image} alt="Project" />}
-                <button onClick={() => handleDeleteProject(project._id)}>Delete Project</button>
-              </div>
-            </ReactCardFlip>
-          ))
-        ) : (
-          <p>No projects found.</p>
-        )}
+        <ImageList
+          sx={{
+            marginTop: "30px",
+            marginBottom: "20px",
+            width: "100%",
+            transform: "translateZ(0)",
+          }}
+          cols={2} // Set the number of columns as desired
+          gap={1}
+        >
+          {projects.length > 0 ? (
+            projects.map((project, index) => (
+              <ImageListItem
+                key={project._id}
+                sx={{
+                  height: "auto",  // Set to auto to fit the content
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "15px",
+                }}
+              >
+                <CaroProject
+                  project={project}
+                  isExpanded={expandedIndex === index}
+                  onExpandClick={() => handleExpandClick(index)}
+                  sx={{
+                    height: "100%",
+                    borderRadius: "4px",
+                  }} />
+              </ImageListItem>
+            ))
+          ) : (
+            <p>No projects found.</p>
+          )}
+        </ImageList>
       </div>
     </>
   );
