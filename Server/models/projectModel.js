@@ -37,6 +37,9 @@ const projectSchema = mongoose.Schema({
     type: [String],
     default: [],
   },
+  year: {
+    type: Number,
+  },
 });
 
 // sassasa

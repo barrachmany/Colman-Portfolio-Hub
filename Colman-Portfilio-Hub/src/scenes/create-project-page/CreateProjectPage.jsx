@@ -14,10 +14,12 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import "./CreateProject.css";
 import Tooltip from "@mui/material/Tooltip";
-import CircularProgress from "@mui/material/CircularProgress"; // Import CircularProgress
+import CircularProgress from "@mui/material/CircularProgress";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
+  const [year, setYear] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const navigate = useNavigate();
 
@@ -26,11 +28,12 @@ const CreateProjectPage = () => {
     description: "",
     creator: "",
     members: "",
-    gitrepo: "",
+    gitRepo: "",
     image: "",
     category: "",
     idMembers: [],
     likes: 0,
+    year: 0,
   });
 
   const handleChange = (e) => {
@@ -46,6 +49,10 @@ const CreateProjectPage = () => {
       setInternship(value);
       setNewProject({ ...newProject, [name]: value });
       console.log(newProject);
+    } else if (name === "year") {
+      setYear(value);
+      setNewProject({ ...newProject, [name]: value });
+      console.log(newProject);
     } else {
       setNewProject({ ...newProject, [name]: value });
       console.log(newProject);
@@ -58,9 +65,10 @@ const CreateProjectPage = () => {
       "description",
       "creator",
       "members",
-      "gitrepo",
+      "gitRepo",
       "category",
       "idMembers",
+      "year",
     ];
     for (let field of requiredFields) {
       if (newProject[field] === "" || newProject[field].length === 0) {
@@ -81,41 +89,46 @@ const CreateProjectPage = () => {
 
     setIsLoading(true); // Set loading state to true
 
-    axios.post("http://localhost:5000/api/delle", newProject).then((response) => {
-      console.log(response);
-      axios.post("http://localhost:5000/project/create", newProject, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+    axios
+      .post("http://localhost:5000/api/delle", newProject)
+      .then((response) => {
+        console.log(response);
+        axios
+          .post("http://localhost:5000/project/create", newProject, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+          .then((response) => {
+            console.log(response);
+            navigate("/project/" + response.data._id);
+          })
+          .catch((error) => {
+            console.log(error);
+            alert(error.response.statusText);
+          })
+          .finally(() => {
+            setIsLoading(false); // Reset loading state
+          });
       })
-        .then((response) => {
-          console.log(response);
-          navigate("/main");
-        })
-        .catch((error) => {
-          console.log(error);
-          alert(error.response.statusText);
-        })
-        .finally(() => {
-          setIsLoading(false); // Reset loading state
-        });
-    }).catch((error) => {
-      console.log(error);
-      alert(error.response.statusText);
-    }).finally(() => {
-      setIsLoading(false); // Reset loading state
-    });
+      .catch((error) => {
+        console.log(error);
+        alert(error.response.statusText);
+      })
+      .finally(() => {
+        setIsLoading(false); // Reset loading state
+      });
   };
 
   return (
     <>
-      <div className="create-project-container">
+      <div className="create-project-container with-main-background">
         <Nav />
         <div className="login-container create-project-container">
           <div className="login-inner-container">
             <Paper
               elevation={3}
-              style={{ width: "800px", height: "850px", borderRadius: '15px', marginTop: '100px' }}
+              style={{ width: "800px", height: "850px", borderRadius: "15px", marginTop: "100px" }}
               className="create-project-paper">
               <div className="paper-inner-container">
                 <h2 className="h2-login" sx={{ color: "#255366", fontSize: "6rem" }}>
@@ -137,17 +150,16 @@ const CreateProjectPage = () => {
                       variant="indeterminate"
                       disableShrink
                       sx={{
-                        animationDuration: '550ms',
-                        top: '50%',         // Center vertically
-                        left: '50%',        // Center horizontally
-                        transform: 'translate(-50%, -50%)',  // Center the element
-                        width: '50vw', // Set to 50% of viewport width
-                        height: '50vh', // Set to 50% of viewport height
-                        'svg circle': { stroke: 'url(#my_gradient)' }, // Apply gradient to stroke
-                        marginTop: '20%'
+                        animationDuration: "550ms",
+                        top: "50%", // Center vertically
+                        left: "50%", // Center horizontally
+                        transform: "translate(-50%, -50%)", // Center the element
+                        width: "50vw", // Set to 50% of viewport width
+                        height: "50vh", // Set to 50% of viewport height
+                        "svg circle": { stroke: "url(#my_gradient)" }, // Apply gradient to stroke
+                        marginTop: "20%",
                       }}
                       size={150}
-
                     />
                   </React.Fragment>
                 ) : (
@@ -241,49 +253,104 @@ const CreateProjectPage = () => {
                         id="standard-adornment-amount"
                         startAdornment={<InputAdornment position="start"></InputAdornment>}
                         sx={{ fontSize: "1.5rem" }}
-                        name="gitrepo"
+                        name="gitRepo"
                         onChange={handleChange}
                       />
                     </FormControl>
                     <div className="choose-create-button">
-                      <FormControl
-                        variant="standard"
-                        sx={{
-                          m: 1,
-                          minWidth: 120,
-                          width: "28ch",
-                          fontSize: "1.5rem",
-                          marginBottom: "40px",
-                        }}>
-                        <InputLabel id="demo-simple-select-standard-label" sx={{ fontSize: "1.5rem" }}>
-                          Internship
-                        </InputLabel>
-                        <Select
-                          labelId="demo-simple-select-standard-label"
-                          id="demo-simple-select-standard"
-                          name="category"
-                          value={Internship}
-                          onChange={handleChange}
-                          label="Internship"
-                          sx={{ fontSize: "1.5rem" }}>
-                          <MenuItem value={"Full-Stack"} sx={{ fontSize: "1.5rem" }}>
-                            Full-Stack
-                          </MenuItem>
-                          <MenuItem value={"Deep Learning"} sx={{ fontSize: "1.5rem" }}>
-                            Deep Learning
-                          </MenuItem>
-                          <MenuItem value={"Data Science"} sx={{ fontSize: "1.5rem" }}>
-                            Data Science
-                          </MenuItem>
-                          <MenuItem value={"Cyber"} sx={{ fontSize: "1.5rem" }}>
-                            Cyber
-                          </MenuItem>
-                          <MenuItem value={"Fintech"} sx={{ fontSize: "1.5rem" }}>
-                            Fintech
-                          </MenuItem>
-                        </Select>
-                      </FormControl>
-                      <Tooltip title='Add'>
+                      <div>
+                        <FormControl
+                          variant="standard"
+                          sx={{
+                            m: 1,
+                            minWidth: 120,
+                            width: "28ch",
+                            fontSize: "1.5rem",
+                            marginBottom: "40px",
+                          }}>
+                          <InputLabel
+                            id="demo-simple-select-standard-label"
+                            sx={{ fontSize: "1.5rem" }}>
+                            Internship
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            name="category"
+                            value={Internship}
+                            onChange={handleChange}
+                            label="Internship"
+                            sx={{ fontSize: "1.5rem" }}>
+                            <MenuItem value={"Full-Stack"} sx={{ fontSize: "1.5rem" }}>
+                              Full-Stack
+                            </MenuItem>
+                            <MenuItem value={"Deep Learning"} sx={{ fontSize: "1.5rem" }}>
+                              Deep Learning
+                            </MenuItem>
+                            <MenuItem value={"Data Science"} sx={{ fontSize: "1.5rem" }}>
+                              Data Science
+                            </MenuItem>
+                            <MenuItem value={"Cyber"} sx={{ fontSize: "1.5rem" }}>
+                              Cyber
+                            </MenuItem>
+                            <MenuItem value={"Fintech"} sx={{ fontSize: "1.5rem" }}>
+                              Fintech
+                            </MenuItem>
+                          </Select>
+                        </FormControl>
+                        <FormControl
+                          variant="standard"
+                          sx={{
+                            m: 1,
+                            minWidth: 120,
+                            width: "28ch",
+                            fontSize: "1.5rem",
+                            marginBottom: "40px",
+                            marginLeft: "50px",
+                          }}>
+                          <InputLabel
+                            id="demo-simple-select-standard-label"
+                            sx={{ fontSize: "1.5rem" }}>
+                            Year
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            name="year"
+                            value={year}
+                            onChange={handleChange}
+                            label="Year"
+                            sx={{ fontSize: "1.5rem" }}>
+                            <MenuItem value={2024} sx={{ fontSize: "1.5rem" }}>
+                              2024
+                            </MenuItem>
+                            <MenuItem value={2023} sx={{ fontSize: "1.5rem" }}>
+                              2023
+                            </MenuItem>
+                            <MenuItem value={2022} sx={{ fontSize: "1.5rem" }}>
+                              2022
+                            </MenuItem>
+                            <MenuItem value={2021} sx={{ fontSize: "1.5rem" }}>
+                              2021
+                            </MenuItem>
+                            <MenuItem value={2020} sx={{ fontSize: "1.5rem" }}>
+                              2020
+                            </MenuItem>
+                          </Select>
+                        </FormControl>
+                        <Tooltip title="Add Photos">
+                          <AddAPhotoIcon
+                            sx={{
+                              width: "30px",
+                              height: "30px",
+                              cursor: "pointer",
+                              margin: "20px",
+                              paddingLeft: "20px",
+                            }}
+                          />
+                        </Tooltip>
+                      </div>
+                      <Tooltip title="Add">
                         <Fab
                           aria-label="add"
                           sx={{

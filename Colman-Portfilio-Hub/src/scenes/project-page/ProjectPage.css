@@ -1,5 +1,5 @@
 .project-page {
-    height: 100vh;
+    height: 75vh;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -17,7 +17,7 @@
 }
 
 .project-page-image {
-    width: 500px;
+    width: 550px;
     height: 100%;
     z-index: 2;
     border-radius: 15px;

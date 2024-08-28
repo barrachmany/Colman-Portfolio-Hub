@@ -32,7 +32,10 @@ const CaroVideo = ({ video }) => {
                     position="top"
                     actionIcon={
                         <IconButton
-                            sx={{ color: 'white' }}
+                            sx={{ color: 'white', marginLeft: "5px",
+                                marginRight: "-10px",
+                                marginBottom: "2px"
+                            } }
                             aria-label={`star ${video.title}`}
                         >
                             <SchoolIcon />
