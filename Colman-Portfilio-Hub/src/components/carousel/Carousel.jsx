@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './Carousel.css';
 import { GoChevronRight } from "react-icons/go";
 import { GoChevronLeft } from "react-icons/go";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import IconButton from '@mui/material/IconButton';
 import CaroVideo from '../caro-video/CaroVideo';
 import Paper from '@mui/material/Paper';
@@ -43,7 +45,7 @@ const Carousel = ({ videos }) => {
       <div className="project-carousel">
         <div className="carousel-button prev" onClick={goToPrevious}>
           <IconButton size="large">
-            <GoChevronLeft fontSize="25px" color='#255366' />
+            <ArrowBackIosIcon fontSize="25px" color='#255366' />
           </IconButton>
         </div>
         <div className="carousel-slides">
@@ -60,7 +62,7 @@ const Carousel = ({ videos }) => {
         </div>
         <div className="carousel-button next" onClick={goToNext}>
           <IconButton size="large">
-            <GoChevronRight fontSize="25px" color='#255366' />
+            <ArrowForwardIosIcon fontSize="25px" color='#255366' />
           </IconButton>
         </div>
 

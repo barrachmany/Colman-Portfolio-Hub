@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Paper from "@mui/material/Paper";
 import "./ProjectPage.css";
 import axios from "axios";
 
@@ -22,25 +23,41 @@ const ProjectPage = () => {
 
     return (
         <div className="project-page" >
-            <div className="project-page-image-container">
-                <img className="project-page-image" src={project.image} alt="project" />
-            </div>
-            <div className="project-details">
-                <h1>{project.name}</h1>
-                <p>{project.description}</p>
-                <h2>Members</h2>
-                <ul>
-                    {project.members && project.members.map((member, index) => {
-                        return <li key={index}>{member}</li>
-                    })}
-                </ul>
-                <h2>Category</h2>
-                <p>{project.category}</p>
-                <h2>Creator</h2>
-                <p>{project.creator}</p>
-                <h2>Git Repo</h2>
-                <a href={project.gitRepo}>{project.gitRepo}</a>
-            </div>
+            <Paper elevation={3} style={{ width: "85%", height: "auto", borderRadius: '15px', display: 'flex' }}>
+                <div className="project-page-image-container">
+                    <img className="project-page-image" src={project.image} alt="project" />
+                </div>
+                <div className="project-details">
+                    <div className="project-header">
+                        <h1 style={{ color: '#255366', fontSize: '67' }}>{project.name}</h1>
+                        <p style={{ color: '#646464' }}>{project.description}</p>
+
+
+                    </div>
+                    <div className="project-section">
+                        <h2>Members:</h2>
+                        <ul>
+                            {project.members && project.members.map((member, index) => {
+                                return <li key={index} className="project-p">{member}</li>
+                            })}
+                        </ul>
+                    </div>
+                    <div className="project-section">
+                        <h2>Category:</h2>
+                        <p className="project-p">{project.category}</p>
+                    </div>
+                    <div className="project-section">
+                        <h2>Creator:</h2>
+                        <p className="project-p">{project.creator}</p>
+                    </div>
+                    <div className="project-section">
+                        <h2>Git Repo:</h2>
+                        <a href={project.gitRepo}>{project.gitRepo}</a>
+                    </div>
+
+                </div>
+            </Paper>
+
         </div>
     )
 }
