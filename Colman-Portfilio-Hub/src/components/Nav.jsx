@@ -7,7 +7,7 @@ import { IoAdd } from "react-icons/io5";
 import { IoAccessibilityOutline } from "react-icons/io5";
 import { CgHome } from "react-icons/cg";
 import Tooltip from "@mui/material/Tooltip";
-import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
+import TroubleshootIcon from "@mui/icons-material/Troubleshoot";
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Nav = () => {
   const handleLogout = async () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -62,7 +62,7 @@ const Nav = () => {
                 <FontAwesomeIcon
                   onClick={handleLogout}
                   icon={faSignOutAlt}
-                  style={{ color: "white", fontSize: "15px", margin: '0 7px 0 7px' }}
+                  style={{ color: "white", fontSize: "15px", margin: "0 7px 0 7px" }}
                 />
               </button>
             </Tooltip>
