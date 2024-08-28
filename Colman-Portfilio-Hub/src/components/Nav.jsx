@@ -36,7 +36,7 @@ const Nav = () => {
             </Tooltip>
             <Tooltip title="AI Search">
               <li>
-                <a href="smartsearch">
+                <a href="/smartsearch">
                   <div className="nav-search">
                     <TroubleshootIcon fontSize="large" color="white" />
                   </div>
