@@ -19,7 +19,7 @@ import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
-  const [Year, setYear] = useState("");
+  const [year, setYear] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const navigate = useNavigate();
 
@@ -33,6 +33,7 @@ const CreateProjectPage = () => {
     category: "",
     idMembers: [],
     likes: 0,
+    year: 0,
   });
 
   const handleChange = (e) => {
@@ -46,6 +47,10 @@ const CreateProjectPage = () => {
       console.log(newProject);
     } else if (name === "category") {
       setInternship(value);
+      setNewProject({ ...newProject, [name]: value });
+      console.log(newProject);
+    } else if (name === "year") {
+      setYear(value);
       setNewProject({ ...newProject, [name]: value });
       console.log(newProject);
     } else {
@@ -63,6 +68,7 @@ const CreateProjectPage = () => {
       "gitRepo",
       "category",
       "idMembers",
+      "year",
     ];
     for (let field of requiredFields) {
       if (newProject[field] === "" || newProject[field].length === 0) {
@@ -310,8 +316,8 @@ const CreateProjectPage = () => {
                           <Select
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
-                            name="category"
-                            value={Year}
+                            name="year"
+                            value={year}
                             onChange={handleChange}
                             label="Year"
                             sx={{ fontSize: "1.5rem" }}>
