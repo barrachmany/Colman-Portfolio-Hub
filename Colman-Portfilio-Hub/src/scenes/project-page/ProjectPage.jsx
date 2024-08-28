@@ -11,6 +11,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import CheckIcon from "@mui/icons-material/Check";
+import Nav from "../../components/Nav";
 
 const ProjectPage = () => {
   const { id } = useParams();
@@ -56,6 +57,7 @@ const ProjectPage = () => {
 
   return (
     <div className="project-page">
+      <Nav />
       <Paper
         elevation={3}
         style={{
