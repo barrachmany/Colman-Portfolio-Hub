@@ -246,43 +246,84 @@ const CreateProjectPage = () => {
                       />
                     </FormControl>
                     <div className="choose-create-button">
-                      <FormControl
-                        variant="standard"
-                        sx={{
-                          m: 1,
-                          minWidth: 120,
-                          width: "28ch",
-                          fontSize: "1.5rem",
-                          marginBottom: "40px",
-                        }}>
-                        <InputLabel id="demo-simple-select-standard-label" sx={{ fontSize: "1.5rem" }}>
-                          Internship
-                        </InputLabel>
-                        <Select
-                          labelId="demo-simple-select-standard-label"
-                          id="demo-simple-select-standard"
-                          name="category"
-                          value={Internship}
-                          onChange={handleChange}
-                          label="Internship"
-                          sx={{ fontSize: "1.5rem" }}>
-                          <MenuItem value={"Full-Stack"} sx={{ fontSize: "1.5rem" }}>
-                            Full-Stack
-                          </MenuItem>
-                          <MenuItem value={"Deep Learning"} sx={{ fontSize: "1.5rem" }}>
-                            Deep Learning
-                          </MenuItem>
-                          <MenuItem value={"Data Science"} sx={{ fontSize: "1.5rem" }}>
-                            Data Science
-                          </MenuItem>
-                          <MenuItem value={"Cyber"} sx={{ fontSize: "1.5rem" }}>
-                            Cyber
-                          </MenuItem>
-                          <MenuItem value={"Fintech"} sx={{ fontSize: "1.5rem" }}>
-                            Fintech
-                          </MenuItem>
-                        </Select>
-                      </FormControl>
+                      <div>
+
+                        <FormControl
+                          variant="standard"
+                          sx={{
+                            m: 1,
+                            minWidth: 120,
+                            width: "28ch",
+                            fontSize: "1.5rem",
+                            marginBottom: "40px",
+                          }}>
+                          <InputLabel id="demo-simple-select-standard-label" sx={{ fontSize: "1.5rem" }}>
+                            Internship
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            name="category"
+                            value={Internship}
+                            onChange={handleChange}
+                            label="Internship"
+                            sx={{ fontSize: "1.5rem" }}>
+                            <MenuItem value={"Full-Stack"} sx={{ fontSize: "1.5rem" }}>
+                              Full-Stack
+                            </MenuItem>
+                            <MenuItem value={"Deep Learning"} sx={{ fontSize: "1.5rem" }}>
+                              Deep Learning
+                            </MenuItem>
+                            <MenuItem value={"Data Science"} sx={{ fontSize: "1.5rem" }}>
+                              Data Science
+                            </MenuItem>
+                            <MenuItem value={"Cyber"} sx={{ fontSize: "1.5rem" }}>
+                              Cyber
+                            </MenuItem>
+                            <MenuItem value={"Fintech"} sx={{ fontSize: "1.5rem" }}>
+                              Fintech
+                            </MenuItem>
+                          </Select>
+                        </FormControl>
+                        <FormControl
+                          variant="standard"
+                          sx={{
+                            m: 1,
+                            minWidth: 120,
+                            width: "28ch",
+                            fontSize: "1.5rem",
+                            marginBottom: "40px",
+                            marginLeft: "50px"
+                          }}>
+                          <InputLabel id="demo-simple-select-standard-label" sx={{ fontSize: "1.5rem" }}>
+                            Year
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
+                            name="category"
+                            value={Internship}
+                            onChange={handleChange}
+                            label="Internship"
+                            sx={{ fontSize: "1.5rem" }}>
+                            <MenuItem value={"Full-Stack"} sx={{ fontSize: "1.5rem" }}>
+                              2024
+                            </MenuItem>
+                            <MenuItem value={"Deep Learning"} sx={{ fontSize: "1.5rem" }}>
+                              2023
+                            </MenuItem>
+                            <MenuItem value={"Data Science"} sx={{ fontSize: "1.5rem" }}>
+                              2022
+                            </MenuItem>
+                            <MenuItem value={"Cyber"} sx={{ fontSize: "1.5rem" }}>
+                              2021
+                            </MenuItem>
+                            <MenuItem value={"Fintech"} sx={{ fontSize: "1.5rem" }}>
+                              2020
+                            </MenuItem>
+                          </Select>
+                        </FormControl>
+                      </div>
                       <Tooltip title='Add'>
                         <Fab
                           aria-label="add"
