@@ -14,7 +14,8 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import "./CreateProject.css";
 import Tooltip from "@mui/material/Tooltip";
-import CircularProgress from "@mui/material/CircularProgress"; // Import CircularProgress
+import CircularProgress from "@mui/material/CircularProgress";
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
@@ -109,7 +110,7 @@ const CreateProjectPage = () => {
 
   return (
     <>
-      <div className="create-project-container">
+      <div className="create-project-container with-main-background">
         <Nav />
         <div className="login-container create-project-container">
           <div className="login-inner-container">
@@ -323,6 +324,16 @@ const CreateProjectPage = () => {
                             </MenuItem>
                           </Select>
                         </FormControl>
+                        <Tooltip title='Add Photos'>
+                          <AddAPhotoIcon
+                            sx={{
+                              width: "30px",
+                              height: "30px",
+                              cursor: "pointer",
+                              margin: '20px',
+                              paddingLeft: '20px'
+                            }} />
+                        </Tooltip>
                       </div>
                       <Tooltip title='Add'>
                         <Fab
