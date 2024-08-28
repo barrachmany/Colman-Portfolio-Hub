@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import "./ProjectPage.css";
 import axios from "axios";
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from "@mui/material/Tooltip";
 
 const ProjectPage = () => {
 
@@ -23,7 +26,7 @@ const ProjectPage = () => {
 
     return (
         <div className="project-page" >
-            <Paper elevation={3} style={{ width: "85%", height: "auto", borderRadius: '15px', display: 'flex' }}>
+            <Paper elevation={3} style={{ width: "1150px", height: "auto", borderRadius: '15px', display: 'flex' }}>
                 <div className="project-page-image-container">
                     <img className="project-page-image" src={project.image} alt="project" />
                 </div>
@@ -56,9 +59,17 @@ const ProjectPage = () => {
                     </div>
 
                 </div>
+                <div>
+                    <Tooltip title="Edit">
+                        <IconButton sx={{ width: '3rem', height: '3rem', margin: '5px' }}>
+                            <EditIcon sx={{ fontSize: '2.5rem' }} />
+                        </IconButton>
+                    </Tooltip>
+                </div>
+
             </Paper>
 
-        </div>
+        </div >
     )
 }
 
