@@ -19,6 +19,7 @@ import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
+  const [Year, setYear] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const navigate = useNavigate();
 
@@ -310,23 +311,23 @@ const CreateProjectPage = () => {
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
                             name="category"
-                            value={Internship}
+                            value={Year}
                             onChange={handleChange}
-                            label="Internship"
+                            label="Year"
                             sx={{ fontSize: "1.5rem" }}>
-                            <MenuItem value={"Full-Stack"} sx={{ fontSize: "1.5rem" }}>
+                            <MenuItem value={2024} sx={{ fontSize: "1.5rem" }}>
                               2024
                             </MenuItem>
-                            <MenuItem value={"Deep Learning"} sx={{ fontSize: "1.5rem" }}>
+                            <MenuItem value={2023} sx={{ fontSize: "1.5rem" }}>
                               2023
                             </MenuItem>
-                            <MenuItem value={"Data Science"} sx={{ fontSize: "1.5rem" }}>
+                            <MenuItem value={2022} sx={{ fontSize: "1.5rem" }}>
                               2022
                             </MenuItem>
-                            <MenuItem value={"Cyber"} sx={{ fontSize: "1.5rem" }}>
+                            <MenuItem value={2021} sx={{ fontSize: "1.5rem" }}>
                               2021
                             </MenuItem>
-                            <MenuItem value={"Fintech"} sx={{ fontSize: "1.5rem" }}>
+                            <MenuItem value={2020} sx={{ fontSize: "1.5rem" }}>
                               2020
                             </MenuItem>
                           </Select>
