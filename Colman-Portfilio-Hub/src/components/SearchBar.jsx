@@ -34,12 +34,21 @@ const SearchBar = () => {
   }
 
   const internships = [
-    { value: "All" },
+    { value: "All Internships" },
     { value: "Full-Stack" },
     { value: "Deep Learning" },
     { value: "Data Science" },
     { value: "Cyber" },
     { value: "Fintech" }
+  ];
+
+  const years = [
+    { value: "All Years" },
+    { value: 2024 },
+    { value: 2023 },
+    { value: 2022 },
+    { value: 2021 },
+    { value: 2020 },
   ];
 
   return (
@@ -52,13 +61,19 @@ const SearchBar = () => {
       <div className="inside-navbar-container">
         <input type="text" placeholder="Search" style={{ padding: '0' }} className="navbar-input" onChange={handleSearch} />
         <select name="internship" className="navbar-select" onChange={handleCategory} >
-          {internships.map((intern, idx) => (
+          {internships.map((year, idx) => (
+            <option value={year.value} key={idx}>
+              {year.value}
+            </option>
+          ))}
+        </select>
+        <select name="year" className="navbar-select" onChange={handleCategory} >
+          {years.map((intern, idx) => (
             <option value={intern.value} key={idx}>
               {intern.value}
             </option>
           ))}
         </select>
-
       </div>
     </div>
   );
