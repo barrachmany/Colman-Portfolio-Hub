@@ -1,10 +1,10 @@
 .with-main-background {
-    background-image: url("./../public/Images/light-background.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-  }
+  background-image: url("./../public/Images/light-background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
 
 .login-container {
   width: 100%;
@@ -63,4 +63,14 @@
 .button-login-3:hover {
   background-color: #bccccd;
   cursor: pointer;
+}
+
+.header-h1 {
+  display: flex;
+}
+
+.Flower {
+  width: 70px;
+  height: 70px;
+  margin-top: 47px;
 }
