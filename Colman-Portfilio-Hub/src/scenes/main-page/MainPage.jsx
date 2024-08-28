@@ -8,6 +8,7 @@ import "./../../App.css";
 import Carousel from "../../components/carousel/Carousel";
 import ProjectsList from "../../components/projectslist/ProjectsList";
 import Footer from "../../components/footer/Footer";
+import FlowerImg from './../../../public/Images/file.png';
 
 const MainPage = () => {
   const images = [
@@ -51,12 +52,15 @@ const MainPage = () => {
     <>
       <Nav />
       <div className="main-container">
-        <h1 className="h1-main-cph">Colman Portfilio Hub</h1>
+        <div className="header-h1">
+          <h1 className="h1-main-cph">Colman Portfilio Hub</h1>
+          <img src={FlowerImg} className="Flower-main" />
+        </div>
         <h4 className="h4-main">Past Years Conferences</h4>
         <Carousel videos={videos} />
         <h4 className="h4-main project-h4">Projects</h4>
         <ProjectsList images={images} />
-        <Footer/>
+        <Footer />
       </div>
     </>
   );
