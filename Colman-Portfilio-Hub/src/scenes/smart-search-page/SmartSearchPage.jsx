@@ -2,50 +2,55 @@ import { useState, useEffect, useContext } from "react";
 import "./SmartSearchPage.css";
 import axios from "axios";
 import AppContext from "../../AppContext";
+import Nav from "../../components/Nav";
 
 const SmartSearchPage = () => {
+  const [search, setSearch] = useState("");
+  const [results, setResults] = useState([]);
+  const { projects, setProjects } = useContext(AppContext);
 
-    const [search, setSearch] = useState("");
-    const [results, setResults] = useState([]);
-    const { projects, setProjects } = useContext(AppContext);
+  const handleSearch = () => {
+    axios
+      .get(`http://localhost:5000/project/findbestfit?search=${search}`)
+      .then((res) => {
+        console.log(res.data);
+        console.log(res.data.results);
+        setResults(res.data.results);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-    const handleSearch = () => {
-        axios.get(`http://localhost:5000/project/findbestfit?search=${search}`)
-            .then((res) => {
-                console.log(res.data);
-                console.log(res.data.results);
-                setResults(res.data.results);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
 
-    const handleChange = (e) => {
-        setSearch(e.target.value);
-    }
+  useEffect(() => {}, [projects]);
 
-    useEffect(() => {
-    }, [projects]);
-
-    return (
-        <div className="smart-search-page">
-            <h1 className="ai-search-h1">Smart AI Search</h1>
-            <input type="text" onChange={handleChange} placeholder='Example: " i want to search a project that about cyber serurity " ' />
-            <button onClick={handleSearch} >Search</button>
-            {results && results.map((result) => {
-                return (
-                    <div key={result.name} className="result">
-                        <h1>{result.name}</h1>
-                        <p>{result.relevance}</p>
-                        <p>{result.description}</p>
-                        <a href={`/project/${result.id}`}>View Project</a>
-                    </div>
-                );
-            })}
-        </div>
-    );
-
+  return (
+    <div className="smart-search-page">
+      <Nav />
+      <h1 className="ai-search-h1">Smart AI Search</h1>
+      <input
+        type="text"
+        onChange={handleChange}
+        placeholder='Example: " i want to search a project that about cyber serurity " '
+      />
+      <button onClick={handleSearch}>Search</button>
+      {results &&
+        results.map((result) => {
+          return (
+            <div key={result.name} className="result">
+              <h1>{result.name}</h1>
+              <p>{result.relevance}</p>
+              <p>{result.description}</p>
+              <a href={`/project/${result.id}`}>View Project</a>
+            </div>
+          );
+        })}
+    </div>
+  );
 };
 
 export default SmartSearchPage;

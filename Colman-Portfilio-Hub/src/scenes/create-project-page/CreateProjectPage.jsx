@@ -15,11 +15,11 @@ import AddIcon from "@mui/icons-material/Add";
 import "./CreateProject.css";
 import Tooltip from "@mui/material/Tooltip";
 import CircularProgress from "@mui/material/CircularProgress";
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
-  const [Year, setYear] = useState("");
+  const [year, setYear] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const navigate = useNavigate();
 
@@ -28,11 +28,12 @@ const CreateProjectPage = () => {
     description: "",
     creator: "",
     members: "",
-    gitrepo: "",
+    gitRepo: "",
     image: "",
     category: "",
     idMembers: [],
     likes: 0,
+    year: 0,
   });
 
   const handleChange = (e) => {
@@ -48,6 +49,10 @@ const CreateProjectPage = () => {
       setInternship(value);
       setNewProject({ ...newProject, [name]: value });
       console.log(newProject);
+    } else if (name === "year") {
+      setYear(value);
+      setNewProject({ ...newProject, [name]: value });
+      console.log(newProject);
     } else {
       setNewProject({ ...newProject, [name]: value });
       console.log(newProject);
@@ -60,9 +65,10 @@ const CreateProjectPage = () => {
       "description",
       "creator",
       "members",
-      "gitrepo",
+      "gitRepo",
       "category",
       "idMembers",
+      "year",
     ];
     for (let field of requiredFields) {
       if (newProject[field] === "" || newProject[field].length === 0) {
@@ -83,30 +89,35 @@ const CreateProjectPage = () => {
 
     setIsLoading(true); // Set loading state to true
 
-    axios.post("http://localhost:5000/api/delle", newProject).then((response) => {
-      console.log(response);
-      axios.post("http://localhost:5000/project/create", newProject, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+    axios
+      .post("http://localhost:5000/api/delle", newProject)
+      .then((response) => {
+        console.log(response);
+        axios
+          .post("http://localhost:5000/project/create", newProject, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+          .then((response) => {
+            console.log(response);
+            navigate("/project/" + response.data._id);
+          })
+          .catch((error) => {
+            console.log(error);
+            alert(error.response.statusText);
+          })
+          .finally(() => {
+            setIsLoading(false); // Reset loading state
+          });
       })
-        .then((response) => {
-          console.log(response);
-          navigate("/main");
-        })
-        .catch((error) => {
-          console.log(error);
-          alert(error.response.statusText);
-        })
-        .finally(() => {
-          setIsLoading(false); // Reset loading state
-        });
-    }).catch((error) => {
-      console.log(error);
-      alert(error.response.statusText);
-    }).finally(() => {
-      setIsLoading(false); // Reset loading state
-    });
+      .catch((error) => {
+        console.log(error);
+        alert(error.response.statusText);
+      })
+      .finally(() => {
+        setIsLoading(false); // Reset loading state
+      });
   };
 
   return (
@@ -117,7 +128,7 @@ const CreateProjectPage = () => {
           <div className="login-inner-container">
             <Paper
               elevation={3}
-              style={{ width: "800px", height: "850px", borderRadius: '15px', marginTop: '100px' }}
+              style={{ width: "800px", height: "850px", borderRadius: "15px", marginTop: "100px" }}
               className="create-project-paper">
               <div className="paper-inner-container">
                 <h2 className="h2-login" sx={{ color: "#255366", fontSize: "6rem" }}>
@@ -139,17 +150,16 @@ const CreateProjectPage = () => {
                       variant="indeterminate"
                       disableShrink
                       sx={{
-                        animationDuration: '550ms',
-                        top: '50%',         // Center vertically
-                        left: '50%',        // Center horizontally
-                        transform: 'translate(-50%, -50%)',  // Center the element
-                        width: '50vw', // Set to 50% of viewport width
-                        height: '50vh', // Set to 50% of viewport height
-                        'svg circle': { stroke: 'url(#my_gradient)' }, // Apply gradient to stroke
-                        marginTop: '20%'
+                        animationDuration: "550ms",
+                        top: "50%", // Center vertically
+                        left: "50%", // Center horizontally
+                        transform: "translate(-50%, -50%)", // Center the element
+                        width: "50vw", // Set to 50% of viewport width
+                        height: "50vh", // Set to 50% of viewport height
+                        "svg circle": { stroke: "url(#my_gradient)" }, // Apply gradient to stroke
+                        marginTop: "20%",
                       }}
                       size={150}
-
                     />
                   </React.Fragment>
                 ) : (
@@ -243,13 +253,12 @@ const CreateProjectPage = () => {
                         id="standard-adornment-amount"
                         startAdornment={<InputAdornment position="start"></InputAdornment>}
                         sx={{ fontSize: "1.5rem" }}
-                        name="gitrepo"
+                        name="gitRepo"
                         onChange={handleChange}
                       />
                     </FormControl>
                     <div className="choose-create-button">
                       <div>
-
                         <FormControl
                           variant="standard"
                           sx={{
@@ -259,7 +268,9 @@ const CreateProjectPage = () => {
                             fontSize: "1.5rem",
                             marginBottom: "40px",
                           }}>
-                          <InputLabel id="demo-simple-select-standard-label" sx={{ fontSize: "1.5rem" }}>
+                          <InputLabel
+                            id="demo-simple-select-standard-label"
+                            sx={{ fontSize: "1.5rem" }}>
                             Internship
                           </InputLabel>
                           <Select
@@ -295,16 +306,18 @@ const CreateProjectPage = () => {
                             width: "28ch",
                             fontSize: "1.5rem",
                             marginBottom: "40px",
-                            marginLeft: "50px"
+                            marginLeft: "50px",
                           }}>
-                          <InputLabel id="demo-simple-select-standard-label" sx={{ fontSize: "1.5rem" }}>
+                          <InputLabel
+                            id="demo-simple-select-standard-label"
+                            sx={{ fontSize: "1.5rem" }}>
                             Year
                           </InputLabel>
                           <Select
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
-                            name="category"
-                            value={Year}
+                            name="year"
+                            value={year}
                             onChange={handleChange}
                             label="Year"
                             sx={{ fontSize: "1.5rem" }}>
@@ -325,18 +338,19 @@ const CreateProjectPage = () => {
                             </MenuItem>
                           </Select>
                         </FormControl>
-                        <Tooltip title='Add Photos'>
+                        <Tooltip title="Add Photos">
                           <AddAPhotoIcon
                             sx={{
                               width: "30px",
                               height: "30px",
                               cursor: "pointer",
-                              margin: '20px',
-                              paddingLeft: '20px'
-                            }} />
+                              margin: "20px",
+                              paddingLeft: "20px",
+                            }}
+                          />
                         </Tooltip>
                       </div>
-                      <Tooltip title='Add'>
+                      <Tooltip title="Add">
                         <Fab
                           aria-label="add"
                           sx={{

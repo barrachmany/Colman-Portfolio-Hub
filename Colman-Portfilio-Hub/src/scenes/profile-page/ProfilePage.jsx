@@ -3,12 +3,17 @@ import axios from "axios";
 import AppContext from "../../AppContext.jsx";
 import ReactCardFlip from "react-card-flip";
 import "./ProfilePage.css";
-import EditIcon from '@mui/icons-material/Edit';
-import CheckIcon from '@mui/icons-material/Check';
+import EditIcon from "@mui/icons-material/Edit";
+import CheckIcon from "@mui/icons-material/Check";
+import Nav from "../../components/Nav.jsx";
 
 const ProfilePage = () => {
   const { user, setUser, projects, setProjects } = useContext(AppContext);
-  const [isEditingField, setIsEditingField] = useState({ name: false, email: false, password: false });
+  const [isEditingField, setIsEditingField] = useState({
+    name: false,
+    email: false,
+    password: false,
+  });
   const [isFlipped, setIsFlipped] = useState({});
 
   const fetchUserData = async () => {
@@ -92,6 +97,7 @@ const ProfilePage = () => {
 
   return (
     <>
+      <Nav />
       <div className="profile-container">
         <h1>Profile</h1>
         <div className="profile-info">
@@ -110,7 +116,10 @@ const ProfilePage = () => {
                       value={user.name}
                       onChange={(e) => setUser({ ...user, name: e.target.value })}
                     />
-                    <CheckIcon sx={{ marginTop: '28px', cursor: 'pointer' }} onClick={() => handleSave("name")} />
+                    <CheckIcon
+                      sx={{ marginTop: "28px", cursor: "pointer" }}
+                      onClick={() => handleSave("name")}
+                    />
                   </>
                 ) : (
                   <>
@@ -118,16 +127,15 @@ const ProfilePage = () => {
                       <p>{user.name}</p>
                       <EditIcon
                         sx={{
-                          marginBottom: '28px',
-                          cursor: 'pointer'
+                          marginBottom: "28px",
+                          cursor: "pointer",
                         }}
-                        onClick={() => setIsEditingField({ ...isEditingField, name: true })} />
+                        onClick={() => setIsEditingField({ ...isEditingField, name: true })}
+                      />
                     </div>
-
                   </>
                 )}
               </div>
-
             </div>
 
             <div className="two-parts-info-user">
@@ -140,7 +148,10 @@ const ProfilePage = () => {
                       value={user.email}
                       onChange={(e) => setUser({ ...user, email: e.target.value })}
                     />
-                    <CheckIcon sx={{ marginTop: '28px', cursor: 'pointer' }} onClick={() => handleSave("email")} />
+                    <CheckIcon
+                      sx={{ marginTop: "28px", cursor: "pointer" }}
+                      onClick={() => handleSave("email")}
+                    />
                   </>
                 ) : (
                   <>
@@ -148,12 +159,12 @@ const ProfilePage = () => {
                       <p>{user.email}</p>
                       <EditIcon
                         sx={{
-                          marginBottom: '28px',
-                          cursor: 'pointer'
+                          marginBottom: "28px",
+                          cursor: "pointer",
                         }}
-                        onClick={() => setIsEditingField({ ...isEditingField, email: true })} />
+                        onClick={() => setIsEditingField({ ...isEditingField, email: true })}
+                      />
                     </div>
-
                   </>
                 )}
               </div>
@@ -165,7 +176,10 @@ const ProfilePage = () => {
                       type="password"
                       onChange={(e) => setUser({ ...user, password: e.target.value })}
                     />
-                    <CheckIcon sx={{ marginTop: '28px', cursor: 'pointer' }} onClick={() => handleSave("password")} />
+                    <CheckIcon
+                      sx={{ marginTop: "28px", cursor: "pointer" }}
+                      onClick={() => handleSave("password")}
+                    />
                   </>
                 ) : (
                   <>
@@ -173,17 +187,15 @@ const ProfilePage = () => {
                       <p>{"●●●●●●●●"}</p>
                       <EditIcon
                         sx={{
-                          marginBottom: '28px',
-                          cursor: 'pointer'
+                          marginBottom: "28px",
+                          cursor: "pointer",
                         }}
-                        onClick={() => setIsEditingField({ ...isEditingField, password: true })} />
+                        onClick={() => setIsEditingField({ ...isEditingField, password: true })}
+                      />
                     </div>
-
                   </>
                 )}
-
               </div>
-
             </div>
           </div>
           <h1 className="h1-info">Projects</h1>

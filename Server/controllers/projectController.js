@@ -12,6 +12,7 @@ const createProject = async (req, res) => {
   const idMembers = req.body.idMembers;
   const likes = req.body.likes;
   const idLikes = req.body.idLikes;
+  const year = req.body.year;
 
   if (!name || !creator) {
     return res.status(400).send("missing name or creator");
@@ -27,6 +28,7 @@ const createProject = async (req, res) => {
       category: category,
       idMembers: idMembers,
       image: `http://localhost:5000/${name}.jpg`,
+      year: year,
     });
 
     res.status(201).send(newProject);
@@ -181,6 +183,47 @@ const findBestFit = async (req, res, next) => {
   next();
 };
 
+const updateProject = async (req, res) => {
+  console.log("updating project");
+
+  const { id } = req.params;
+  console.log(id);
+
+  const {
+    name,
+    description,
+    members,
+    creator,
+    gitRepo,
+    category,
+    idMembers,
+    year,
+    likes,
+    idLikes,
+    image,
+  } = req.body;
+
+  try {
+    const project = await projectModel.findByIdAndUpdate(id, {
+      name: name,
+      description: description,
+      members: members,
+      creator: creator,
+      gitRepo: gitRepo,
+      category: category,
+      idMembers: idMembers,
+      year: year,
+      likes: likes,
+      idLikes: idLikes,
+      image: image,
+    });
+
+    res.status(200).send(project);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+};
+
 export default {
   createProject,
   getProjects,
@@ -191,4 +234,5 @@ export default {
   deleteProject,
   likeProject,
   findBestFit,
+  updateProject,
 };

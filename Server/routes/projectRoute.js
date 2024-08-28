@@ -23,4 +23,6 @@ router.post("/like/:projectId", projectController.likeProject);
 
 router.get("/findbestfit", projectController.findBestFit, chatController.createChat);
 
+router.put("/update/:id", projectController.updateProject);
+
 export default router;

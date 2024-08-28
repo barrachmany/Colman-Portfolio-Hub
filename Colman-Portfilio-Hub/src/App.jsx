@@ -1,17 +1,16 @@
-import { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainPage from './scenes/main-page/MainPage.jsx'
-import LandingPage from './scenes/landing-page/LandingPage.jsx';
-import LoginPage from './scenes/login-page/LoginPage.jsx';
-import RegisterPage from './scenes/register-page/RegisterPage.jsx';
-import CreateProjectPage from './scenes/create-project-page/CreateProjectPage.jsx';
-import AppContext from './AppContext.jsx';
-import ProfilePage from './scenes/profile-page/ProfilePage.jsx';
-import ProjectPage from './scenes/project-page/ProjectPage.jsx';
-import Nav from './components/Nav.jsx';
-import AboutPage from './scenes/about-page/AboutPage.jsx';
-import SmartSearchPage from './scenes/smart-search-page/SmartSearchPage.jsx';
-
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MainPage from "./scenes/main-page/MainPage.jsx";
+import LandingPage from "./scenes/landing-page/LandingPage.jsx";
+import LoginPage from "./scenes/login-page/LoginPage.jsx";
+import RegisterPage from "./scenes/register-page/RegisterPage.jsx";
+import CreateProjectPage from "./scenes/create-project-page/CreateProjectPage.jsx";
+import AppContext from "./AppContext.jsx";
+import ProfilePage from "./scenes/profile-page/ProfilePage.jsx";
+import ProjectPage from "./scenes/project-page/ProjectPage.jsx";
+import Nav from "./components/Nav.jsx";
+import AboutPage from "./scenes/about-page/AboutPage.jsx";
+import SmartSearchPage from "./scenes/smart-search-page/SmartSearchPage.jsx";
 
 function App() {
   const [projects, setProjects] = useState([]);
@@ -22,7 +21,6 @@ function App() {
       <AppContext.Provider value={{ projects, setProjects, user, setUser }}>
         <div className="app">
           <BrowserRouter>
-            <Nav />
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/main" element={<MainPage />} />
