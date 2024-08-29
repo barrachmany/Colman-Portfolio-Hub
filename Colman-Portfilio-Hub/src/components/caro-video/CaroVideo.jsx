@@ -7,7 +7,7 @@ import './CaroVideo.css';
 
 const CaroVideo = ({ video }) => {
     const [expanded, setExpanded] = React.useState(false);
-/////////////////////////////////////////
+
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
