@@ -165,19 +165,19 @@ const findBestFit = async (req, res, next) => {
        Here are some project descriptions:
        ${descriptionsText}
 
-       Based on the following query: "${query}", please rank the projects from most to least relevant.
-       Provide the project number and a brief explanation of why it is relevant.
-
-       give me the results in the following format:
+      Based on the following query: "${query}", please rank the projects from most to least relevant.
+      Provide the project ID, name, and a brief explanation of why it is relevant, in the following JSON format:
         {
           "results": [
-            {"id":"project id", "name": "project name", "relevance": "This project is relevant because...", "description": "This project is about..." },
-            {"id":"project id", "name": "project name", "relevance": "This project is relevant because...", "description": "This project is about..." },
-            ...
+            {
+              "id": "project_id",
+              "name": "project_name",
+              "relevance": "explanation"
+            }
           ]
         }
-
-   `;
+        Please return only the JSON without any additional explanations or text, make all the brackets and quotes are correct.
+        `;
 
   req.prompt = prompt;
   next();

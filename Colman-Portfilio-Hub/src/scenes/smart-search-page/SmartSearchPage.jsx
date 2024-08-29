@@ -4,6 +4,9 @@ import axios from "axios";
 import AppContext from "../../AppContext";
 import Nav from "../../components/Nav";
 
+import JSON5 from "json5";
+
+
 const SmartSearchPage = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
@@ -13,7 +16,6 @@ const SmartSearchPage = () => {
     axios
       .get(`http://localhost:5000/project/findbestfit?search=${search}`)
       .then((res) => {
-        console.log(res.data);
         console.log(res.data.results);
         setResults(res.data.results);
       })
@@ -26,7 +28,7 @@ const SmartSearchPage = () => {
     setSearch(e.target.value);
   };
 
-  useEffect(() => {}, [projects]);
+  useEffect(() => { }, [projects]);
 
   return (
     <div className="smart-search-page">

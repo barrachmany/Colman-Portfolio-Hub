@@ -143,7 +143,7 @@ const CreateProjectPage = () => {
       })
       .catch((error) => {
         console.log(error);
-        alert(error.response.statusText);
+        alert(error.response);
       })
       .finally(() => {
         setIsLoading(false); // Reset loading state
