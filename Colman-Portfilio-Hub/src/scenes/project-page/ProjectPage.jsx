@@ -41,7 +41,7 @@ const ProjectPage = () => {
       .finally(() => {
         setIsLoading(false); // Stop loading after fetching data
       });
-  }, [id, isImageRegenerated]);
+  }, [id, isImageRegenerated, isEditing]);
 
   const handleEdit = () => {
     setIsEditing(true);
