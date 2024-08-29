@@ -1,13 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
+.outter-profile-container {
+  display: flex;
+  justify-content: center;
+  background-image: url(/public/Images/sec-back.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: revert;
+}
+
 .profile-container {
-  max-width: 800px;
+  width: 800px;
   margin: 100px auto;
   height: 100%;
   padding: 20px;
   border-radius: 15px;
   background: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 

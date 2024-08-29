@@ -8,6 +8,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
 import Nav from "../../components/Nav";
+import secBackImage from './../../../public/Images/sec-back.png';
 
 const ProfilePage = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
@@ -93,161 +94,163 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Nav />
-      <div className="profile-container " >
-        <h1>Profile</h1>
-        <div className="profile-info">
-          <h2 className="user-name">{user.name}</h2>
-          <h1 className="h1-info">Information</h1>
-          <div className="user-inner-information">
-            <div className="two-parts-info-user">
-              <h2 className="user-inner-info">ID</h2>
-              <p>{user.id}</p>
-              <div>
-                <h2 className="user-inner-info">Name</h2>
-                {isEditingField.name ? (
-                  <>
-                    <input
-                      type="text"
-                      value={user.name}
-                      onChange={(e) =>
-                        setUser({ ...user, name: e.target.value })
-                      }
-                    />
-                    <CheckIcon
-                      sx={{ marginTop: "28px", cursor: "pointer" }}
-                      onClick={() => handleSave("name")}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <div className="info-user-edit">
-                      <p>{user.name}</p>
-                      <EditIcon
-                        sx={{
-                          marginBottom: "28px",
-                          cursor: "pointer",
-                        }}
-                        onClick={() =>
-                          setIsEditingField({ ...isEditingField, name: true })
+      <div className="outter-profile-container">
+        <Nav />
+        <div className="profile-container" >
+          <h1>Profile</h1>
+          <div className="profile-info">
+            <h2 className="user-name">{user.name}</h2>
+            <h1 className="h1-info">Information</h1>
+            <div className="user-inner-information">
+              <div className="two-parts-info-user">
+                <h2 className="user-inner-info">ID</h2>
+                <p>{user.id}</p>
+                <div>
+                  <h2 className="user-inner-info">Name</h2>
+                  {isEditingField.name ? (
+                    <>
+                      <input
+                        type="text"
+                        value={user.name}
+                        onChange={(e) =>
+                          setUser({ ...user, name: e.target.value })
                         }
                       />
-                    </div>
-                  </>
-                )}
+                      <CheckIcon
+                        sx={{ marginTop: "28px", cursor: "pointer" }}
+                        onClick={() => handleSave("name")}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <div className="info-user-edit">
+                        <p>{user.name}</p>
+                        <EditIcon
+                          sx={{
+                            marginBottom: "28px",
+                            cursor: "pointer",
+                          }}
+                          onClick={() =>
+                            setIsEditingField({ ...isEditingField, name: true })
+                          }
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
 
-            <div className="two-parts-info-user">
-              <div>
-                <h2 className="user-inner-info">Email</h2>
-                {isEditingField.email ? (
-                  <>
-                    <input
-                      type="email"
-                      value={user.email}
-                      onChange={(e) =>
-                        setUser({ ...user, email: e.target.value })
-                      }
-                    />
-                    <CheckIcon
-                      sx={{ marginTop: "28px", cursor: "pointer" }}
-                      onClick={() => handleSave("email")}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <div className="info-user-edit">
-                      <p>{user.email}</p>
-                      <EditIcon
-                        sx={{
-                          marginBottom: "28px",
-                          cursor: "pointer",
-                        }}
-                        onClick={() =>
-                          setIsEditingField({ ...isEditingField, email: true })
+              <div className="two-parts-info-user">
+                <div>
+                  <h2 className="user-inner-info">Email</h2>
+                  {isEditingField.email ? (
+                    <>
+                      <input
+                        type="email"
+                        value={user.email}
+                        onChange={(e) =>
+                          setUser({ ...user, email: e.target.value })
                         }
                       />
-                    </div>
-                  </>
-                )}
-              </div>
-              <div>
-                <h2 className="user-inner-info">Password</h2>
-                {isEditingField.password ? (
-                  <>
-                    <input
-                      type="password"
-                      onChange={(e) =>
-                        setUser({ ...user, password: e.target.value })
-                      }
-                    />
-                    <CheckIcon
-                      sx={{ marginTop: "28px", cursor: "pointer" }}
-                      onClick={() => handleSave("password")}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <div className="info-user-edit">
-                      <p>{"●●●●●●●●"}</p>
-                      <EditIcon
-                        sx={{
-                          marginBottom: "28px",
-                          cursor: "pointer",
-                        }}
-                        onClick={() =>
-                          setIsEditingField({
-                            ...isEditingField,
-                            password: true,
-                          })
+                      <CheckIcon
+                        sx={{ marginTop: "28px", cursor: "pointer" }}
+                        onClick={() => handleSave("email")}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <div className="info-user-edit">
+                        <p>{user.email}</p>
+                        <EditIcon
+                          sx={{
+                            marginBottom: "28px",
+                            cursor: "pointer",
+                          }}
+                          onClick={() =>
+                            setIsEditingField({ ...isEditingField, email: true })
+                          }
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div>
+                  <h2 className="user-inner-info">Password</h2>
+                  {isEditingField.password ? (
+                    <>
+                      <input
+                        type="password"
+                        onChange={(e) =>
+                          setUser({ ...user, password: e.target.value })
                         }
                       />
-                    </div>
-                  </>
-                )}
+                      <CheckIcon
+                        sx={{ marginTop: "28px", cursor: "pointer" }}
+                        onClick={() => handleSave("password")}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <div className="info-user-edit">
+                        <p>{"●●●●●●●●"}</p>
+                        <EditIcon
+                          sx={{
+                            marginBottom: "28px",
+                            cursor: "pointer",
+                          }}
+                          onClick={() =>
+                            setIsEditingField({
+                              ...isEditingField,
+                              password: true,
+                            })
+                          }
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
+            <h1 className="h1-info">Projects</h1>
           </div>
-          <h1 className="h1-info">Projects</h1>
-        </div>
 
-        <ImageList
-          sx={{
-            marginTop: "30px",
-            marginBottom: "20px",
-            width: "100%",
-            transform: "translateZ(0)",
-          }}
-          cols={2} // Set the number of columns as desired
-          gap={1}
-        >
-          {projects.length > 0 ? (
-            projects.map((project, index) => (
-              <ImageListItem
-                key={project._id}
-                sx={{
-                  height: "auto",  // Set to auto to fit the content
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "15px",
-                }}
-              >
-                <CaroProject
-                  project={project}
-                  isExpanded={expandedIndex === index}
-                  onExpandClick={() => handleExpandClick(index)}
+          <ImageList
+            sx={{
+              marginTop: "30px",
+              marginBottom: "20px",
+              width: "100%",
+              transform: "translateZ(0)",
+            }}
+            cols={2} // Set the number of columns as desired
+            gap={1}
+          >
+            {projects.length > 0 ? (
+              projects.map((project, index) => (
+                <ImageListItem
+                  key={project._id}
                   sx={{
-                    height: "100%",
-                    borderRadius: "4px",
-                  }} />
-              </ImageListItem>
-            ))
-          ) : (
-            <p>No projects found.</p>
-          )}
-        </ImageList>
+                    height: "auto",  // Set to auto to fit the content
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "15px",
+                  }}
+                >
+                  <CaroProject
+                    project={project}
+                    isExpanded={expandedIndex === index}
+                    onExpandClick={() => handleExpandClick(index)}
+                    sx={{
+                      height: "100%",
+                      borderRadius: "4px",
+                    }} />
+                </ImageListItem>
+              ))
+            ) : (
+              <p>No projects found.</p>
+            )}
+          </ImageList>
+        </div>
       </div>
     </>
   );
