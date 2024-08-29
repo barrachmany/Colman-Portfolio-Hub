@@ -87,7 +87,7 @@ const ProjectPage = () => {
       <Paper
         elevation={3}
         style={{
-          width: "1250px",
+          width: "65vw",
           borderRadius: "15px",
           display: "flex",
           position: "relative",

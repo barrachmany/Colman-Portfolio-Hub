@@ -33,8 +33,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 800px;
-    height: 900px;
+    width: 52vw;
+    height: 90vh;
 }
 
 .h2-login {
