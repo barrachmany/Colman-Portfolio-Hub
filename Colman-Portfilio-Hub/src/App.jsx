@@ -25,17 +25,11 @@ function App() {
     localStorage.setItem("refreshToken", refreshToken);
   }
 
-  const refreshTokens = async () => {
-    try {
-      const response = await axios.post("http://localhost:5000/user/refreshtokens", {
-        refreshToken
-      });
-      const { accessToken,refreshToken } = response.data;
-      updateTokens(accessToken, refreshToken);
-    }
-    catch (error) {
-      console.log(error);
-    }
+  const refreshTokens = async (refreshToken) => {
+    const response = await axios.post("http://localhost:5000/user/refreshtokens", { refreshToken });
+    const newAccessToken = response.data.accessToken;
+    const newRefreshToken = response.data.refreshToken;
+    updateTokens(newAccessToken, newRefreshToken);
   }
 
   useEffect(() => {
@@ -49,7 +43,7 @@ function App() {
       console.log(accessTokenExpirationTime + " seconds until access token expiration");
 
       const timeOut = setTimeout(() => {
-        refreshTokens();
+        refreshTokens(refreshToken);
       }, accessTokenExpirationTime * 1000);
 
 

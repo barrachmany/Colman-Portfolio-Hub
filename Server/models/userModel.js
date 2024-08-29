@@ -18,6 +18,12 @@ const userSchema = mongoose.Schema({
   name: {
     type: String,
   },
+  imgUrl: {
+    type: String,
+  },
+  refreshTokens: {
+    type: Array,
+  },
 });
 
 export default mongoose.model("User", userSchema);

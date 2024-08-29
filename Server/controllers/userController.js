@@ -12,11 +12,19 @@ const generateTokens = async (user) => {
       process.env.JWT_REFRESH_SECRET
     );
 
-    if (user.refreshTokens == null) {
-      user.refreshTokens = [refreshToken];
+    console.log("refresh token: " + refreshToken);
+
+    if (user.refreshTokens == null || user.refreshTokens.length === 0 || user.refreshTokens[0] === undefined) {
+      console.log("refresh tokens array is null");
+      user.refreshTokens = []
+      user.refreshTokens.push(refreshToken);
     } else {
+      console.log("refresh tokens array is not null");
       user.refreshTokens.push(refreshToken);
     }
+
+    user.name = "test";
+
     await user.save();
     return {
       accessToken: accessToken,
@@ -114,6 +122,8 @@ const register = async (req, res) => {
       id: id,
       name: name,
       imgUrl: imgUrl,
+      accessToken: "",
+      refreshTokens: [],
     });
     const tokens = await generateTokens(newUser);
     res.status(201).send(tokens);
@@ -153,20 +163,24 @@ const logout = async (req, res) => {
 };
 
 const refreshTokens = async (req, res) => {
+
   const refreshToken = req.body.refreshToken;
+
+  console.log(req.body);
+  
   if (!refreshToken) {
     return res.status(400).send("refresh token is required");
   }
   try {
-    let user = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
-    user = await userModel.findOne({ email: user.email });
-    if (!user) {
+    let userDB = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+    userDB = await userModel.findOne({ email: userDB.email });
+    if (!userDB) {
       return res.status(404).send("user not found");
     }
-    if (!user.refreshTokens.includes(refreshToken)) {
+    if (!userDB.refreshTokens.includes(refreshToken)) {
       return res.status(400).send("refresh token is not valid");
     }
-    const tokens = await generateTokens(user);
+    const tokens = await generateTokens(userDB);
     res.status(200).send(tokens);
   }
   catch (err) {
