@@ -20,7 +20,7 @@ import "./CreateProject.css";
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
   const [year, setYear] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const [newProject, setNewProject] = useState({

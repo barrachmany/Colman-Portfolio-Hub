@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import CircularProgress from "@mui/material/CircularProgress";
 import "./ProjectPage.css";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
@@ -12,12 +13,14 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import CheckIcon from "@mui/icons-material/Check";
 import Nav from "../../components/Nav";
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const ProjectPage = () => {
   const { id } = useParams();
   const [project, setProject] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [isImageRegenerated, setIsImageRegenerated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const years = Array.from({ length: 5 }, (_, i) => 2020 + i);
   const categories = ["Full-Stack", "Deep Learning", "Data Science", "Cyber", "Fintech"];
@@ -25,6 +28,7 @@ const ProjectPage = () => {
   useEffect(() => {
     console.log(id);
     setIsImageRegenerated(false);
+    setIsLoading(false); // Start loading when fetching project data
     axios
       .get(`http://localhost:5000/project/get/${id}`)
       .then((response) => {
@@ -33,6 +37,9 @@ const ProjectPage = () => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Stop loading after fetching data
       });
   }, [id, isImageRegenerated]);
 
@@ -58,6 +65,7 @@ const ProjectPage = () => {
   };
 
   const regenrateImage = () => {
+    setIsLoading(true); // Start loading when regenerating image
     axios
       .post("http://localhost:5000/api/regenerate", { id: project._id, name: project.name, description: project.description })
       .then((response) => {
@@ -67,8 +75,11 @@ const ProjectPage = () => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Stop loading after image regeneration
       });
-  }
+  };
 
   return (
     <div className="project-page with-main-background">
@@ -79,140 +90,177 @@ const ProjectPage = () => {
           width: "1250px",
           borderRadius: "15px",
           display: "flex",
-        }}>
-        <div className="project-page-image-container">
-          <Tooltip title="Regenerate Image">
-            <IconButton onClick={regenrateImage} sx={{ cursor: "pointer", width: "3rem", height: "3rem", }}>
-              <img src="https://img.icons8.com/ios-glyphs/30/000000/synchronize.png" alt="regenerate" />
-            </IconButton>
-          </Tooltip>
-          <img className="project-page-image" src={project.image} alt="project" />
-        </div>
-        <div className="project-details">
-          <div className="project-header">
-            {isEditing ? (
-              <TextField
-                label="Project Name"
-                name="name"
-                value={project.name}
-                onChange={handleChange}
-                fullWidth
-                style={{ marginBottom: "10px" }}
-              />
-            ) : (
-              <h1 style={{ color: "#255366", fontSize: "67" }}>{project.name}</h1>
-            )}
-            {isEditing ? (
-              <TextField
-                label="Description"
-                name="description"
-                value={project.description}
-                onChange={handleChange}
-                fullWidth
-                multiline
-                style={{ marginBottom: "10px" }}
-              />
-            ) : (
-              <p style={{ color: "#646464", textAlign: "center", marginTop: "15px" }}>{project.description}</p>
-            )}
-          </div>
-          <div className="project-section">
-            <h2 className="h2-info">Members: </h2>
-            <ul>
-              {project.members &&
-                project.members.map((member, index) => {
-                  return (
-                    <li key={index} className="project-p">
-                      {member}
-                    </li>
-                  );
-                })}
-            </ul>
-          </div>
-          <div className="project-section">
+          position: "relative",
+        }}
+      >
+        {isLoading ? (
+          <React.Fragment>
+            <svg width={0} height={0}>
+              <defs>
+                <linearGradient id="my_gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#b0d5d6" />
+                  <stop offset="100%" stopColor="#255366" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <CircularProgress
+              variant="indeterminate"
+              disableShrink
+              sx={{
+                animationDuration: "550ms",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                "svg circle": { stroke: "url(#my_gradient)" },
 
-            {isEditing ? (
-              <TextField
-                label="Category"
-                name="category"
-                select
-                value={project.category}
-                onChange={handleChange}
-                fullWidth
-                style={{ marginBottom: "10px" }}>
-                {categories.map((category, index) => (
-                  <MenuItem key={index} value={category}>
-                    {category}
-                  </MenuItem>
-                ))}
-              </TextField>
-            ) : (
-              <>
-                <h2 className="h2-info">Category:</h2>
-                <p className="project-p">{project.category}</p>
-              </>
-            )}
-          </div>
-          <div className="project-section">
-            <h2 className="h2-info">Creator:</h2>
-            <p className="project-p">{project.creator}</p>
-          </div>
-          <div className="project-section">
-            {isEditing ? (
-              <TextField
-                label="Year"
-                name="year"
-                select
-                value={project.year}
-                onChange={handleChange}
-                fullWidth
-                style={{ marginBottom: "10px" }}>
-                {years.map((year) => (
-                  <MenuItem key={year} value={year}>
-                    {year}
-                  </MenuItem>
-                ))}
-              </TextField>
-            ) : (
-              <>
-                <h2 className="h2-info">Year:</h2>
-                <p className="project-p">{project.year}</p>
-              </>
-            )}
-          </div>
-          <div className="project-section">
-            {isEditing ? (
-              <TextField
-                label="Git Repo"
-                name="gitRepo"
-                value={project.gitRepo}
-                onChange={handleChange}
-                fullWidth
-                style={{ marginBottom: "10px" }}
-              />
-            ) : (
-              <>
-                <h2 className="h2-info">Git Repo:</h2>
-                <a className="project-p" href={project.gitRepo}>{project.gitRepo}</a>
-              </>
-            )}
-          </div>
-          <div>
-          </div>
-        </div>
-        <Tooltip title={isEditing ? "Save" : "Edit"}>
-          {isEditing ? (
-            <IconButton onClick={handleSave} sx={{ cursor: "pointer", width: "3rem", height: "3rem", margin: "5px" }}>
-              <CheckIcon sx={{ fontSize: "2.5rem" }} />
-            </IconButton>
-          ) : (
-            <IconButton
-              onClick={isEditing ? handleSave : handleEdit}
-              sx={{ width: "3rem", height: "3rem", margin: "5px" }}>
-              <EditIcon sx={{ fontSize: "2.5rem" }} />
-            </IconButton>
-          )}
-        </Tooltip>
+              }}
+              size={100}
+            />
+          </React.Fragment>
+        ) : (
+          <>
+            <div className="project-page-image-container">
+              <img className="project-page-image" src={project.image} alt="project" />
+              <Tooltip title="Regenerate Image">
+                <IconButton onClick={regenrateImage} sx={{ cursor: "pointer", width: "3rem", height: "3rem", marginLeft: '5px' }}>
+                  <RefreshIcon sx={{ width: '2.5rem', height: '2.5rem' }} />
+                </IconButton>
+              </Tooltip>
+            </div>
+            <div className="project-details">
+              <div className="project-header">
+                {isEditing ? (
+                  <TextField
+                    label="Project Name"
+                    name="name"
+                    value={project.name}
+                    onChange={handleChange}
+                    fullWidth
+                    style={{ marginBottom: "10px" }}
+                  />
+                ) : (
+                  <h1 style={{ color: "#255366", fontSize: "67" }}>{project.name}</h1>
+                )}
+                {isEditing ? (
+                  <TextField
+                    label="Description"
+                    name="description"
+                    value={project.description}
+                    onChange={handleChange}
+                    fullWidth
+                    multiline
+                    style={{ marginBottom: "10px" }}
+                  />
+                ) : (
+                  <p style={{ color: "#646464", textAlign: "center", marginTop: "15px" }}>{project.description}</p>
+                )}
+              </div>
+              <div className="project-section">
+                <h2 className="h2-info">Members: </h2>
+                <ul>
+                  {project.members &&
+                    project.members.map((member, index) => {
+                      return (
+                        <li key={index} className="project-p">
+                          {member}
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
+              <div className="project-section">
+                {isEditing ? (
+                  <TextField
+                    label="Category"
+                    name="category"
+                    select
+                    value={project.category}
+                    onChange={handleChange}
+                    fullWidth
+                    style={{ marginBottom: "10px" }}
+                  >
+                    {categories.map((category, index) => (
+                      <MenuItem key={index} value={category}>
+                        {category}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                ) : (
+                  <>
+                    <h2 className="h2-info">Category:</h2>
+                    <p className="project-p">{project.category}</p>
+                  </>
+                )}
+              </div>
+              <div className="project-section">
+                <h2 className="h2-info">Creator:</h2>
+                <p className="project-p">{project.creator}</p>
+              </div>
+              <div className="project-section">
+                {isEditing ? (
+                  <TextField
+                    label="Year"
+                    name="year"
+                    select
+                    value={project.year}
+                    onChange={handleChange}
+                    fullWidth
+                    style={{ marginBottom: "10px" }}
+                  >
+                    {years.map((year) => (
+                      <MenuItem key={year} value={year}>
+                        {year}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                ) : (
+                  <>
+                    <h2 className="h2-info">Year:</h2>
+                    <p className="project-p">{project.year}</p>
+                  </>
+                )}
+              </div>
+              <div className="project-section">
+                {isEditing ? (
+                  <TextField
+                    label="Git Repo"
+                    name="gitRepo"
+                    value={project.gitRepo}
+                    onChange={handleChange}
+                    fullWidth
+                    style={{ marginBottom: "10px" }}
+                  />
+                ) : (
+                  <>
+                    <h2 className="h2-info">Git Repo:</h2>
+                    <a className="project-p" href={project.gitRepo}>
+                      {project.gitRepo}
+                    </a>
+                  </>
+                )}
+              </div>
+              <div></div>
+            </div>
+            <Tooltip title={isEditing ? "Save" : "Edit"}>
+              {isEditing ? (
+                <IconButton
+                  onClick={handleSave}
+                  sx={{ cursor: "pointer", width: "3rem", height: "3rem", margin: "5px" }}
+                >
+                  <CheckIcon sx={{ fontSize: "2.5rem" }} />
+                </IconButton>
+              ) : (
+                <IconButton
+                  onClick={isEditing ? handleSave : handleEdit}
+                  sx={{ width: "3rem", height: "3rem", margin: "5px" }}
+                >
+                  <EditIcon sx={{ fontSize: "2.5rem" }} />
+                </IconButton>
+              )}
+            </Tooltip>
+          </>
+        )}
       </Paper>
     </div>
   );
