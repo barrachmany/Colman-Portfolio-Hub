@@ -28,19 +28,21 @@
     flex-direction: column;
     width: 100%;
     padding: 40px;
+    justify-content: center;
 }
 
 .project-header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 7px
+    margin-bottom: 45px
 }
 
-h2 {
+.h2-info {
     color: #646464;
-    font-size: 23px;
+    font-size: 22px;
     font-weight: 500;
+    border-bottom: 2px solid #646464;
 }
 
 .p-description {
@@ -51,9 +53,13 @@ h2 {
 
 .project-section {
     margin: 7px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1ch;
 }
 
 .project-p {
-    font-size: 20px;
+    font-size: 22px;
     margin-top: 5px;
 }

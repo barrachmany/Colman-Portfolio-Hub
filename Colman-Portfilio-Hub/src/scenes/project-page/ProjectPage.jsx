@@ -56,15 +56,14 @@ const ProjectPage = () => {
   };
 
   return (
-    <div className="project-page">
+    <div className="project-page with-main-background">
       <Nav />
       <Paper
         elevation={3}
         style={{
-          width: "1150px",
+          width: "1250px",
           borderRadius: "15px",
           display: "flex",
-          marginTop: '100px'
         }}>
         <div className="project-page-image-container">
           <img className="project-page-image" src={project.image} alt="project" />
@@ -94,11 +93,11 @@ const ProjectPage = () => {
                 style={{ marginBottom: "10px" }}
               />
             ) : (
-              <p style={{ color: "#646464" }}>{project.description}</p>
+              <p style={{ color: "#646464", textAlign: "center", marginTop: "15px" }}>{project.description}</p>
             )}
           </div>
           <div className="project-section">
-            <h2>Members:</h2>
+            <h2 className="h2-info">Members: </h2>
             <ul>
               {project.members &&
                 project.members.map((member, index) => {
@@ -129,13 +128,13 @@ const ProjectPage = () => {
               </TextField>
             ) : (
               <>
-                <h2>Category:</h2>
+                <h2 className="h2-info">Category:</h2>
                 <p className="project-p">{project.category}</p>
               </>
             )}
           </div>
           <div className="project-section">
-            <h2>Creator:</h2>
+            <h2 className="h2-info">Creator:</h2>
             <p className="project-p">{project.creator}</p>
           </div>
           <div className="project-section">
@@ -156,8 +155,8 @@ const ProjectPage = () => {
               </TextField>
             ) : (
               <>
-                <h2>Year:</h2>
-                <p>{project.year}</p>
+                <h2 className="h2-info">Year:</h2>
+                <p className="project-p">{project.year}</p>
               </>
             )}
           </div>
@@ -173,8 +172,8 @@ const ProjectPage = () => {
               />
             ) : (
               <>
-                <h2>Git Repo:</h2>
-                <a href={project.gitRepo}>{project.gitRepo}</a>
+                <h2 className="h2-info">Git Repo:</h2>
+                <a className="project-p" href={project.gitRepo}>{project.gitRepo}</a>
               </>
             )}
           </div>
@@ -183,8 +182,8 @@ const ProjectPage = () => {
         </div>
         <Tooltip title={isEditing ? "Save" : "Edit"}>
           {isEditing ? (
-            <IconButton onClick={handleSave} sx={{ cursor: "pointer", width: "3rem", height: "3rem", }}>
-              <CheckIcon />
+            <IconButton onClick={handleSave} sx={{ cursor: "pointer", width: "3rem", height: "3rem", margin: "5px" }}>
+              <CheckIcon sx={{ fontSize: "2.5rem" }} />
             </IconButton>
           ) : (
             <IconButton

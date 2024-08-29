@@ -94,7 +94,7 @@ const ProfilePage = () => {
   return (
     <>
       <Nav />
-      <div className="profile-container">
+      <div className="profile-container " >
         <h1>Profile</h1>
         <div className="profile-info">
           <h2 className="user-name">{user.name}</h2>
