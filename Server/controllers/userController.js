@@ -152,4 +152,27 @@ const logout = async (req, res) => {
   res.sendStatus(204);
 };
 
-export default { register, login, logout, updateUser, getUser, deleteUser };
+const refreshTokens = async (req, res) => {
+  const refreshToken = req.body.refreshToken;
+  if (!refreshToken) {
+    return res.status(400).send("refresh token is required");
+  }
+  try {
+    let user = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+    user = await userModel.findOne({ email: user.email });
+    if (!user) {
+      return res.status(404).send("user not found");
+    }
+    if (!user.refreshTokens.includes(refreshToken)) {
+      return res.status(400).send("refresh token is not valid");
+    }
+    const tokens = await generateTokens(user);
+    res.status(200).send(tokens);
+  }
+  catch (err) {
+    console.log(err);
+    return res.status(400).send("invalid refresh token");
+  }
+}
+
+export default { register, login, logout, updateUser, getUser, deleteUser, refreshTokens };

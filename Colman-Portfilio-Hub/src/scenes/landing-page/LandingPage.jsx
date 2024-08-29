@@ -1,13 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./LandingPage.css";
 import FlowerImg from "./../../../public/Images/file.png";
-import Nav from "../../components/Nav";
+import AppContext from "./../../AppContext.jsx";
 
 const LandingPage = () => {
+
+  const { updateTokens, accessToken, refreshToken } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (accessToken && refreshToken) {
+      updateTokens(accessToken, refreshToken);
+      navigate("/main");
+    }
+  }, []);
+
+
+
   return (
     <div className="login-container with-main-background">
-      <Nav />
       <div className="login-inner-container">
         <div className="header-h1">
           <h1 className="h1-login">Colman Portfilio Hub</h1>

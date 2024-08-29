@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./scenes/main-page/MainPage.jsx";
 import LandingPage from "./scenes/landing-page/LandingPage.jsx";
@@ -8,17 +8,58 @@ import CreateProjectPage from "./scenes/create-project-page/CreateProjectPage.js
 import AppContext from "./AppContext.jsx";
 import ProfilePage from "./scenes/profile-page/ProfilePage.jsx";
 import ProjectPage from "./scenes/project-page/ProjectPage.jsx";
-import Nav from "./components/Nav.jsx";
 import AboutPage from "./scenes/about-page/AboutPage.jsx";
 import SmartSearchPage from "./scenes/smart-search-page/SmartSearchPage.jsx";
+import axios from "axios";
 
 function App() {
   const [projects, setProjects] = useState([]);
   const [user, setUser] = useState({});
+  const [accessToken, setAccessToken] = useState("");
+  const [refreshToken, setRefreshToken] = useState("");
+
+  const updateTokens = (accessToken, refreshToken) => {
+    setAccessToken(accessToken);
+    localStorage.setItem("accessToken", accessToken);
+    setRefreshToken(refreshToken);
+    localStorage.setItem("refreshToken", refreshToken);
+  }
+
+  const refreshTokens = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/user/refreshtokens", {
+        refreshToken
+      });
+      const { accessToken,refreshToken } = response.data;
+      updateTokens(accessToken, refreshToken);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (accessToken && refreshToken) {
+      updateTokens(accessToken, refreshToken);
+
+      const decodedToken = JSON.parse(atob(accessToken.split('.')[1]));
+      const accessTokenExpirationTime = decodedToken.exp - Date.now() / 1000;
+      console.log(accessTokenExpirationTime + " seconds until access token expiration");
+
+      const timeOut = setTimeout(() => {
+        refreshTokens();
+      }, accessTokenExpirationTime * 1000);
+
+
+      return () => clearTimeout(timeOut);
+    }
+  }, []);
 
   return (
     <>
-      <AppContext.Provider value={{ projects, setProjects, user, setUser }}>
+      <AppContext.Provider value={{ projects, setProjects, user, setUser, accessToken, refreshToken, updateTokens }}>
         <div className="app">
           <BrowserRouter>
             <Routes>
