@@ -39,7 +39,7 @@ const ProjectsList = () => {
   }
 
   useEffect(() => {
-    axios.get("http://localhost:5000/project/get", {
+    axios.get("/project/get", {
       headers: { Authorization: `Bearer ${accessToken}` },
     }).then((res) => {
       setProjects(res.data);

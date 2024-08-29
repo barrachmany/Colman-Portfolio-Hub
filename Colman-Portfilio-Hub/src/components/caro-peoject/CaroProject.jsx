@@ -42,7 +42,7 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/user/get", {
+      const response = await axios.get("/user/get", {
         headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
       });
 
@@ -71,7 +71,7 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
 
   const handleLikeClick = async () => {
     try {
-      const response = await axios.post(`http://localhost:5000/project/like/${project._id}`, {
+      const response = await axios.post(`/project/like/${project._id}`, {
         userId: user.id,
       });
       setIsFavorite(!isFavorite);

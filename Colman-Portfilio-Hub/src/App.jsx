@@ -18,6 +18,8 @@ function App() {
   const [accessToken, setAccessToken] = useState("");
   const [refreshToken, setRefreshToken] = useState("");
 
+  axios.defaults.baseURL = "http://localhost:5000";
+
   const updateTokens = (accessToken, refreshToken) => {
     setAccessToken(accessToken);
     localStorage.setItem("accessToken", accessToken);
@@ -26,7 +28,7 @@ function App() {
   }
 
   const refreshTokens = async (refreshToken) => {
-    const response = await axios.post("http://localhost:5000/user/refreshtokens", { refreshToken });
+    const response = await axios.post("/user/refreshtokens", { refreshToken });
     const newAccessToken = response.data.accessToken;
     const newRefreshToken = response.data.refreshToken;
     updateTokens(newAccessToken, newRefreshToken);

@@ -30,7 +30,7 @@ const ProjectPage = () => {
     setIsImageRegenerated(false);
     setIsLoading(false); 
     axios
-      .get(`http://localhost:5000/project/get/${id}`)
+      .get(`/project/get/${id}`)
       .then((response) => {
         setProject(response.data);
         console.log(response.data);
@@ -49,7 +49,7 @@ const ProjectPage = () => {
 
   const handleSave = () => {
     axios
-      .put(`http://localhost:5000/project/update/${id}`, project)
+      .put(`/project/update/${id}`, project)
       .then((response) => {
         setIsEditing(false);
         console.log(response.data);
@@ -67,7 +67,7 @@ const ProjectPage = () => {
   const regenrateImage = () => {
     setIsLoading(true); 
     axios
-      .post("http://localhost:5000/api/regenerate", { id: project._id, name: project.name, description: project.description })
+      .post("/api/regenerate", { id: project._id, name: project.name, description: project.description })
       .then((response) => {
         console.log(response.data);
         alert("Image Regenerated Successfully, Please refresh the page to see the changes");

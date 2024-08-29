@@ -14,7 +14,7 @@ const SmartSearchPage = () => {
 
   const handleSearch = () => {
     axios
-      .get(`http://localhost:5000/project/findbestfit?search=${search}`)
+      .get(`/project/findbestfit?search=${search}`)
       .then((res) => {
         console.log(res.data.results);
         setResults(res.data.results);

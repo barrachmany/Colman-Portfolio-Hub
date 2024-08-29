@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     axios
-      .post("http://localhost:5000/user/login", user)
+      .post("/user/login", user)
       .then((response) => {
         console.log(response);
         localStorage.removeItem("accessToken");
