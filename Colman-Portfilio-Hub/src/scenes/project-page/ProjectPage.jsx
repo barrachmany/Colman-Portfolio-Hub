@@ -17,12 +17,14 @@ const ProjectPage = () => {
   const { id } = useParams();
   const [project, setProject] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+  const [isImageRegenerated, setIsImageRegenerated] = useState(false);
 
   const years = Array.from({ length: 5 }, (_, i) => 2020 + i);
   const categories = ["Full-Stack", "Deep Learning", "Data Science", "Cyber", "Fintech"];
 
   useEffect(() => {
     console.log(id);
+    setIsImageRegenerated(false);
     axios
       .get(`http://localhost:5000/project/get/${id}`)
       .then((response) => {
@@ -32,7 +34,7 @@ const ProjectPage = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [id]);
+  }, [id, isImageRegenerated]);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -55,6 +57,19 @@ const ProjectPage = () => {
     setProject({ ...project, [name]: value });
   };
 
+  const regenrateImage = () => {
+    axios
+      .post("http://localhost:5000/api/regenerate", { id: project._id, name: project.name, description: project.description })
+      .then((response) => {
+        console.log(response.data);
+        alert("Image Regenerated Successfully, Please refresh the page to see the changes");
+        setIsImageRegenerated(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   return (
     <div className="project-page">
       <Nav />
@@ -67,6 +82,11 @@ const ProjectPage = () => {
           marginTop: '100px'
         }}>
         <div className="project-page-image-container">
+          <Tooltip title="Regenerate Image">
+            <IconButton onClick={regenrateImage} sx={{ cursor: "pointer", width: "3rem", height: "3rem", }}>
+              <img src="https://img.icons8.com/ios-glyphs/30/000000/synchronize.png" alt="regenerate" />
+            </IconButton>
+          </Tooltip>
           <img className="project-page-image" src={project.image} alt="project" />
         </div>
         <div className="project-details">

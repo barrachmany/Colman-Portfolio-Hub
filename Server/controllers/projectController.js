@@ -224,6 +224,7 @@ const updateProject = async (req, res) => {
   }
 };
 
+
 export default {
   createProject,
   getProjects,
