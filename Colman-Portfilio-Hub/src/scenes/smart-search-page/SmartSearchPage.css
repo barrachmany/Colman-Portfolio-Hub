@@ -10,7 +10,7 @@
     gap: 20px;
 }
 
-.ai-search-h1{
+.ai-search-h1 {
     font-size: 35px;
     margin-top: 50px;
     font-family: "Lobster", sans-serif;
@@ -18,7 +18,7 @@
     color: #255366;
 }
 
-input {
+.search-ai-input {
     width: 50%;
     height: 30px;
     border-radius: 10px;
@@ -37,7 +37,7 @@ button {
     cursor: pointer;
 }
 
-button:hover{
+button:hover {
     background-color: #b0d5d6;
     color: #434343;
 }

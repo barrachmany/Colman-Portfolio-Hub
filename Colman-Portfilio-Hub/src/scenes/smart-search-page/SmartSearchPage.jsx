@@ -26,13 +26,14 @@ const SmartSearchPage = () => {
     setSearch(e.target.value);
   };
 
-  useEffect(() => {}, [projects]);
+  useEffect(() => { }, [projects]);
 
   return (
     <div className="smart-search-page">
       <Nav />
       <h1 className="ai-search-h1">Smart AI Search</h1>
       <input
+        className="search-ai-input"
         type="text"
         onChange={handleChange}
         placeholder='Example: " i want to search a project that about cyber serurity " '

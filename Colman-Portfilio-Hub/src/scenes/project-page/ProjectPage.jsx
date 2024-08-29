@@ -62,9 +62,9 @@ const ProjectPage = () => {
         elevation={3}
         style={{
           width: "1150px",
-          height: "auto",
           borderRadius: "15px",
           display: "flex",
+          marginTop: '100px'
         }}>
         <div className="project-page-image-container">
           <img className="project-page-image" src={project.image} alt="project" />
@@ -111,10 +111,12 @@ const ProjectPage = () => {
             </ul>
           </div>
           <div className="project-section">
-            <h2>Category:</h2>
+
             {isEditing ? (
-              <Select
+              <TextField
+                label="Category"
                 name="category"
+                select
                 value={project.category}
                 onChange={handleChange}
                 fullWidth
@@ -124,9 +126,12 @@ const ProjectPage = () => {
                     {category}
                   </MenuItem>
                 ))}
-              </Select>
+              </TextField>
             ) : (
-              <p className="project-p">{project.category}</p>
+              <>
+                <h2>Category:</h2>
+                <p className="project-p">{project.category}</p>
+              </>
             )}
           </div>
           <div className="project-section">
@@ -134,10 +139,11 @@ const ProjectPage = () => {
             <p className="project-p">{project.creator}</p>
           </div>
           <div className="project-section">
-            <h2>Year:</h2>
             {isEditing ? (
-              <Select
+              <TextField
+                label="Year"
                 name="year"
+                select
                 value={project.year}
                 onChange={handleChange}
                 fullWidth
@@ -147,13 +153,15 @@ const ProjectPage = () => {
                     {year}
                   </MenuItem>
                 ))}
-              </Select>
+              </TextField>
             ) : (
-              <p>{project.year}</p>
+              <>
+                <h2>Year:</h2>
+                <p>{project.year}</p>
+              </>
             )}
           </div>
           <div className="project-section">
-            <h2>Git Repo:</h2>
             {isEditing ? (
               <TextField
                 label="Git Repo"
@@ -164,7 +172,10 @@ const ProjectPage = () => {
                 style={{ marginBottom: "10px" }}
               />
             ) : (
-              <a href={project.gitRepo}>{project.gitRepo}</a>
+              <>
+                <h2>Git Repo:</h2>
+                <a href={project.gitRepo}>{project.gitRepo}</a>
+              </>
             )}
           </div>
           <div>
