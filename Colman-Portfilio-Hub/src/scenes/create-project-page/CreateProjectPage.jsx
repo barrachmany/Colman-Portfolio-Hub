@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Nav from "../../components/Nav";
@@ -12,10 +12,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import "./CreateProject.css";
 import Tooltip from "@mui/material/Tooltip";
 import CircularProgress from "@mui/material/CircularProgress";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import "./CreateProject.css";
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
@@ -35,6 +35,36 @@ const CreateProjectPage = () => {
     likes: 0,
     year: 0,
   });
+
+  const fileInputRef = useRef(null); // Create a ref for the file input
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // You can add file validation here if needed
+      const formData = new FormData();
+      formData.append("image", file);
+
+      // Example of uploading file to your server
+      axios.post("http://localhost:5000/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+        .then(response => {
+          console.log(response.data);
+          // Set image URL or handle response
+          setNewProject({ ...newProject, image: response.data.imageUrl });
+        })
+        .catch(error => {
+          console.error("Error uploading the file:", error);
+        });
+    }
+  };
+
+  const handleAddPhotoClick = () => {
+    fileInputRef.current.click(); // Programmatically click the file input
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -136,7 +166,6 @@ const CreateProjectPage = () => {
                 </h2>
 
                 {isLoading ? (
-                  // Display CircularProgress with gradient while loading
                   <React.Fragment>
                     <svg width={0} height={0}>
                       <defs>
@@ -151,19 +180,18 @@ const CreateProjectPage = () => {
                       disableShrink
                       sx={{
                         animationDuration: "550ms",
-                        top: "50%", // Center vertically
-                        left: "50%", // Center horizontally
-                        transform: "translate(-50%, -50%)", // Center the element
-                        width: "50vw", // Set to 50% of viewport width
-                        height: "50vh", // Set to 50% of viewport height
-                        "svg circle": { stroke: "url(#my_gradient)" }, // Apply gradient to stroke
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: "50vw",
+                        height: "50vh",
+                        "svg circle": { stroke: "url(#my_gradient)" },
                         marginTop: "20%",
                       }}
                       size={150}
                     />
                   </React.Fragment>
                 ) : (
-                  // Show form when not loading
                   <>
                     <div className="form-names">
                       <TextField
@@ -172,10 +200,10 @@ const CreateProjectPage = () => {
                         sx={{ m: 1, width: "30ch", fontSize: "1.5rem" }}
                         InputProps={{
                           startAdornment: <InputAdornment position="start"></InputAdornment>,
-                          sx: { fontSize: "1.5rem" }, // Increase input text size
+                          sx: { fontSize: "1.5rem" },
                         }}
                         InputLabelProps={{
-                          sx: { fontSize: "2rem" }, // Increase label text size
+                          sx: { fontSize: "2rem" },
                         }}
                         variant="standard"
                         name="creator"
@@ -347,8 +375,15 @@ const CreateProjectPage = () => {
                               margin: "20px",
                               paddingLeft: "20px",
                             }}
+                            onClick={handleAddPhotoClick} // Trigger file input click
                           />
                         </Tooltip>
+                        <input
+                          type="file"
+                          ref={fileInputRef}
+                          style={{ display: "none" }} // Hide the input element
+                          onChange={handleFileChange}
+                        />
                       </div>
                       <Tooltip title="Add">
                         <Fab

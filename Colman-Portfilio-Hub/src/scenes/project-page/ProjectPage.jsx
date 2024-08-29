@@ -134,7 +134,7 @@ const ProjectPage = () => {
             <p className="project-p">{project.creator}</p>
           </div>
           <div className="project-section">
-            <h2>Year</h2>
+            <h2>Year:</h2>
             {isEditing ? (
               <Select
                 name="year"
@@ -168,19 +168,21 @@ const ProjectPage = () => {
             )}
           </div>
           <div>
-            <Tooltip title={isEditing ? "Save" : "Edit"}>
-              {isEditing ? (
-                <CheckIcon sx={{ marginTop: "28px", cursor: "pointer" }} onClick={handleSave} />
-              ) : (
-                <IconButton
-                  onClick={isEditing ? handleSave : handleEdit}
-                  sx={{ width: "3rem", height: "3rem", margin: "5px" }}>
-                  <EditIcon sx={{ fontSize: "2.5rem" }} />
-                </IconButton>
-              )}
-            </Tooltip>
           </div>
         </div>
+        <Tooltip title={isEditing ? "Save" : "Edit"}>
+          {isEditing ? (
+            <IconButton onClick={handleSave} sx={{ cursor: "pointer", width: "3rem", height: "3rem", }}>
+              <CheckIcon />
+            </IconButton>
+          ) : (
+            <IconButton
+              onClick={isEditing ? handleSave : handleEdit}
+              sx={{ width: "3rem", height: "3rem", margin: "5px" }}>
+              <EditIcon sx={{ fontSize: "2.5rem" }} />
+            </IconButton>
+          )}
+        </Tooltip>
       </Paper>
     </div>
   );

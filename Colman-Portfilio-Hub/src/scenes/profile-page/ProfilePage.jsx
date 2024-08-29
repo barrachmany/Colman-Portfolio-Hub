@@ -7,6 +7,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
+import Nav from "../../components/Nav";
 
 const ProfilePage = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
@@ -92,6 +93,7 @@ const ProfilePage = () => {
 
   return (
     <>
+      <Nav />
       <div className="profile-container">
         <h1>Profile</h1>
         <div className="profile-info">
