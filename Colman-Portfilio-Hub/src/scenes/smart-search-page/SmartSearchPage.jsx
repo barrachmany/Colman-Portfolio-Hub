@@ -35,6 +35,7 @@ const SmartSearchPage = () => {
       <Nav />
       <h1 className="ai-search-h1">Smart AI Search</h1>
       <input
+        className="search-ai-input"
         type="text"
         onChange={handleChange}
         placeholder='Example: " i want to search a project that about cyber serurity " '
