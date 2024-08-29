@@ -221,7 +221,7 @@ const ProfilePage = () => {
               width: "100%",
               transform: "translateZ(0)",
             }}
-            cols={2} // Set the number of columns as desired
+            cols={2}
             gap={1}
           >
             {projects.length > 0 ? (
@@ -229,7 +229,7 @@ const ProfilePage = () => {
                 <ImageListItem
                   key={project._id}
                   sx={{
-                    height: "auto",  // Set to auto to fit the content
+                    height: "auto", 
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
