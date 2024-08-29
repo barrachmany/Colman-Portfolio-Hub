@@ -62,7 +62,6 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
   }, []);
 
   useEffect(() => {
-    // Check if the current user has liked the project whenever user or project changes
     if (user && project.idLikes.includes(user.id)) {
       setIsFavorite(true);
     } else {

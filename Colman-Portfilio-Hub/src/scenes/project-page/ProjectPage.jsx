@@ -28,7 +28,7 @@ const ProjectPage = () => {
   useEffect(() => {
     console.log(id);
     setIsImageRegenerated(false);
-    setIsLoading(false); // Start loading when fetching project data
+    setIsLoading(false); 
     axios
       .get(`http://localhost:5000/project/get/${id}`)
       .then((response) => {
@@ -39,7 +39,7 @@ const ProjectPage = () => {
         console.log(error);
       })
       .finally(() => {
-        setIsLoading(false); // Stop loading after fetching data
+        setIsLoading(false); 
       });
   }, [id, isImageRegenerated, isEditing]);
 
@@ -65,7 +65,7 @@ const ProjectPage = () => {
   };
 
   const regenrateImage = () => {
-    setIsLoading(true); // Start loading when regenerating image
+    setIsLoading(true); 
     axios
       .post("http://localhost:5000/api/regenerate", { id: project._id, name: project.name, description: project.description })
       .then((response) => {
@@ -77,7 +77,7 @@ const ProjectPage = () => {
         console.log(error);
       })
       .finally(() => {
-        setIsLoading(false); // Stop loading after image regeneration
+        setIsLoading(false); 
       });
   };
 
