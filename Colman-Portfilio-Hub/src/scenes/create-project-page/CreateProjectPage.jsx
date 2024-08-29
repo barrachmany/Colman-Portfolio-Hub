@@ -63,7 +63,7 @@ const CreateProjectPage = () => {
   };
 
   const handleAddPhotoClick = () => {
-    fileInputRef.current.click(); // Programmatically click the file input
+    fileInputRef.current.click(); 
   };
 
   const handleChange = (e) => {
