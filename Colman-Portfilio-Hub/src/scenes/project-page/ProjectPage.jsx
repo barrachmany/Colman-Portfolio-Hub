@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./ProjectPage.css";
