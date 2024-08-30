@@ -6,6 +6,7 @@
     transition: transform 0.3s ease-in-out;
     z-index: 1000;
     height: 100%;
+    margin-bottom: -6vh;
 }
 
 .footer-container {

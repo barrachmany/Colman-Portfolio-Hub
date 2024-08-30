@@ -14,16 +14,20 @@ const generateTokens = async (user) => {
 
     console.log("refresh token: " + refreshToken);
 
-    if (user.refreshTokens == null || user.refreshTokens.length === 0 || user.refreshTokens[0] === undefined) {
+    if (
+      user.refreshTokens == null ||
+      user.refreshTokens.length === 0 ||
+      user.refreshTokens[0] === undefined
+    ) {
       console.log("refresh tokens array is null");
-      user.refreshTokens = []
+      user.refreshTokens = [];
       user.refreshTokens.push(refreshToken);
     } else {
       console.log("refresh tokens array is not null");
       user.refreshTokens.push(refreshToken);
     }
 
-    user.name = "test";
+    // user.name = "test";
 
     await user.save();
     return {
@@ -163,11 +167,10 @@ const logout = async (req, res) => {
 };
 
 const refreshTokens = async (req, res) => {
-
   const refreshToken = req.body.refreshToken;
 
   console.log(req.body);
-  
+
   if (!refreshToken) {
     return res.status(400).send("refresh token is required");
   }
@@ -182,11 +185,10 @@ const refreshTokens = async (req, res) => {
     }
     const tokens = await generateTokens(userDB);
     res.status(200).send(tokens);
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
     return res.status(400).send("invalid refresh token");
   }
-}
+};
 
 export default { register, login, logout, updateUser, getUser, deleteUser, refreshTokens };
