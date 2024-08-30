@@ -16,6 +16,7 @@ import Tooltip from "@mui/material/Tooltip";
 import CircularProgress from "@mui/material/CircularProgress";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import "./CreateProject.css";
+import Footer from "../../components/footer/Footer";
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
@@ -413,6 +414,7 @@ const CreateProjectPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
