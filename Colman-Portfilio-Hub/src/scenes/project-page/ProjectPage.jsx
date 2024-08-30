@@ -21,6 +21,7 @@ const ProjectPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isImageRegenerated, setIsImageRegenerated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");  // State for the selected image
 
   const years = Array.from({ length: 5 }, (_, i) => 2020 + i);
   const categories = ["Full-Stack", "Deep Learning", "Data Science", "Cyber", "Fintech"];
@@ -28,18 +29,19 @@ const ProjectPage = () => {
   useEffect(() => {
     console.log(id);
     setIsImageRegenerated(false);
-    setIsLoading(false); 
+    setIsLoading(false);
     axios
       .get(`/project/get/${id}`)
       .then((response) => {
         setProject(response.data);
+        setSelectedImage(response.data.image);  // Set initial selected image
         console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
-        setIsLoading(false); 
+        setIsLoading(false);
       });
   }, [id, isImageRegenerated, isEditing]);
 
@@ -65,7 +67,7 @@ const ProjectPage = () => {
   };
 
   const regenrateImage = () => {
-    setIsLoading(true); 
+    setIsLoading(true);
     axios
       .post("/api/regenerate", { id: project._id, name: project.name, description: project.description })
       .then((response) => {
@@ -77,8 +79,12 @@ const ProjectPage = () => {
         console.log(error);
       })
       .finally(() => {
-        setIsLoading(false); 
+        setIsLoading(false);
       });
+  };
+
+  const handleThumbnailClick = (image) => {
+    setSelectedImage(image); // Update the selected image when a thumbnail is clicked
   };
 
   return (
@@ -87,11 +93,11 @@ const ProjectPage = () => {
       <Paper
         elevation={3}
         style={{
-          width: "65vw",
+          width: "80vw",
           borderRadius: "15px",
           display: "flex",
           position: "relative",
-          maxHeight: "51vh"
+          maxHeight: "67vh"
         }}
       >
         {isLoading ? (
@@ -122,13 +128,28 @@ const ProjectPage = () => {
         ) : (
           <>
             <div className="project-page-image-container">
-              <img className="project-page-image" src={project.image} alt="project" />
-              <Tooltip title="Regenerate Image">
-                <IconButton onClick={regenrateImage} sx={{ cursor: "pointer", width: "3rem", height: "3rem", marginLeft: '5px' }}>
-                  <RefreshIcon sx={{ width: '2.5rem', height: '2.5rem' }} />
-                </IconButton>
-              </Tooltip>
+              <img className="project-page-image" src={selectedImage} alt="project" />
+              <div className="project-thumbnails" style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+                {[project.image, project.image, project.image, project.image].map((thumb, index) => (
+                  <img
+                    key={index}
+                    src={thumb}
+                    alt={`thumbnail-${index}`}
+                    className="thumbnail"
+                    onClick={() => handleThumbnailClick(thumb)}
+                    style={{ width: "6.5vw", height: "100%", cursor: "pointer", margin: "0 5px", borderRadius: "8px" }}
+                  />
+                ))}
+              </div>
             </div>
+            <Tooltip title="Regenerate Image">
+              <IconButton onClick={regenrateImage} sx={{ cursor: "pointer", width: "3rem", height: "3rem", marginTop: '5px' }}>
+                <RefreshIcon sx={{ width: '2.2rem', height: '2.2rem' }} />
+              </IconButton>
+            </Tooltip>
+
+            {/* Thumbnail Images */}
+
             <div className="project-details">
               <div className="project-header">
                 {isEditing ? (
@@ -154,7 +175,7 @@ const ProjectPage = () => {
                     style={{ marginBottom: "10px" }}
                   />
                 ) : (
-                  <p style={{ color: "#646464", textAlign: "center", marginTop: "15px" }}>{project.description}</p>
+                  <p style={{ color: "#646464", textAlign: "center", marginTop: "15px", fontSize: '1.5rem' }}>{project.description}</p>
                 )}
               </div>
               <div className="project-section">
