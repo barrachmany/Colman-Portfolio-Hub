@@ -5,11 +5,11 @@ import "./ProfilePage.css";
 import CaroProject from "./../../components/caro-peoject/CaroProject.jsx";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import EditIcon from '@mui/icons-material/Edit';
-import CheckIcon from '@mui/icons-material/Check';
+import EditIcon from "@mui/icons-material/Edit";
+import CheckIcon from "@mui/icons-material/Check";
 import Nav from "../../components/Nav";
-import secBackImage from './../../../public/Images/sec-back.png';
-import Footer from './../../components/footer/Footer.jsx';
+import secBackImage from "./../../../public/Images/sec-back.png";
+import Footer from "./../../components/footer/Footer.jsx";
 
 const ProfilePage = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
@@ -42,7 +42,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     fetchUserData();
-  }, []);
+  }, [projects]);
 
   const handleSave = async (field) => {
     try {
@@ -71,14 +71,11 @@ const ProfilePage = () => {
 
   const handleProject = async (id) => {
     try {
-      const response = await axios.get(
-        `/project/get/member/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      const response = await axios.get(`/project/get/member/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
 
       if (Array.isArray(response.data)) {
         setProjects(response.data);
@@ -93,11 +90,24 @@ const ProfilePage = () => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`/project/delete/${projects[0]._id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      console.error("Error deleting project:", error);
+    }
+  };
+
   return (
     <>
       <div className="outter-profile-container">
         <Nav />
-        <div className="profile-container" >
+        <div className="profile-container">
           <h1>Profile</h1>
           <div className="profile-info">
             <h2 className="user-name">{user.name}</h2>
@@ -113,9 +123,7 @@ const ProfilePage = () => {
                       <input
                         type="text"
                         value={user.name}
-                        onChange={(e) =>
-                          setUser({ ...user, name: e.target.value })
-                        }
+                        onChange={(e) => setUser({ ...user, name: e.target.value })}
                       />
                       <CheckIcon
                         sx={{ marginTop: "28px", cursor: "pointer" }}
@@ -131,9 +139,7 @@ const ProfilePage = () => {
                             marginBottom: "28px",
                             cursor: "pointer",
                           }}
-                          onClick={() =>
-                            setIsEditingField({ ...isEditingField, name: true })
-                          }
+                          onClick={() => setIsEditingField({ ...isEditingField, name: true })}
                         />
                       </div>
                     </>
@@ -149,9 +155,7 @@ const ProfilePage = () => {
                       <input
                         type="email"
                         value={user.email}
-                        onChange={(e) =>
-                          setUser({ ...user, email: e.target.value })
-                        }
+                        onChange={(e) => setUser({ ...user, email: e.target.value })}
                       />
                       <CheckIcon
                         sx={{ marginTop: "28px", cursor: "pointer" }}
@@ -167,9 +171,7 @@ const ProfilePage = () => {
                             marginBottom: "28px",
                             cursor: "pointer",
                           }}
-                          onClick={() =>
-                            setIsEditingField({ ...isEditingField, email: true })
-                          }
+                          onClick={() => setIsEditingField({ ...isEditingField, email: true })}
                         />
                       </div>
                     </>
@@ -181,9 +183,7 @@ const ProfilePage = () => {
                     <>
                       <input
                         type="password"
-                        onChange={(e) =>
-                          setUser({ ...user, password: e.target.value })
-                        }
+                        onChange={(e) => setUser({ ...user, password: e.target.value })}
                       />
                       <CheckIcon
                         sx={{ marginTop: "28px", cursor: "pointer" }}
@@ -223,8 +223,7 @@ const ProfilePage = () => {
               transform: "translateZ(0)",
             }}
             cols={2}
-            gap={1}
-          >
+            gap={1}>
             {projects.length > 0 ? (
               projects.map((project, index) => (
                 <ImageListItem
@@ -235,8 +234,7 @@ const ProfilePage = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     margin: "15px",
-                  }}
-                >
+                  }}>
                   <CaroProject
                     project={project}
                     isExpanded={expandedIndex === index}
@@ -244,7 +242,9 @@ const ProfilePage = () => {
                     sx={{
                       height: "100%",
                       borderRadius: "4px",
-                    }} />
+                    }}
+                  />
+                  <button onClick={handleDelete}>delete</button>
                 </ImageListItem>
               ))
             ) : (
