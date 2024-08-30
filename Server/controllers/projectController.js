@@ -19,7 +19,7 @@ const createProject = async (req, res) => {
     return res.status(400).send("missing name or creator");
   }
 
-  const bestDescription = chatController.createDescription(description);
+  const bestDescription = await chatController.createDescription(description);
   console.log(bestDescription);
 
   try {
