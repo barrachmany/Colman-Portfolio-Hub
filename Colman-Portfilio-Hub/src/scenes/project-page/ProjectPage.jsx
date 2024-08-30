@@ -173,7 +173,7 @@ const ProjectPage = () => {
                     style={{ marginBottom: "10px" }}
                   />
                 ) : (
-                  <p style={{ color: "#646464", textAlign: "center", marginTop: "15px", fontSize: '1.5rem' }}>{project.description}</p>
+                  <p style={{ color: "#646464", textAlign: "center", marginTop: "15px", fontSize: '1.1rem' }}>{project.description}</p>
                 )}
               </div>
               <div className="project-section">
