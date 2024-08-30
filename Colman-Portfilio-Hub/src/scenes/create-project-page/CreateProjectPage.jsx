@@ -63,7 +63,7 @@ const CreateProjectPage = () => {
   };
 
   const handleAddPhotoClick = () => {
-    fileInputRef.current.click(); 
+    fileInputRef.current.click();
   };
 
   const handleChange = (e) => {
@@ -158,7 +158,7 @@ const CreateProjectPage = () => {
           <div className="login-inner-container">
             <Paper
               elevation={3}
-              style={{ width: "800px", height: "850px", borderRadius: "15px", marginTop: "100px" }}
+              style={{ width: "800px", height: "850px", borderRadius: "15px", marginTop: "10%" }}
               className="create-project-paper">
               <div className="paper-inner-container">
                 <h2 className="h2-login" sx={{ color: "#255366", fontSize: "6rem" }}>
