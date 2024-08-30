@@ -4,6 +4,8 @@ import chatController from './chatController.js';
 const createProject = async (req, res) => {
   console.log("creating project");
 
+  console.log(req.file);
+
   const name = req.body.name;
   const description = req.body.description;
   const members = req.body.members;
@@ -33,12 +35,14 @@ const createProject = async (req, res) => {
       idMembers: idMembers,
       image: `http://localhost:5000/${name}.jpg`,
       year: year,
+      gallary: [`http://localhost:5000/uploads/${req.file ? req.file.originalname : "default.jpg"}`],
     });
 
     res.status(201).send(newProject);
   } catch (err) {
     return res.status(500).send(err.message);
   }
+  // res.status(200).send("Project created successfully");
 };
 
 const getProjects = async (req, res) => {

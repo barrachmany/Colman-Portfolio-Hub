@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
@@ -20,11 +20,12 @@ const ProjectPage = () => {
   const [isImageRegenerated, setIsImageRegenerated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");  // State for the selected image
+  const [gallary, setGallary] = useState([]);
 
   const years = Array.from({ length: 5 }, (_, i) => 2020 + i);
   const categories = ["Full-Stack", "Deep Learning", "Data Science", "Cyber", "Fintech"];
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     console.log(id);
     setIsImageRegenerated(false);
     setIsLoading(false);
@@ -34,6 +35,15 @@ const ProjectPage = () => {
         setProject(response.data);
         setSelectedImage(response.data.image);  // Set initial selected image
         console.log(response.data);
+        if (response.data.gallary) {
+          console.log(response.data.gallary);
+          setGallary(response.data.gallary);
+        }
+        else {
+          console.log("No gallary found");
+          setGallary([response.data.image, response.data.image, response.data.image]);
+        }
+
       })
       .catch((error) => {
         console.log(error);
@@ -128,7 +138,7 @@ const ProjectPage = () => {
             <div className="project-page-image-container">
               <img className="project-page-image" src={selectedImage} alt="project" />
               <div className="project-thumbnails" style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
-                {[project.image, project.image, project.image, project.image].map((thumb, index) => (
+                {gallary.map((thumb, index) => (
                   <img
                     key={index}
                     src={thumb}

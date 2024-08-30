@@ -23,7 +23,7 @@ const CreateProjectPage = () => {
   const [year, setYear] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
+  const [file, setFile] = useState(null);
   const [newProject, setNewProject] = useState({
     name: "",
     description: "",
@@ -40,27 +40,8 @@ const CreateProjectPage = () => {
   const fileInputRef = useRef(null); // Create a ref for the file input
 
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      // You can add file validation here if needed
-      const formData = new FormData();
-      formData.append("image", file);
-
-      // Example of uploading file to your server
-      axios.post("/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-        .then(response => {
-          console.log(response.data);
-          // Set image URL or handle response
-          setNewProject({ ...newProject, image: response.data.imageUrl });
-        })
-        .catch(error => {
-          console.error("Error uploading the file:", error);
-        });
-    }
+    const file = event.target.files[0]; // Get the file from the input element
+    setFile(file); // Set the file state
   };
 
   const handleAddPhotoClick = () => {
@@ -118,6 +99,17 @@ const CreateProjectPage = () => {
       return;
     }
 
+    const projectForm = new FormData();
+    projectForm.append("name", newProject.name);
+    projectForm.append("description", newProject.description);
+    projectForm.append("members", newProject.members);
+    projectForm.append("creator", newProject.creator);
+    projectForm.append("gitRepo", newProject.gitRepo);
+    projectForm.append("category", newProject.category);
+    projectForm.append("idMembers", newProject.idMembers);
+    projectForm.append("year", newProject.year);
+    projectForm.append("image", file);
+
     setIsLoading(true); // Set loading state to true
 
     axios
@@ -125,7 +117,7 @@ const CreateProjectPage = () => {
       .then((response) => {
         console.log(response);
         axios
-          .post("/project/create", newProject, {
+          .post("/project/create", projectForm, {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },

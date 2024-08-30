@@ -40,6 +40,10 @@ const projectSchema = mongoose.Schema({
   year: {
     type: Number,
   },
+  gallary: {
+    type: [String],
+    default: [],
+  },
 });
 
 // sassasa

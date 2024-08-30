@@ -18,7 +18,8 @@ const initApp = () => {
     const promise = new Promise((resolve) => {
 
         const db = mongoose.connection;
-        const filePath = path.resolve(process.cwd(), `./public/images`);
+        const imagesPath = path.resolve(process.cwd(), `./public/images`);
+        const uploadsPath = path.resolve(process.cwd(), `./public/uploads`);
 
 
         db.once("open", () => console.log("Connected to Database"));
@@ -40,7 +41,8 @@ const initApp = () => {
             app.use("/project", projectRoute);
             app.use("/api", chatRoute);
             app.use("/api", delleRoute);
-            app.use(express.static(filePath + "/"));
+            app.use(express.static(imagesPath + "/"));
+            app.use("/uploads",express.static(uploadsPath + "/"));
 
             resolve(app);
         });
