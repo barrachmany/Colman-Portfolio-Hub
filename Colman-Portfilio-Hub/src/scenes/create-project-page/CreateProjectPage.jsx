@@ -46,7 +46,7 @@ const CreateProjectPage = () => {
       formData.append("image", file);
 
       // Example of uploading file to your server
-      axios.post("http://localhost:5000/upload", formData, {
+      axios.post("/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -63,7 +63,7 @@ const CreateProjectPage = () => {
   };
 
   const handleAddPhotoClick = () => {
-    fileInputRef.current.click(); // Programmatically click the file input
+    fileInputRef.current.click(); 
   };
 
   const handleChange = (e) => {
@@ -120,11 +120,11 @@ const CreateProjectPage = () => {
     setIsLoading(true); // Set loading state to true
 
     axios
-      .post("http://localhost:5000/api/delle", newProject)
+      .post("/api/delle", newProject)
       .then((response) => {
         console.log(response);
         axios
-          .post("http://localhost:5000/project/create", newProject, {
+          .post("/project/create", newProject, {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },

@@ -1,4 +1,5 @@
 import projectModel from "../models/projectModel.js";
+import chatController from './chatController.js';
 
 const createProject = async (req, res) => {
   console.log("creating project");
@@ -18,10 +19,13 @@ const createProject = async (req, res) => {
     return res.status(400).send("missing name or creator");
   }
 
+  const bestDescription = chatController.createDescription(description);
+  console.log(bestDescription);
+
   try {
     const newProject = await projectModel.create({
       name: name,
-      description: description,
+      description: bestDescription,
       members: members,
       creator: creator,
       gitRepo: gitRepo,
@@ -203,10 +207,13 @@ const updateProject = async (req, res) => {
     image,
   } = req.body;
 
+  const bestDescription = await chatController.createDescription(description);
+  console.log(bestDescription);
+
   try {
     const project = await projectModel.findByIdAndUpdate(id, {
       name: name,
-      description: description,
+      description: bestDescription,
       members: members,
       creator: creator,
       gitRepo: gitRepo,

@@ -10,7 +10,7 @@ const SearchBar = () => {
 
   const handleSearch = (e) => {
 
-    axios.get(`http://localhost:5000/project/search?search=${e.target.value}`)
+    axios.get(`/project/search?search=${e.target.value}`)
       .then((res) => {
         console.log(res.data);
         setProjects(res.data);
@@ -23,7 +23,7 @@ const SearchBar = () => {
 
   const handleCategory = (e) => {
     console.log(e.target.value);
-    axios.get(`http://localhost:5000/project/get/category/${e.target.value}`)
+    axios.get(`/project/get/category/${e.target.value}`)
       .then((res) => {
         console.log(res.data);
         setProjects(res.data);

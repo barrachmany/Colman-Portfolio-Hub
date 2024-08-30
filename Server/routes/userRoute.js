@@ -21,4 +21,6 @@ router.put("/update", authenticate, userController.updateUser);
 
 router.delete("/delete", authenticate, userController.deleteUser);
 
+router.post("/refreshtokens", userController.refreshTokens);
+
 export default router;

@@ -17,14 +17,12 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     axios
-      .post("http://localhost:5000/user/login", user)
+      .post("/user/login", user)
       .then((response) => {
         console.log(response);
-        // remove the old tokens
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
 
-        // set the new tokens
         localStorage.setItem("accessToken", response.data.accessToken);
         localStorage.setItem("refreshToken", response.data.refreshToken);
         navigate("/main");

@@ -21,7 +21,7 @@ const ProfilePage = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/user/get", {
+      const response = await axios.get("/user/get", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -46,7 +46,7 @@ const ProfilePage = () => {
   const handleSave = async (field) => {
     try {
       const response = await axios.put(
-        "http://localhost:5000/user/update",
+        "/user/update",
         {
           name: user.name,
           email: user.email,
@@ -71,7 +71,7 @@ const ProfilePage = () => {
   const handleProject = async (id) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/project/get/member/${id}`,
+        `/project/get/member/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -221,7 +221,7 @@ const ProfilePage = () => {
               width: "100%",
               transform: "translateZ(0)",
             }}
-            cols={2} // Set the number of columns as desired
+            cols={2}
             gap={1}
           >
             {projects.length > 0 ? (
@@ -229,7 +229,7 @@ const ProfilePage = () => {
                 <ImageListItem
                   key={project._id}
                   sx={{
-                    height: "auto",  // Set to auto to fit the content
+                    height: "auto", 
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
