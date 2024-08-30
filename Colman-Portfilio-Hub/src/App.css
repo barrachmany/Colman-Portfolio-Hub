@@ -85,6 +85,7 @@ body {
   font-size: 24px;
   font-weight: bold;
   margin-left: 15px;
+  display :  flex;
 }
 
 .nav-logo a {
@@ -166,4 +167,10 @@ body {
 .nav-search :hover {
   cursor: pointer;
   text-decoration: none;
+}
+
+.Flower-nav-logo {
+  width: 17px;
+  height: 17px;
+  margin-left: 5px;
 }

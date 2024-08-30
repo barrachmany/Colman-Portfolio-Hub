@@ -24,6 +24,7 @@ const Nav = () => {
       <div className="nav-container">
         <div className="nav-logo">
           <a href="/main">Colman Portfolio Hub</a>
+          <img src="/public/Images/navBarFlower.png" class="Flower-nav-logo"></img>
         </div>
         <div className="nav-links">
           <ul>
