@@ -91,6 +91,7 @@ const ProjectPage = () => {
           borderRadius: "15px",
           display: "flex",
           position: "relative",
+          maxHeight: "51vh"
         }}
       >
         {isLoading ? (
