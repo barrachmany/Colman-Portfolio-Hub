@@ -24,7 +24,7 @@ const CreateProjectPage = () => {
   const [year, setYear] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]); // Update to allow multiple files
   const [newProject, setNewProject] = useState({
     name: "",
     description: "",
@@ -41,8 +41,12 @@ const CreateProjectPage = () => {
   const fileInputRef = useRef(null); // Create a ref for the file input
 
   const handleFileChange = (event) => {
-    const file = event.target.files[0]; // Get the file from the input element
-    setFile(file); // Set the file state
+    const selectedFiles = Array.from(event.target.files); // Convert FileList to array
+    if (selectedFiles.length + files.length > 3) {
+      alert("You can only upload a maximum of 3 photos.");
+      return;
+    }
+    setFiles((prevFiles) => [...prevFiles, ...selectedFiles]); // Add new files to the state
   };
 
   const handleAddPhotoClick = () => {
@@ -57,18 +61,14 @@ const CreateProjectPage = () => {
         ...newProject,
         [name]: value.split(/[\s,]+/).map((id) => id.trim()),
       });
-      console.log(newProject);
     } else if (name === "category") {
       setInternship(value);
       setNewProject({ ...newProject, [name]: value });
-      console.log(newProject);
     } else if (name === "year") {
       setYear(value);
       setNewProject({ ...newProject, [name]: value });
-      console.log(newProject);
     } else {
       setNewProject({ ...newProject, [name]: value });
-      console.log(newProject);
     }
   };
 
@@ -96,7 +96,7 @@ const CreateProjectPage = () => {
     const accessToken = localStorage.getItem("accessToken");
 
     if (!validateInputs()) {
-      console.log("invalid inputs");
+      console.log("Invalid inputs");
       return;
     }
 
@@ -109,7 +109,9 @@ const CreateProjectPage = () => {
     projectForm.append("category", newProject.category);
     projectForm.append("idMembers", newProject.idMembers);
     projectForm.append("year", newProject.year);
-    projectForm.append("image", file);
+    files.forEach((file, index) => {
+      projectForm.append(`image${index}`, file); // Append each file with a unique key
+    });
 
     setIsLoading(true); // Set loading state to true
 
@@ -152,7 +154,7 @@ const CreateProjectPage = () => {
           <div className="login-inner-container">
             <Paper
               elevation={3}
-              style={{ width: "800px", height: "850px", borderRadius: "15px", marginTop: "10%" }}
+              style={{ width: "800px", height: "875px", borderRadius: "15px", marginTop: "10%" }}
               className="create-project-paper">
               <div className="paper-inner-container">
                 <h2 className="h2-login" sx={{ color: "#255366", fontSize: "6rem" }}>
@@ -257,7 +259,7 @@ const CreateProjectPage = () => {
                       InputProps={{
                         startAdornment: <InputAdornment position="start"></InputAdornment>, // Placeholder if needed
                         endAdornment: (
-                          <InputAdornment position="end" sx={{ cursor: "pointer", }}>
+                          <InputAdornment position="end" sx={{ cursor: "pointer" }}>
                             <Tooltip title="AI can help you with the description">
                               <AutoFixHighIcon sx={{ width: "2rem", height: "2rem" }} />
                             </Tooltip>
@@ -367,24 +369,31 @@ const CreateProjectPage = () => {
                             </MenuItem>
                           </Select>
                         </FormControl>
-                        <Tooltip title="Add Photos">
-                          <AddAPhotoIcon
-                            sx={{
-                              width: "30px",
-                              height: "30px",
-                              cursor: "pointer",
-                              margin: "20px",
-                              paddingLeft: "20px",
-                            }}
-                            onClick={handleAddPhotoClick} // Trigger file input click
+                        <div style={{ display: "f" }}>
+                          <div style={{ display: "flex", alignItems: "center" }}>
+                            <Tooltip title="Add Photos">
+                              <AddAPhotoIcon
+                                sx={{
+                                  width: "30px",
+                                  height: "30px",
+                                  cursor: "pointer",
+                                  margin: "20px",
+                                }}
+                                onClick={handleAddPhotoClick} // Trigger file input click
+                              />
+                            </Tooltip>
+                            {/* Display the number of uploaded photos */}
+                            <span>{files.length} / 3 Photos Uploaded</span>
+                          </div>
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: "none" }} // Hide the input element
+                            onChange={handleFileChange}
+                            multiple // Allow multiple file selection
+                            accept="image/*" // Accept only image files
                           />
-                        </Tooltip>
-                        <input
-                          type="file"
-                          ref={fileInputRef}
-                          style={{ display: "none" }} // Hide the input element
-                          onChange={handleFileChange}
-                        />
+                        </div>
                       </div>
                       <Tooltip title="Add">
                         <Fab

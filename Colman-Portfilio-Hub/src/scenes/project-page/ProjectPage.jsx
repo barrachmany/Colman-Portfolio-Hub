@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
@@ -11,46 +11,63 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import CheckIcon from "@mui/icons-material/Check";
 import Nav from "../../components/Nav";
-import RefreshIcon from '@mui/icons-material/Refresh';
+import RefreshIcon from "@mui/icons-material/Refresh";
+import AppContext from "../../AppContext";
+import DeleteIcon from "@mui/icons-material/Delete"; // Import DeleteIcon
 
 const ProjectPage = () => {
   const { id } = useParams();
+  const { user, setUser } = useContext(AppContext);
   const [project, setProject] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [isImageRegenerated, setIsImageRegenerated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");  // State for the selected image
+  const [selectedImage, setSelectedImage] = useState("");
+  const [startImg, serStartImg] = useState("");
   const [gallary, setGallary] = useState([]);
+
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get("/user/get", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      setUser({
+        name: response.data.name,
+        email: response.data.email,
+        id: response.data.id,
+        password: response.data.password,
+      });
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   const years = Array.from({ length: 5 }, (_, i) => 2020 + i);
   const categories = ["Full-Stack", "Deep Learning", "Data Science", "Cyber", "Fintech"];
 
   useLayoutEffect(() => {
-    console.log(id);
+    fetchUserData();
+
     setIsImageRegenerated(false);
-    setIsLoading(false);
+
     axios
       .get(`/project/get/${id}`)
       .then((response) => {
         setProject(response.data);
-        setSelectedImage(response.data.image);  // Set initial selected image
-        console.log(response.data);
+        setSelectedImage(response.data.image);
+        serStartImg(response.data.image);
         if (response.data.gallary) {
-          console.log(response.data.gallary);
           setGallary(response.data.gallary);
-        }
-        else {
-          console.log("No gallary found");
+        } else {
           setGallary([response.data.image, response.data.image, response.data.image]);
         }
-
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error fetching project data:", error);
       })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .finally(() => { });
   }, [id, isImageRegenerated, isEditing]);
 
   const handleEdit = () => {
@@ -65,7 +82,7 @@ const ProjectPage = () => {
         console.log(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error saving project data:", error);
       });
   };
 
@@ -77,14 +94,17 @@ const ProjectPage = () => {
   const regenrateImage = () => {
     setIsLoading(true);
     axios
-      .post("/api/regenerate", { id: project._id, name: project.name, description: project.description })
+      .post("/api/regenerate", {
+        id: project._id,
+        name: project.name,
+        description: project.description,
+      })
       .then((response) => {
-        console.log(response.data);
         alert("Image Regenerated Successfully, Please refresh the page to see the changes");
         setIsImageRegenerated(true);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error regenerating image:", error);
       })
       .finally(() => {
         setIsLoading(false);
@@ -92,8 +112,32 @@ const ProjectPage = () => {
   };
 
   const handleThumbnailClick = (image) => {
-    setSelectedImage(image); // Update the selected image when a thumbnail is clicked
+    setSelectedImage(image);
   };
+
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this project?")) {
+      const response = await axios
+        .delete(`/project/delete/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
+        .then(() => {
+          alert("Project deleted successfully.");
+          window.location.href = "/main"; // Redirect to projects list or another appropriate page
+        })
+        .catch((error) => {
+          console.error("Error deleting project:", error);
+        });
+    }
+  };
+
+  // Check if the current user can edit
+  const canEdit = project.idMembers?.includes(user.id);
+
+  // Insert the first image you want into the gallery at the beginning
+  const updatedGallery = [startImg, ...gallary];
 
   return (
     <div className="project-page with-main-background">
@@ -105,9 +149,8 @@ const ProjectPage = () => {
           borderRadius: "15px",
           display: "flex",
           position: "relative",
-          maxHeight: "67vh"
-        }}
-      >
+          maxHeight: "67vh",
+        }}>
         {isLoading ? (
           <React.Fragment>
             <svg width={0} height={0}>
@@ -128,7 +171,6 @@ const ProjectPage = () => {
                 left: "50%",
                 transform: "translate(-50%, -50%)",
                 "svg circle": { stroke: "url(#my_gradient)" },
-
               }}
               size={100}
             />
@@ -137,27 +179,38 @@ const ProjectPage = () => {
           <>
             <div className="project-page-image-container">
               <img className="project-page-image" src={selectedImage} alt="project" />
-              <div className="project-thumbnails" style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
-                {gallary.map((thumb, index) => (
+              <div
+                className="project-thumbnails"
+                style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+
+                {/* Use updatedGallery which includes the image you want to insert first */}
+                {updatedGallery.map((thumb, index) => (
                   <img
                     key={index}
                     src={thumb}
                     alt={`thumbnail-${index}`}
                     className="thumbnail"
                     onClick={() => handleThumbnailClick(thumb)}
-                    style={{ width: "6.5vw", height: "100%", cursor: "pointer", margin: "0 5px", borderRadius: "8px" }}
+                    style={{
+                      width: "6.5vw",
+                      height: "100%",
+                      cursor: "pointer",
+                      margin: "0 5px",
+                      borderRadius: "8px",
+                    }}
                   />
                 ))}
               </div>
             </div>
-            <Tooltip title="Regenerate Image">
-              <IconButton onClick={regenrateImage} sx={{ cursor: "pointer", width: "3rem", height: "3rem", marginTop: '5px' }}>
-                <RefreshIcon sx={{ width: '2.2rem', height: '2.2rem' }} />
-              </IconButton>
-            </Tooltip>
-
-            {/* Thumbnail Images */}
-
+            {canEdit && (
+              <Tooltip title={isEditing ? "Regenerate Image" : "Regenerate Image"}>
+                <IconButton
+                  onClick={regenrateImage}
+                  sx={{ cursor: "pointer", width: "3rem", height: "3rem", marginTop: "5px" }}>
+                  <RefreshIcon sx={{ width: "2.2rem", height: "2.2rem" }} />
+                </IconButton>
+              </Tooltip>
+            )}
             <div className="project-details">
               <div className="project-header">
                 {isEditing ? (
@@ -183,7 +236,15 @@ const ProjectPage = () => {
                     style={{ marginBottom: "10px" }}
                   />
                 ) : (
-                  <p style={{ color: "#646464", textAlign: "center", marginTop: "15px", fontSize: '1.1rem' }}>{project.description}</p>
+                  <p
+                    style={{
+                      color: "#646464",
+                      textAlign: "center",
+                      marginTop: "15px",
+                      fontSize: "1.1rem",
+                    }}>
+                    {project.description}
+                  </p>
                 )}
               </div>
               <div className="project-section">
@@ -208,8 +269,7 @@ const ProjectPage = () => {
                     value={project.category}
                     onChange={handleChange}
                     fullWidth
-                    style={{ marginBottom: "10px" }}
-                  >
+                    style={{ marginBottom: "10px" }}>
                     {categories.map((category, index) => (
                       <MenuItem key={index} value={category}>
                         {category}
@@ -236,8 +296,7 @@ const ProjectPage = () => {
                     value={project.year}
                     onChange={handleChange}
                     fullWidth
-                    style={{ marginBottom: "10px" }}
-                  >
+                    style={{ marginBottom: "10px" }}>
                     {years.map((year) => (
                       <MenuItem key={year} value={year}>
                         {year}
@@ -270,25 +329,32 @@ const ProjectPage = () => {
                   </>
                 )}
               </div>
-              <div></div>
             </div>
-            <Tooltip title={isEditing ? "Save" : "Edit"}>
-              {isEditing ? (
-                <IconButton
-                  onClick={handleSave}
-                  sx={{ cursor: "pointer", width: "3rem", height: "3rem", margin: "5px" }}
-                >
-                  <CheckIcon sx={{ fontSize: "2.5rem" }} />
-                </IconButton>
-              ) : (
-                <IconButton
-                  onClick={isEditing ? handleSave : handleEdit}
-                  sx={{ width: "3rem", height: "3rem", margin: "5px" }}
-                >
-                  <EditIcon sx={{ fontSize: "2.5rem" }} />
-                </IconButton>
-              )}
-            </Tooltip>
+
+            {canEdit && (
+              <>
+                <Tooltip title={isEditing ? "Save" : "Edit"}>
+                  <IconButton
+                    onClick={isEditing ? handleSave : handleEdit}
+                    sx={{ width: "3rem", height: "3rem", margin: "5px" }}>
+                    {isEditing ? (
+                      <CheckIcon sx={{ fontSize: "2.5rem" }} />
+                    ) : (
+                      <EditIcon sx={{ fontSize: "2.5rem" }} />
+                    )}
+                  </IconButton>
+                </Tooltip>
+                {isEditing && (
+                  <Tooltip title="Delete">
+                    <IconButton
+                      onClick={handleDelete}
+                      sx={{ width: "3rem", height: "3rem", margin: "5px", color: "red" }}>
+                      <DeleteIcon sx={{ fontSize: "2.5rem" }} />
+                    </IconButton>
+                  </Tooltip>
+                )}
+              </>
+            )}
           </>
         )}
       </Paper>
