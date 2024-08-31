@@ -23,6 +23,7 @@ const ProjectPage = () => {
   const [isImageRegenerated, setIsImageRegenerated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+  const [startImg, serStartImg] = useState("");
   const [gallary, setGallary] = useState([]);
 
   const fetchUserData = async () => {
@@ -56,6 +57,7 @@ const ProjectPage = () => {
       .then((response) => {
         setProject(response.data);
         setSelectedImage(response.data.image);
+        serStartImg(response.data.image);
         if (response.data.gallary) {
           setGallary(response.data.gallary);
         } else {
@@ -134,6 +136,9 @@ const ProjectPage = () => {
   // Check if the current user can edit
   const canEdit = project.idMembers?.includes(user.id);
 
+  // Insert the first image you want into the gallery at the beginning
+  const updatedGallery = [startImg, ...gallary];
+
   return (
     <div className="project-page with-main-background">
       <Nav />
@@ -177,7 +182,9 @@ const ProjectPage = () => {
               <div
                 className="project-thumbnails"
                 style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
-                {gallary.map((thumb, index) => (
+
+                {/* Use updatedGallery which includes the image you want to insert first */}
+                {updatedGallery.map((thumb, index) => (
                   <img
                     key={index}
                     src={thumb}
