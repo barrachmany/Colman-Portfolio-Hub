@@ -1,5 +1,5 @@
 *.pem
-
+*.csr
 # Logs
 logs
 *.log
