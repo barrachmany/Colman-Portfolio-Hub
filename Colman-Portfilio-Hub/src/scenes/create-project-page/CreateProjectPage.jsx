@@ -17,6 +17,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import "./CreateProject.css";
 import Footer from "../../components/footer/Footer";
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
@@ -147,7 +148,7 @@ const CreateProjectPage = () => {
     <>
       <div className="create-project-container with-main-background">
         <Nav />
-        <div className="login-container create-project-container">
+        <div className="login-container ">
           <div className="login-inner-container">
             <Paper
               elevation={3}
@@ -254,7 +255,14 @@ const CreateProjectPage = () => {
                       name="description"
                       sx={{ m: 1, width: "90%", fontSize: "1.5rem", marginBottom: "40px" }}
                       InputProps={{
-                        startAdornment: <InputAdornment position="start"></InputAdornment>,
+                        startAdornment: <InputAdornment position="start"></InputAdornment>, // Placeholder if needed
+                        endAdornment: (
+                          <InputAdornment position="end" sx={{ cursor: "pointer", }}>
+                            <Tooltip title="AI can help you with the description">
+                              <AutoFixHighIcon sx={{ width: "2rem", height: "2rem" }} />
+                            </Tooltip>
+                          </InputAdornment>
+                        ), // Adding the icon at the end
                         sx: { fontSize: "1.5rem" },
                       }}
                       InputLabelProps={{
