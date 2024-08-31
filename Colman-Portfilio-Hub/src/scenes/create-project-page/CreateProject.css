@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
 .create-project-container {
+    padding-top: 100px;
     display: flex;
     height: 1000px;
     border-radius: 15px;
