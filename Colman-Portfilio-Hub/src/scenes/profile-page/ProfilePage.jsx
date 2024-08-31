@@ -10,6 +10,9 @@ import CheckIcon from "@mui/icons-material/Check";
 import Nav from "../../components/Nav";
 import secBackImage from "./../../../public/Images/sec-back.png";
 import Footer from "./../../components/footer/Footer.jsx";
+import DeleteIcon from "@mui/icons-material/Delete"; // Import DeleteIcon
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 
 const ProfilePage = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
@@ -42,7 +45,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     fetchUserData();
-  }, [projects]);
+  }, []);
 
   const handleSave = async (field) => {
     try {
@@ -90,19 +93,22 @@ const ProfilePage = () => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
-  const handleDelete = async () => {
-    try {
-      const response = await axios.delete(`/project/delete/${projects[0]._id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-      console.log(response);
-    } catch (error) {
-      console.error("Error deleting project:", error);
+  const handleDelete = async (projectId) => {
+    if (window.confirm("Are you sure you want to delete this project?")) {
+      try {
+        const response = await axios.delete(`/project/delete/${projectId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+
+        setProjects((prevProjects) => prevProjects.filter((project) => project._id !== projectId));
+        console.log(response);
+      } catch (error) {
+        console.error("Error deleting project:", error);
+      }
     }
   };
-
   return (
     <>
       <div className="outter-profile-container">
@@ -244,7 +250,14 @@ const ProfilePage = () => {
                       borderRadius: "4px",
                     }}
                   />
-                  <button onClick={handleDelete}>delete</button>
+
+                  <Tooltip title="Delete">
+                    <IconButton
+                      onClick={() => handleDelete(project._id)} // Pass the project ID here
+                      sx={{ width: "3rem", height: "3rem", margin: "5px", color: "red" }}>
+                      <DeleteIcon sx={{ fontSize: "2.5rem" }} />
+                    </IconButton>
+                  </Tooltip>
                 </ImageListItem>
               ))
             ) : (
