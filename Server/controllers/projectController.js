@@ -1,5 +1,8 @@
 import projectModel from "../models/projectModel.js";
 import chatController from './chatController.js';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const createProject = async (req, res) => {
   console.log("creating project");
@@ -15,10 +18,11 @@ const createProject = async (req, res) => {
   const idLikes = req.body.idLikes;
   const year = req.body.year;
   const gallary = []
+  const mainUrl = process.env.MAIN_URL;
 
   if (req.files) {
     req.files.forEach((file) => {
-      gallary.push(`http://localhost:5000/uploads/${file.originalname}`);
+      gallary.push(`${mainUrl}/uploads/${file.originalname}`);
     });
   }
 
@@ -38,7 +42,7 @@ const createProject = async (req, res) => {
       gitRepo: gitRepo,
       category: category,
       idMembers: idMembers,
-      image: `http://localhost:5000/${name}.jpg`,
+      image: `${mainUrl}/${name}.jpg`,
       year: year,
       gallary: gallary,
     });
