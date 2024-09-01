@@ -54,7 +54,7 @@ const CreateProjectPage = () => {
     if (name === "idMembers") {
       setNewProject({
         ...newProject,
-        [name]: value.split(/[\s,]+/).map((id) => id.trim()),
+        [name]: value
       });
       console.log(newProject);
     } else if (name === "category") {
@@ -106,10 +106,11 @@ const CreateProjectPage = () => {
     projectForm.append("creator", newProject.creator);
     projectForm.append("gitRepo", newProject.gitRepo);
     projectForm.append("category", newProject.category);
-    projectForm.append("idMembers", newProject.idMembers);
     projectForm.append("year", newProject.year);
     projectForm.append("image", file);
-
+    newProject.idMembers.split(",").forEach((id) => {
+      projectForm.append(`idMembers[]`, id);
+    });
     setIsLoading(true); // Set loading state to true
 
     axios
