@@ -110,7 +110,7 @@ const CreateProjectPage = () => {
     projectForm.append("idMembers", newProject.idMembers);
     projectForm.append("year", newProject.year);
     files.forEach((file, index) => {
-      projectForm.append(`image${index}`, file); // Append each file with a unique key
+      projectForm.append(`image`, file); // Append each file with a unique key
     });
 
     setIsLoading(true); // Set loading state to true
@@ -132,9 +132,6 @@ const CreateProjectPage = () => {
           .catch((error) => {
             console.log(error);
             alert(error.response.statusText);
-          })
-          .finally(() => {
-            setIsLoading(false); // Reset loading state
           });
       })
       .catch((error) => {

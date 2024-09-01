@@ -4,8 +4,6 @@ import chatController from './chatController.js';
 const createProject = async (req, res) => {
   console.log("creating project");
 
-  console.log(req.file);
-
   const name = req.body.name;
   const description = req.body.description;
   const members = req.body.members;
@@ -16,6 +14,13 @@ const createProject = async (req, res) => {
   const likes = req.body.likes;
   const idLikes = req.body.idLikes;
   const year = req.body.year;
+  const gallary = []
+
+  if (req.files) {
+    req.files.forEach((file) => {
+      gallary.push(`http://localhost:5000/uploads/${file.originalname}`);
+    });
+  }
 
   if (!name || !creator) {
     return res.status(400).send("missing name or creator");
@@ -35,7 +40,7 @@ const createProject = async (req, res) => {
       idMembers: idMembers,
       image: `http://localhost:5000/${name}.jpg`,
       year: year,
-      gallary: [`http://localhost:5000/uploads/${req.file ? req.file.originalname : "default.jpg"}`],
+      gallary: gallary,
     });
 
     res.status(201).send(newProject);

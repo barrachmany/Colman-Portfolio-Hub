@@ -19,16 +19,7 @@ const upload = multer({ storage });
 
 const router = expsess.Router();
 
-router.post("/create", authenticate, () => {
-    for (let i = 0; i < 3; i++) {
-        try {
-            upload.single(`image${i}`);
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
-}, projectController.createProject);
+router.post("/create", authenticate, upload.array("image", 3), projectController.createProject);
 
 router.get("/get", projectController.getProjects);
 
