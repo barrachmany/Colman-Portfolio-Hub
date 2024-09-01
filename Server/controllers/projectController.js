@@ -1,10 +1,11 @@
 import projectModel from "../models/projectModel.js";
 import chatController from './chatController.js';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const createProject = async (req, res) => {
   console.log("creating project");
-
-  console.log(req.file);
 
   const name = req.body.name;
   const description = req.body.description;
@@ -16,6 +17,14 @@ const createProject = async (req, res) => {
   const likes = req.body.likes;
   const idLikes = req.body.idLikes;
   const year = req.body.year;
+  const gallary = []
+  const mainUrl = process.env.MAIN_URL;
+
+  if (req.files) {
+    req.files.forEach((file) => {
+      gallary.push(`${mainUrl}/uploads/${file.originalname}`);
+    });
+  }
 
   if (!name || !creator) {
     return res.status(400).send("missing name or creator");
@@ -33,9 +42,9 @@ const createProject = async (req, res) => {
       gitRepo: gitRepo,
       category: category,
       idMembers: idMembers,
-      image: `http://localhost:5000/${name}.jpg`,
+      image: `${mainUrl}/${name}.jpg`,
       year: year,
-      gallary: [`http://localhost:5000/uploads/${req.file ? req.file.originalname : "default.jpg"}`],
+      gallary: gallary,
     });
 
     res.status(201).send(newProject);

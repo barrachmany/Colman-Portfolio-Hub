@@ -1,5 +1,5 @@
 .with-main-background {
-    background-image: url("./../public/Images/light-background.png");
+    background-image: url("/Images/light-background.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
