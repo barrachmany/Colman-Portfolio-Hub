@@ -59,7 +59,7 @@ const CreateProjectPage = () => {
     if (name === "idMembers") {
       setNewProject({
         ...newProject,
-        [name]: value.split(/[\s,]+/).map((id) => id.trim()),
+        [name]: value
       });
     } else if (name === "category") {
       setInternship(value);
@@ -107,12 +107,14 @@ const CreateProjectPage = () => {
     projectForm.append("creator", newProject.creator);
     projectForm.append("gitRepo", newProject.gitRepo);
     projectForm.append("category", newProject.category);
-    projectForm.append("idMembers", newProject.idMembers);
     projectForm.append("year", newProject.year);
     files.forEach((file, index) => {
       projectForm.append(`image`, file); // Append each file with a unique key
     });
 
+    newProject.idMembers.split(",").forEach((id) => {
+      projectForm.append(`idMembers[]`, id);
+    });
     setIsLoading(true); // Set loading state to true
 
     axios
