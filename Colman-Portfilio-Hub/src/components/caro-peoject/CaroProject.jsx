@@ -36,7 +36,7 @@ export default function CaroProject({ project, isExpanded, onExpandClick }) {
   const navigate = useNavigate();
 
   const { user, setUser } = useContext(AppContext);
-  const projectIamge = project.image ? project.image : "./public/images/1.jpg";
+  const projectIamge = project.image ? project.image : "/images/1.jpg";
 
   console.log("Project prop:", project);
 

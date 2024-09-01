@@ -8,7 +8,6 @@ import ImageListItem from "@mui/material/ImageListItem";
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
 import Nav from "../../components/Nav";
-import secBackImage from './../../../public/Images/sec-back.png';
 import Footer from './../../components/footer/Footer.jsx';
 
 const ProfilePage = () => {

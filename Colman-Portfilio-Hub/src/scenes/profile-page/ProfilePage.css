@@ -3,7 +3,7 @@
 .outter-profile-container {
   display: flex;
   justify-content: center;
-  background-image: url(/public/Images/sec-back.png);
+  background-image: url(/Images/sec-back.png);
   background-size: contain;
   background-position: center;
   background-repeat: revert;
