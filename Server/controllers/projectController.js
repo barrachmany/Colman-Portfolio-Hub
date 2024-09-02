@@ -1,5 +1,5 @@
 import projectModel from "../models/projectModel.js";
-import chatController from './chatController.js';
+import chatController from "./chatController.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -17,7 +17,7 @@ const createProject = async (req, res) => {
   const likes = req.body.likes;
   const idLikes = req.body.idLikes;
   const year = req.body.year;
-  const gallary = []
+  const gallary = [];
   const mainUrl = process.env.MAIN_URL;
 
   if (req.files) {
@@ -83,13 +83,54 @@ const getProjectsByCategory = async (req, res) => {
   console.log("getting projects by category");
 
   const category = req.params.category;
-  if (category === "All") {
+  if (category === "All Internships") {
     return getProjects(req, res);
   }
   console.log(category);
 
   try {
     const projects = await projectModel.find({ category: category });
+    res.status(200).send(projects);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+};
+
+const getProjectsByYear = async (req, res) => {
+  console.log("getting projects by year");
+
+  const year = req.params.year;
+  if (year === "All Years") {
+    return getProjects(req, res);
+  }
+  console.log(year);
+
+  try {
+    const projects = await projectModel.find({ year: year });
+    res.status(200).send(projects);
+  } catch (err) {
+    return;
+    res.status(500).send(err.message);
+  }
+};
+
+const searchProjects = async (req, res) => {
+  console.log("searching projects");
+
+  const query = req.query.search || "";
+  const category = req.query.category || "";
+  const year = req.query.year || "";
+
+  try {
+    const filter = {
+      $and: [
+        { name: { $regex: query, $options: "i" } },
+        category ? { category: category } : {},
+        year ? { year: year } : {},
+      ],
+    };
+
+    const projects = await projectModel.find(filter);
     res.status(200).send(projects);
   } catch (err) {
     return res.status(500).send(err.message);
@@ -112,18 +153,18 @@ const getProjectsByUserID = async (req, res) => {
   }
 };
 
-const searchProjects = async (req, res) => {
-  console.log("searching projects");
+// const searchProjects = async (req, res) => {
+//   console.log("searching projects");
 
-  const query = req.query.search;
+//   const query = req.query.search;
 
-  try {
-    const projects = await projectModel.find({ name: { $regex: query, $options: "i" } });
-    res.status(200).send(projects);
-  } catch (err) {
-    return res.status(500).send(err.message);
-  }
-};
+//   try {
+//     const projects = await projectModel.find({ name: { $regex: query, $options: "i" } });
+//     res.status(200).send(projects);
+//   } catch (err) {
+//     return res.status(500).send(err.message);
+//   }
+// };
 
 const deleteProject = async (req, res) => {
   console.log("deleting project");
@@ -244,7 +285,6 @@ const updateProject = async (req, res) => {
   }
 };
 
-
 export default {
   createProject,
   getProjects,
@@ -256,4 +296,5 @@ export default {
   likeProject,
   findBestFit,
   updateProject,
+  getProjectsByYear,
 };

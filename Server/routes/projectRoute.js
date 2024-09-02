@@ -7,12 +7,12 @@ import multer from "multer";
 import path from "path";
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.resolve(process.cwd(), "./public/uploads"));
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.originalname);
-    },
+  destination: (req, file, cb) => {
+    cb(null, path.resolve(process.cwd(), "./public/uploads"));
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
 });
 
 const upload = multer({ storage });
@@ -26,6 +26,8 @@ router.get("/get", projectController.getProjects);
 router.get("/get/:id", projectController.getProjectById);
 
 router.get("/get/category/:category", projectController.getProjectsByCategory);
+
+router.get("/get/year/:year", projectController.getProjectsByYear);
 
 router.get("/get/member/:id", authenticate, projectController.getProjectsByUserID);
 

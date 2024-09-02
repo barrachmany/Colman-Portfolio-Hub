@@ -1,37 +1,46 @@
 import { useState, useContext } from "react";
 import AppContext from "../AppContext";
 import axios from "axios";
-import './projectslist/ProjectsList.css';
-
+import "./projectslist/ProjectsList.css";
 
 const SearchBar = () => {
-
   const { setProjects } = useContext(AppContext);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All Internships");
+  const [selectedYear, setSelectedYear] = useState("All Years");
 
-  const handleSearch = (e) => {
+  const handleSearch = () => {
+    const queryParams = new URLSearchParams({
+      search: searchQuery,
+      category: selectedCategory !== "All Internships" ? selectedCategory : "",
+      year: selectedYear !== "All Years" ? selectedYear : "",
+    }).toString();
 
-    axios.get(`/project/search?search=${e.target.value}`)
+    axios
+      .get(`/project/search?${queryParams}`)
       .then((res) => {
         console.log(res.data);
         setProjects(res.data);
+        if (res.data.length === 0) {
+          alert("No results found");
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-
   };
 
-  const handleCategory = (e) => {
-    console.log(e.target.value);
-    axios.get(`/project/get/category/${e.target.value}`)
-      .then((res) => {
-        console.log(res.data);
-        setProjects(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  const handleYearChange = (e) => {
+    setSelectedYear(e.target.value);
+  };
 
   const internships = [
     { value: "All Internships" },
@@ -39,7 +48,7 @@ const SearchBar = () => {
     { value: "Deep Learning" },
     { value: "Data Science" },
     { value: "Cyber" },
-    { value: "Fintech" }
+    { value: "Fintech" },
   ];
 
   const years = [
@@ -52,28 +61,48 @@ const SearchBar = () => {
   ];
 
   return (
-    <div className="navbar-container"
+    <div
+      className="navbar-container"
       style={{
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'flex-end'
+        display: "flex",
+        width: "100%",
+        justifyContent: "flex-end",
       }}>
       <div className="inside-navbar-container">
-        <input type="text" placeholder="Search" style={{ padding: '0' }} className="navbar-input" onChange={handleSearch} />
-        <select name="internship" className="navbar-select" onChange={handleCategory} >
-          {internships.map((year, idx) => (
+        <input
+          type="text"
+          placeholder="Search"
+          style={{ padding: "0" }}
+          className="navbar-input"
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
+        <select
+          name="internship"
+          className="navbar-select"
+          onChange={handleCategoryChange}
+          value={selectedCategory}>
+          {internships.map((internship, idx) => (
+            <option value={internship.value} key={idx}>
+              {internship.value}
+            </option>
+          ))}
+        </select>
+        <select
+          name="year"
+          className="navbar-select"
+          onChange={handleYearChange}
+          value={selectedYear}>
+          {years.map((year, idx) => (
             <option value={year.value} key={idx}>
               {year.value}
             </option>
           ))}
         </select>
-        <select name="year" className="navbar-select" onChange={handleCategory} >
-          {years.map((intern, idx) => (
-            <option value={intern.value} key={idx}>
-              {intern.value}
-            </option>
-          ))}
-        </select>
+        <button className="navbar-button" onClick={handleSearch}>
+          {" "}
+          Search{" "}
+        </button>
       </div>
     </div>
   );
