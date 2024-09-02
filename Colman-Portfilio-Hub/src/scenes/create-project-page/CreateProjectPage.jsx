@@ -17,7 +17,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import "./CreateProject.css";
 import Footer from "../../components/footer/Footer";
-import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 
 const CreateProjectPage = () => {
   const [Internship, setInternship] = useState("");
@@ -59,7 +59,7 @@ const CreateProjectPage = () => {
     if (name === "idMembers") {
       setNewProject({
         ...newProject,
-        [name]: value
+        [name]: value,
       });
     } else if (name === "category") {
       setInternship(value);
@@ -112,7 +112,7 @@ const CreateProjectPage = () => {
       projectForm.append(`image`, file); // Append each file with a unique key
     });
 
-    newProject.idMembers.split(",").forEach((id) => {
+    newProject.idMembers.split(/[\s,]+/).forEach((id) => {
       projectForm.append(`idMembers[]`, id);
     });
     setIsLoading(true); // Set loading state to true
